@@ -7,7 +7,9 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class Tab1Page {
-
   constructor() {}
 
+  mostrarConsola() {
+    console.log("Estoy en la consola de Tab-1.");
+  }
 }
