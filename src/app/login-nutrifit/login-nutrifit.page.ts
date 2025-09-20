@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginNutrifitPage implements OnInit {
   constructor() { }
-
+  
   ngOnInit() {
   }
 
