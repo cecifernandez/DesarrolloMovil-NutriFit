@@ -1,0 +1,21 @@
+@import "../../../global.scss";
+
+.button-tu-camino {
+  margin: 0px;
+  padding: 16px 24px;
+
+  min-width: auto;
+  max-width: 310px;
+
+  min-height: auto;
+  max-height: 44px;
+  
+  background-color: $primary-color;
+  color: $secondary-color;
+  border-radius: 8px;
+  
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: center;
+}
