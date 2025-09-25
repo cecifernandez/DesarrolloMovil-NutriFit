@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>datos-persona</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+
+    <ion-toolbar>
+      <ion-title size="large">datos-persona</ion-title>
+    </ion-toolbar>
+    
+    </ion-header>
+
+    
+    
+    <picker-genero [options]="['Femenino', 'Masculino', 'Otro']" [placeholder]="'Género'"
+      (valueSelected)="selectedLanguage = $event"></picker-genero>
+
+
+    <picker-peso></picker-peso>
+
+      <picker-altura></picker-altura>
+      
+      <picker-date></picker-date>
+    
+   
+
+
+
+
+
+  
+</ion-content>

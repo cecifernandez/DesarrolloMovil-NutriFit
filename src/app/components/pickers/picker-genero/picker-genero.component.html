@@ -1,0 +1,25 @@
+<ion-input readonly [value]="currentValue" [placeholder]="placeholder" (click)="openModal()"></ion-input>
+
+<ion-modal #modal (didDismiss)="onDidDismiss($event)">
+  <ng-template>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button class="custom-text-p" (click)="closeModal('cancel')">x</ion-button>
+      </ion-buttons>
+      <div class="toolbar-center">
+        Género
+      </div>
+      <ion-buttons slot="end">
+        <ion-button class="custom-button-p" (click)="closeModal('confirm')">Siguiente</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+
+    <ion-picker>
+      <ion-picker-column [value]="currentValue" (ionChange)="onIonChange($event)">
+        <ion-picker-column-option *ngFor="let opt of options" [value]="opt">
+          {{ opt }}
+        </ion-picker-column-option>
+      </ion-picker-column>
+    </ion-picker>
+  </ng-template>
+</ion-modal>

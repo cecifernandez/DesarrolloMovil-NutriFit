@@ -9,7 +9,14 @@ const routes: Routes = [
   {
     path: 'welcolme-nutri-fit',
     loadChildren: () => import('./welcolme-nutri-fit/welcolme-nutri-fit.module').then(m => m.WelcolmeNutriFitPageModule)
-  }
+  },
+
+   {
+    path: 'datos-persona',
+    loadChildren: () => import('./datos-persona/datos-persona.module').then(m =>  m.DatosPersonaPageModule)
+  },
+
+
 ];
 @NgModule({
   imports: [
