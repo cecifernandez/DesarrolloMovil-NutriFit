@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { ButtonText } from '../enum/button-text/button-text';
+import { ButtonIcon } from '../enum/button-icon/button-icon';
 
 
 @Component({
@@ -10,7 +12,9 @@ import { IonicModule } from '@ionic/angular';
 })
 export class DatosPersonaPage implements OnInit {
 
- selectedLanguage: string = ''
+  ButtonText = ButtonText;
+  ButtonIcon = ButtonIcon;
+
   constructor() { }
 
   ngOnInit() {

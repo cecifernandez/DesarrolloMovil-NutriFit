@@ -15,6 +15,23 @@ ion-modal {
   align-items: end;
 }
 
+ion-input[readonly] {
+  --padding-start: 16px;
+  --padding-end: 36px;
+  --border-radius: 12px;
+  --background: #{$component-color-back};
+  --color: #000;
+  --placeholder-color: #999;
+  cursor: pointer;
+  position: relative;
+  width: 100%; 
+  max-width: 312px; 
+  box-sizing: border-box;
+  display: block;
+  margin: 0 auto; 
+}
+
+
 
 .custom-text-p {
   --color: #{$text-color};

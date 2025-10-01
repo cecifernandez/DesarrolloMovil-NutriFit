@@ -10,7 +10,19 @@ import { IonModal } from '@ionic/angular';
 })
 
 export class PickerGeneroComponent {
-  @Input() options: string[] = [];
+    private _options: string[] = ['Femenino', 'Masculino', 'Otro'];
+
+  @Input()
+  set options(value: string[]) {
+    if (value && value.length) {
+      this._options = value;
+    }
+  }
+
+  get options(): string[] {
+    return this._options;
+  }
+
   @Input() placeholder: string = 'Selecciona una opción';
   @Input() value: string = 'Género';
 

@@ -10,6 +10,8 @@ import { PickerPesoComponent } from '../components/pickers/picker-peso/picker-pe
 import { PickerAlturaComponent } from '../components/pickers/picker-altura/picker-altura.component';
 import { PickerDateComponent } from '../components/pickers/picker-date/picker-date.component';
 
+import { PrimaryButtonComponent } from '../components/primary-button/primary-button.component';
+
 
 @NgModule({
   imports: [
@@ -23,7 +25,8 @@ import { PickerDateComponent } from '../components/pickers/picker-date/picker-da
     PickerGeneroComponent,
     PickerPesoComponent, 
     PickerAlturaComponent,
-    PickerDateComponent
+    PickerDateComponent,
+    PrimaryButtonComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA], 
 })

@@ -1,18 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { IonModal } from '@ionic/angular';
-
-
 
 @Component({
   standalone: false,
   selector: 'picker-date',
   templateUrl: './picker-date.component.html',
   styleUrls: ['./picker-date.component.scss'],
-
 })
 export class PickerDateComponent implements OnInit {
   @Input() placeholder: string = '';
-  @Input() value: string = ''; 
+  @Input() value: string = '';
   @Output() valueSelected = new EventEmitter<string>();
 
   @ViewChild(IonModal) modal!: IonModal;
@@ -28,7 +32,6 @@ export class PickerDateComponent implements OnInit {
   currentValue: string = '';
 
   ngOnInit(): void {
-    this.days = Array.from({ length: 31 }, (_, i) => i + 1);
     this.months = [
       { name: 'Enero', value: 1 },
       { name: 'Febrero', value: 2 },
@@ -43,6 +46,7 @@ export class PickerDateComponent implements OnInit {
       { name: 'Noviembre', value: 11 },
       { name: 'Diciembre', value: 12 },
     ];
+
     const currentYear = new Date().getFullYear();
     this.years = Array.from({ length: 100 }, (_, i) => currentYear - i);
 
@@ -51,10 +55,10 @@ export class PickerDateComponent implements OnInit {
       this.selectedDay = day;
       this.selectedMonth = month;
       this.selectedYear = year;
-      this.currentValue = this.value;
-    } else {
-      this.currentValue = this.formatDate(this.selectedDay, this.selectedMonth, this.selectedYear);
     }
+
+    this.actualizarDias();
+    this.currentValue = this.formatDate(this.selectedDay, this.selectedMonth, this.selectedYear);
   }
 
   openModal() {
@@ -85,13 +89,28 @@ export class PickerDateComponent implements OnInit {
 
   onMonthChange(event: any) {
     this.selectedMonth = Number(event.detail?.value);
+    this.actualizarDias();
   }
 
   onYearChange(event: any) {
     this.selectedYear = Number(event.detail?.value);
+    this.actualizarDias();
   }
 
-  formatDate(day: number, month: number, year: number): string {
+  private actualizarDias() {
+    const maxDays = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
+    this.days = Array.from({ length: maxDays }, (_, i) => i + 1);
+
+    if (this.selectedDay > maxDays) {
+      this.selectedDay = maxDays;
+    }
+  }
+
+  private getDaysInMonth(month: number, year: number): number {
+    return new Date(year, month, 0).getDate();
+  }
+
+  private formatDate(day: number, month: number, year: number): string {
     const d = day.toString().padStart(2, '0');
     const m = month.toString().padStart(2, '0');
     return `${d}/${m}/${year}`;

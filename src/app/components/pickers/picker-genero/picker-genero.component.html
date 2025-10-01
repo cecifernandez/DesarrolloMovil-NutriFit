@@ -1,4 +1,9 @@
-<ion-input readonly [value]="currentValue" [placeholder]="placeholder" (click)="openModal()"></ion-input>
+<ion-input
+  readonly
+  [value]="currentValue"
+  [placeholder]="placeholder"
+  (click)="openModal()">
+</ion-input>
 
 <ion-modal #modal (didDismiss)="onDidDismiss($event)">
   <ng-template>
