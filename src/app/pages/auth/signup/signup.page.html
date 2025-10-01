@@ -1,0 +1,55 @@
+<ion-content class="signup">
+  <!-- Botón cerrar -->
+  <ion-icon name="close-outline" class="close-btn"></ion-icon>
+
+  <div class="signup-container">
+    <h2>Crea tu cuenta</h2>
+    <p>Sumate creando una cuenta.</p>
+
+    <!-- Inputs -->
+    <ion-item class="input-item" lines="none">
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-input placeholder="Nombre" style="color: #757575;"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-item" lines="none">
+      <ion-icon name="mail-outline" slot="start"></ion-icon>
+      <ion-input placeholder="Email" type="email" style="color: #757575;"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-item" lines="none">
+      <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+      <ion-input placeholder="Contraseña" type="password" style="color: #757575;"></ion-input>
+      <ion-icon name="eye-outline" slot="end"></ion-icon>
+    </ion-item>
+
+    <!-- Divisor -->
+    <div class="divider">
+      <span class="line"></span>
+      <div class="circle"></div>
+      <span class="line"></span>
+    </div>
+
+    <!-- Botones sociales -->
+    <ion-button expand="block" fill="clear" class="social-btn google-btn">
+      <ion-icon name="logo-google" slot="start"></ion-icon>
+      Iniciar sesión con Google
+    </ion-button>
+
+    <ion-button expand="block" fill="clear" class="social-btn apple-btn">
+      <ion-icon name="logo-apple" slot="start"></ion-icon>
+      Iniciar sesión con Apple
+    </ion-button>
+
+    <!-- Botón principal -->
+    <ion-button expand="block" class="main-btn">
+      Empieza tu cambio
+    </ion-button>
+
+    <!-- Link a login -->
+    <p class="login-text">
+      ¿Ya tenés una cuenta?
+      <a routerLink="/login">Inicia sesión</a>
+    </p>
+  </div>
+</ion-content>
