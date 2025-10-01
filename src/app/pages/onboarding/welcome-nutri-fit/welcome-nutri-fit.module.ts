@@ -7,9 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { WelcolmeNutriFitPageRoutingModule } from './welcome-nutri-fit-routing.module';
 
 import { WelcomeNutriFitPage } from '../../onboarding/welcome-nutri-fit/welcome-nutri-fit.page';
-
-import { PrimaryButtonComponent } from '../../../components/primary-button/primary-button.component';
-import { SecondaryButtonComponent } from '../../../components/secondary-button/secondary-button.component';
+ 
+import { ComponentsModule } from '@/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -17,7 +16,8 @@ import { SecondaryButtonComponent } from '../../../components/secondary-button/s
     FormsModule,
     IonicModule,
     WelcolmeNutriFitPageRoutingModule,
+    ComponentsModule
   ],
-  declarations: [WelcomeNutriFitPage, PrimaryButtonComponent, SecondaryButtonComponent]
+  declarations: [WelcomeNutriFitPage]
 })
 export class WelcolmeNutriFitPageModule {}
