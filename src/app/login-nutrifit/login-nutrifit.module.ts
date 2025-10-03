@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
+//import { FormsModule } from '@angular/forms';
 
 
 import { IonicModule } from '@ionic/angular';
@@ -13,10 +12,9 @@ import { LoginNutrifitPage } from './login-nutrifit.page';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    //FormsModule,
     IonicModule,
-    LoginNutrifitPageRoutingModule,
-    ExploreContainerComponentModule
+    LoginNutrifitPageRoutingModule
   ],
   declarations: [LoginNutrifitPage]
 })

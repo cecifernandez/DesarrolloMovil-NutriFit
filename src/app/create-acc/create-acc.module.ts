@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
+//import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -12,10 +11,9 @@ import { CreateAccPage } from './create-acc.page';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    //FormsModule,
     IonicModule,
     CreateAccPageRoutingModule,
-    ExploreContainerComponentModule
   ],
   declarations: [CreateAccPage]
 })
