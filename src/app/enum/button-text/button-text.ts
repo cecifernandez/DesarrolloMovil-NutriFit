@@ -4,6 +4,5 @@ export enum ButtonText {
   logIn = 'Iniciar sesión',
   register = 'Registrarse',
   next = 'Siguiente',
-  google = 'Regístrarse con Google',
-  apple = 'Regístrarse con Apple'
+  google = 'Regístrarse con Google'
 }

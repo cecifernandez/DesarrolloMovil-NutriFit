@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/onboarding/welcome-nutri-fit/welcome-nutri-fit.module').then(m => m.WelcolmeNutriFitPageModule)
   },
   {
+    path: 'create-acc',
+    loadChildren: () => import('./pages/auth/create-acc/create-acc.module').then(m => m.CreateAccPageModule)
+  },
+  {
     path: 'forgot-password',
     loadChildren: () => import('./pages/auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },

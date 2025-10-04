@@ -6,6 +6,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { CreateAccPageRoutingModule } from './create-acc-routing.module';
 
+import { InputTextComponent } from '../../../components/input-text/input-text.component';
+
 import { CreateAccPage } from './create-acc.page';
 
 @NgModule({
@@ -13,8 +15,8 @@ import { CreateAccPage } from './create-acc.page';
     CommonModule,
     //FormsModule,
     IonicModule,
-    CreateAccPageRoutingModule,
+    CreateAccPageRoutingModule
   ],
-  declarations: [CreateAccPage]
+  declarations: [CreateAccPage, InputTextComponent]
 })
 export class CreateAccPageModule {}
