@@ -3,7 +3,7 @@
 
     .close-btn {
         position: absolute;
-        margin-top: 20px;
+        // margin-top: 20px;
         top: 20px;
         left: 20px;
         font-size: 28px;
@@ -31,21 +31,24 @@
         font-size: 14px;
     }
 
-    /* Estilos para inputs */
-    .input-item {
-        margin: 10px 0;
-        margin-top: 20px;
-        --background: #fff;
-        border-radius: 15px;
-        padding: 2px;
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        /* Estilos para inputs */
+        .input-item {
+            --background: #fff;
+            border-radius: 15px;
+            padding: 2px;
 
-        ion-icon {
-        color: #999;
-        height: 22px;
-        }
+                ion-icon {
+                    color: #999;
+                    height: 22px;
+                }
 
-        ion-input {
-        font-size: 14px;
+                ion-input {
+                    font-size: 14px;
+                }    
         }
     }
 
