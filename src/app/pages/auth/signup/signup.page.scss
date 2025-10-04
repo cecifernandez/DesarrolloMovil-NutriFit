@@ -3,6 +3,7 @@
 
     .close-btn {
         position: absolute;
+        margin-top: 20px;
         top: 20px;
         left: 20px;
         font-size: 28px;
@@ -17,21 +18,23 @@
     }
 
     h2 {
-        margin-top: 70px;
+        margin-top: 90px;
+        margin-bottom: -5px;
         font-weight: bold;
         color: #222;
-        font-size: 23px;
+        font-size: 25px;
     }
 
     p {
         color: #777;
-        margin-bottom: 25px;
+        margin-bottom: 45px;
         font-size: 14px;
     }
 
     /* Estilos para inputs */
     .input-item {
         margin: 10px 0;
+        margin-top: 20px;
         --background: #fff;
         border-radius: 15px;
         padding: 2px;
@@ -46,26 +49,28 @@
         }
     }
 
-    /* Botones sociales */
+    /* Botón Registrate Google */
     .social-btn {
         position: relative;
-        margin-top: 12px;
+        margin-top: 60px;
         border-radius: 10px;
         font-weight: bold;
         text-transform: none;
         height: 45px;
-        font-size: 14px;
+        font-size: 16px;
         box-shadow: none;
-        border: 1px solid #ccc;
+        border: 1px solid #82D68E;
         background-color: #fff;
         display: flex;
         justify-content: center;
         align-items: center;
 
-        ion-icon {
+        .google-icon {
             position: absolute;
-            left: 14px;
-            font-size: 20px;
+            left: 16px;
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
         }
     }
 
@@ -74,16 +79,12 @@
         color: #000;
     }
 
-    .apple-btn {
-        color: #000;
-    }
-
 
     /* Botón principal */
     .main-btn {
         --background: #82D68E;
         --border-radius: 10px;
-        margin-top: 40px;
+        margin-top: 70px;
         height: 48px;
         font-size: 17px;
         font-weight: bold;
@@ -94,8 +95,8 @@
     /* Link inferior */
     .login-text {
         text-align: center;
-        margin-top: 95px;
         font-size: 14px;
+        margin-top: 15px;
 
         a {
             font-weight: bold;
@@ -103,35 +104,5 @@
             text-decoration: none;
             transition: color 0.3s ease, text-decoration 0.3s ease;
         }
-    }
-
-    /* Divisor */
-    .divider {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 20px 0;
-        gap: 10px;
-    }
-
-    .divider .line {
-        flex: 1;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        margin-left: 10px;
-        margin-right: 10px;
-        max-width: 80px;
-        height: 1px;
-        background-color: #979797;
-    }
-
-    .divider .circle {
-        margin-top: 15px;
-        margin-bottom: 15px;
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        border: 1.5px solid #979797;
-        background-color: transparent;
     }
 }
