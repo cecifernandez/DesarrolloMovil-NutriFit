@@ -1,6 +1,4 @@
-<ion-content class="signup">
-  <!-- Botón cerrar -->
-  <ion-icon name="close-outline" class="close-btn"></ion-icon>
+<ion-content class="signup" [fullscreen]="true">
 
   <div class="signup-container">
     <h2>Crea tu cuenta</h2>
@@ -15,18 +13,18 @@
 
       <ion-item class="input-item" lines="none">
         <ion-icon name="mail-outline" slot="start"></ion-icon>
-        <ion-input placeholder="Email" type="email" style="color: #757575;"></ion-input>
+        <ion-input placeholder="Email" type="email" [(ngModel)]="email" style="color: #757575;"></ion-input>
       </ion-item>
 
       <ion-item class="input-item" lines="none">
         <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-        <ion-input placeholder="Contraseña" type="password" style="color: #757575;"></ion-input>
-        <ion-icon name="eye-outline" slot="end"></ion-icon>
+        <ion-input placeholder="Contraseña" type="password" [(ngModel)]="password" style="color: #757575;"></ion-input>
+        <!-- <ion-icon name="eye-outline" slot="end"></ion-icon> -->
       </ion-item>
     </div>
 
     <!-- Botón principal -->
-    <ion-button expand="block" class="main-btn">
+    <ion-button expand="block" class="main-btn" (click)="onSignup()">
       Empieza tu cambio
     </ion-button>
 
