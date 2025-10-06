@@ -1,0 +1,86 @@
+<ion-header translucent="false">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" size="small">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="auth-bg ion-padding">
+  <ion-grid class="auth-grid">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8" size-lg="6" class="auth-col">
+        <ion-text color="dark">
+          <h1 class="title">Iniciar sesión</h1>
+        </ion-text>
+        <ion-text color="medium">
+          <p class="subtitle">Conectate con tu cuenta.</p>
+        </ion-text>
+
+        <ion-item
+          lines="none"
+          class="auth-input"
+          
+        >
+          <ion-icon
+            slot="start"
+            name="mail-outline"
+            style="color: var(--color-black)"
+          ></ion-icon>
+          <ion-input
+            type="email"
+            placeholder="Email"
+           
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="auth-input">
+          <ion-icon slot="start" name="lock-closed-outline"  style="color: var(--color-black)"></ion-icon>
+          <ion-input type="password" placeholder="Contraseña"></ion-input>
+          <ion-icon slot="end" name="eye-outline"  style="color: var(--color-black)"></ion-icon>
+        </ion-item>
+
+        <div class="buttons-container">
+          <ion-button
+            expand="block"
+            size="large"
+            fill="outline"
+            class="btn-google"
+          >
+            <ion-icon slot="start" name="logo-google"></ion-icon>
+            Iniciar sesión con Google
+          </ion-button>
+
+          <ion-button
+            expand="block"
+            size="large"
+            fill="outline"
+            class="btn-apple"
+          >
+            <ion-icon slot="start" name="logo-apple"></ion-icon>
+            Iniciar sesión con Apple
+          </ion-button>
+
+          <ion-button expand="block" size="large" class="btn-primary">
+            Iniciar sesión con tu Email
+          </ion-button>
+
+          <div class="ion-text-center ion-margin-top-sm">
+            <ion-button fill="clear" size="small" class="forgot-link">
+              ¿Olvidaste la contraseña?
+            </ion-button>
+          </div>
+
+          <div class="signup-text">
+            <p>¿No tenés cuenta?</p>
+            <ion-button fill="clear" size="small" class="signup-link">
+              Registrate aquí
+            </ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
