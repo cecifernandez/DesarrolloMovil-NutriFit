@@ -19,51 +19,26 @@
           <p class="subtitle">Conectate con tu cuenta.</p>
         </ion-text>
 
-        <ion-item
-          lines="none"
-          class="auth-input"
-          
-        >
-          <ion-icon
-            slot="start"
-            name="mail-outline"
-            style="color: var(--color-black)"
-          ></ion-icon>
-          <ion-input
-            type="email"
-            placeholder="Email"
-           
-          ></ion-input>
+        <ion-item lines="none" class="auth-input">
+          <ion-icon slot="start" name="mail-outline" style="color: var(--color-black)"></ion-icon>
+          <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
         </ion-item>
 
         <ion-item lines="none" class="auth-input">
-          <ion-icon slot="start" name="lock-closed-outline"  style="color: var(--color-black)"></ion-icon>
-          <ion-input type="password" placeholder="Contraseña"></ion-input>
-          <ion-icon slot="end" name="eye-outline"  style="color: var(--color-black)"></ion-icon>
+          <ion-icon slot="start" name="lock-closed-outline" style="color: var(--color-black)"></ion-icon>
+          <ion-input type="text" placeholder="Contraseña" [(ngModel)]="password"></ion-input>
+          <ion-icon slot="end" name="eye-outline" style="color: var(--color-black)"></ion-icon>
         </ion-item>
 
         <div class="buttons-container">
-          <ion-button
-            expand="block"
-            size="large"
-            fill="outline"
-            class="btn-google"
-          >
+          <ion-button expand="block" size="large" fill="outline" class="btn-google">
             <ion-icon slot="start" name="logo-google"></ion-icon>
             Iniciar sesión con Google
           </ion-button>
 
-          <ion-button
-            expand="block"
-            size="large"
-            fill="outline"
-            class="btn-apple"
-          >
-            <ion-icon slot="start" name="logo-apple"></ion-icon>
-            Iniciar sesión con Apple
-          </ion-button>
+         
 
-          <ion-button expand="block" size="large" class="btn-primary">
+          <ion-button expand="block" size="large" class="btn-primary"  (click)="login()">
             Iniciar sesión con tu Email
           </ion-button>
 

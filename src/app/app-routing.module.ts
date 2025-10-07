@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/start-nutri-fit/start-nutri-fit.module').then(m =>  m.StartNutriFitPageModule)
+    loadChildren: () => import('./pages/start-nutri-fit/start-nutri-fit.module').then(m => m.StartNutriFitPageModule)
   },
   {
     path: 'welcome-nutri-fit',
@@ -14,33 +14,38 @@ const routes: Routes = [
     path: 'create-acc',
     loadChildren: () => import('./pages/auth/create-acc/create-acc.module').then(m => m.CreateAccPageModule)
   },
+  /* PROBAR EL LOGIN*/
+  {
+    path: 'login-nutrifit',
+    loadChildren: () => import('./login-nutrifit/login-nutrifit.module').then(m => m.LoginNutrifitPageModule)
+  },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./pages/auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () => import('./pages/auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule)
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/main/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () => import('./pages/main/dashboard/dashboard.module').then(m => m.DashboardPageModule)
   },
   {
     path: 'search',
-    loadChildren: () => import('./pages/main/search/search.module').then( m => m.SearchPageModule)
+    loadChildren: () => import('./pages/main/search/search.module').then(m => m.SearchPageModule)
   },
   {
     path: 'fitness',
-    loadChildren: () => import('./pages/main/fitness/fitness.module').then( m => m.FitnessPageModule)
+    loadChildren: () => import('./pages/main/fitness/fitness.module').then(m => m.FitnessPageModule)
   },
   {
     path: 'food',
-    loadChildren: () => import('./pages/main/food/food.module').then( m => m.FoodPageModule)
+    loadChildren: () => import('./pages/main/food/food.module').then(m => m.FoodPageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/main/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./pages/main/profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
     path: 'progress',
-    loadChildren: () => import('./pages/extras/progress/progress.module').then( m => m.ProgressPageModule)
+    loadChildren: () => import('./pages/extras/progress/progress.module').then(m => m.ProgressPageModule)
   },
   {
     path: 'settings', 
@@ -59,4 +64,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

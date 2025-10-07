@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, UserCredential } from 'firebase/auth';
-import { environment }  from 'src/environments/environment';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, UserCredential,signInWithPopup } from 'firebase/auth';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  constructor() {}
+  constructor() { }
 
   // Registrar usuario
   register(email: string, password: string): Promise<UserCredential> {
@@ -17,6 +17,12 @@ export class FirebaseService {
   // Login usuario
   login(email: string, password: string): Promise<UserCredential> {
     return signInWithEmailAndPassword(auth, email, password);
+  }
+
+  // Login con Google
+  loginWithGoogle(): Promise<UserCredential> {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
   }
 
   // Logout usuario
