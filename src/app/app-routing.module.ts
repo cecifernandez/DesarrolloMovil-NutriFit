@@ -77,6 +77,10 @@ const routes: Routes = [
         (m) => m.SettingsPageModule
       ),
   },
+  {
+    path: 'settings', 
+    loadChildren: () => import('./pages/extras/settings/settings.module').then( m => m.SettingsPageModule)
+  }
 ];
 @NgModule({
   imports: [

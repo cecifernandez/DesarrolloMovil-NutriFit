@@ -1,29 +1,32 @@
 import { Injectable } from '@angular/core';
-import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, UserCredential } from 'firebase/auth';
-import { environment }  from 'src/environments/environment';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  constructor() {}
+  constructor(private afAuth: AngularFireAuth) {}
 
   // Registrar usuario
-  register(email: string, password: string): Promise<UserCredential> {
-    return createUserWithEmailAndPassword(auth, email, password);
+  register(email: string, password: string) {
+    return this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
   // Login usuario
-  login(email: string, password: string): Promise<UserCredential> {
-    return signInWithEmailAndPassword(auth, email, password);
+  login(email: string, password: string) {
+    return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
   // Logout usuario
-  logout(): Promise<void> {
-    return signOut(auth);
+  logout() {
+    return this.afAuth.signOut();
+  }
+
+  // Login con Google
+  loginWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.afAuth.signInWithPopup(provider);
   }
 }
 
-const app = initializeApp(environment.firebaseConfig);
-const auth = getAuth(app);
