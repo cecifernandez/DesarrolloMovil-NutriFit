@@ -1,0 +1,31 @@
+@import '/src/global.scss';
+
+.content {
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
+
+  align-items: center;
+  justify-content: space-between;
+
+  .content-welcome {
+    display: flex;
+    flex-direction: column;
+
+    .day {
+      color: $text-input;
+  
+      font-size: 12px;
+      font-weight: 400;
+  
+      line-height: 16px;
+    }
+  
+    .good-day-user {
+      color: $text-color;
+      font-weight: 600;
+  
+      line-height: 20px;
+    }
+  }
+}

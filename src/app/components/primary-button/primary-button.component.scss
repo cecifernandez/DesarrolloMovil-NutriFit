@@ -1,15 +1,12 @@
-@import "../../../global.scss";
+@import "/src/global.scss";
 
 .button-tu-camino {
   margin: 0px;
   padding: 16px 24px;
 
-  min-width: auto;
-  max-width: 310px;
-
-  min-height: auto;
+  width: 100%;
   max-height: 44px;
-  
+
   background-color: $primary-color;
   color: $secondary-color;
   border-radius: 8px;

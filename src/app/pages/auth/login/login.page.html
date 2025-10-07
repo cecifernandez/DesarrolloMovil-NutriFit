@@ -1,37 +1,41 @@
-<div class="conteiner-content ion-display-flex ion-flex-column">
-  <div class="conteiner-login">
-    <ion-icon name="close-outline" class="button-close"></ion-icon>
-    <div class="content-login ion-display-flex ion-flex-column">
-      <ion-text class="text-login"> Iniciar sesión </ion-text>
-      <ion-text class="text-connect-acc"> Conectaté con tu cuenta. </ion-text>
+<ion-content [fullscreen]="true">
+  <div class="conteiner-content ion-display-flex ion-flex-column">
+    <div class="conteiner-login">
+      <ion-icon name="close-outline" class="button-close"></ion-icon>
+      <div class="content-login ion-display-flex ion-flex-column">
+        <ion-text class="text-login">Iniciar sesión</ion-text>
+        <ion-text class="text-connect-acc">Conectaté con tu cuenta.</ion-text>
+      </div>
+    </div>
+    <div class="conteiner-inputs ion-display-flex ion-flex-column">
+      <input-text-with-icon
+        iconPath="assets/svg/icon-auth/email.svg"
+        label="Email"
+        type="email"
+      >
+      </input-text-with-icon>
+      <input-text-with-icon
+        iconPath="assets/svg/icon-auth/password.svg"
+        label="Contraseña"
+        type="password"
+      >
+      </input-text-with-icon>
+    </div>
+
+    <primary-button [propEnum]="ButtonText.logIn"></primary-button>
+
+    <secondary-button-with-icon
+      iconPath="assets/svg/icons/google.svg"
+      label="Iniciar sesión con Google"
+    ></secondary-button-with-icon>
+
+    <div
+      class="conteiner-links ion-display-flex ion-flex-column ion-align-items-center"
+    >
+      <ion-text class="forgot-password">¿Olvidaste la contraseña?</ion-text>
+      <ion-text class="dont-have-acc">
+        ¿No tenés cuenta? <span class="register-button">Regístrate aquí</span>
+      </ion-text>
     </div>
   </div>
-  <div class="conteiner-inputs ion-display-flex ion-flex-column">
-    <input-text-with-icon
-      iconPath="assets/svg/icon-auth/email.svg"
-      label="Email"
-      type="email"
-    >
-    </input-text-with-icon>
-    <input-text-with-icon
-      iconPath="assets/svg/icon-auth/password.svg"
-      label="Contraseña"
-      type="password"
-    >
-    </input-text-with-icon>
-  </div>
-
-  <primary-button [propEnum]="ButtonText.logIn"></primary-button>
-
-  <secondary-button-with-icon
-    iconPath="assets/svg/icons/google.svg"
-    label="Iniciar sesión con Google"
-  ></secondary-button-with-icon>
-
-  <div class="conteiner-links ion-display-flex ion-flex-column ion-align-items-center">
-    <ion-text class="forgot-password">¿Olvidaste la contraseña?</ion-text>
-    <ion-text class="dont-have-acc">
-      ¿No tenés cuenta? <span class="register-button">Regístrate aquí</span>
-    </ion-text>
-  </div>
-</div>
+</ion-content>

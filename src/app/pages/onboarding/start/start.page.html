@@ -1,0 +1,44 @@
+  <ion-content [fullscreen]="true">
+    <div class="conteiner-content ion-display-flex ion-flex-column">
+      <div class="conteiner-register">
+        <ion-icon name="close-outline" class="button-close"></ion-icon>
+        <div class="content-register ion-display-flex ion-flex-column">
+          <ion-text class="text-register">Crea tu cuenta</ion-text>
+          <ion-text class="text-register-acc">Sumaté creando una cuenta nueva.</ion-text>
+        </div>
+      </div>
+      <div class="conteiner-inputs ion-display-flex ion-flex-column">
+        <input-text-with-icon
+          iconPath="assets/svg/icon-auth/email.svg"
+          label="Email"
+          type="email"
+        >
+        </input-text-with-icon>
+        <input-text-with-icon
+          iconPath="assets/svg/icon-auth/password.svg"
+          label="Contraseña"
+          type="password"
+        >
+        </input-text-with-icon>
+        <input-text-with-icon
+          iconPath="assets/svg/icon-auth/password.svg"
+          label="Confirmar constraseña"
+          type="password"
+        >
+        </input-text-with-icon>
+      </div>
+
+      <primary-button [propEnum]="ButtonText.register"></primary-button>
+
+      <secondary-button-with-icon
+        iconPath="assets/svg/icons/google.svg"
+        label="Regístrarse con Google"
+      ></secondary-button-with-icon>
+
+      <div class="ion-display-flex ion-flex-row ion-align-items-center ion-justify-content-center">
+        <ion-text class="have-acc">
+          ¿Ya tenés una cuenta? <span class="login-button"> Inicia sesión</span>
+        </ion-text>
+      </div>
+    </div>
+  </ion-content>

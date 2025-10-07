@@ -1,0 +1,65 @@
+@import '/src/global.scss';
+
+.conteiner-content {
+  padding: 44px 24px;
+
+  gap: 36px;
+
+  .conteiner-register {
+    display: flex;
+    flex-direction: column;
+
+    gap: 40px;
+
+    .button-close {
+      color: $text-color;
+      font-size: 20px;
+    }
+
+    .content-register {
+      gap: 8px;
+
+      .text-register {
+        color: $text-color;
+
+        font-size: 24px;
+        font-weight: 700;
+
+        line-height: 28px;
+      }
+
+      .text-register-acc {
+        color: $text-color;
+
+        font-size: 14px;
+        font-weight: 400;
+
+        line-height: 20px;
+      }
+    }
+  }
+
+  .conteiner-inputs {
+    gap: 8px;
+  }
+
+  .have-acc {
+    color: $text-color;
+    font-size: 14px;
+
+    justify-content: center;
+
+    .login-button {
+      color: $secondary-color;
+      font-size: 14px;
+      font-weight: 600;
+
+      line-height: 20px;
+
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}

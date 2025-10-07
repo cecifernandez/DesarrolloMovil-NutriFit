@@ -5,15 +5,17 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { FoodPageRoutingModule } from './food-routing.module';
-
 import { FoodPage } from './food.page';
+
+import { ComponentsModule } from '@/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FoodPageRoutingModule
+    FoodPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [FoodPage]
 })

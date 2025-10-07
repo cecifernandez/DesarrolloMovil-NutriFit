@@ -1,7 +1,8 @@
 export enum InputText {
-  email = 'Correo electrónico',
+  email = 'Email',
   password = 'Contraseña',
   confirmPassword = 'Confirmar contraseña',
+  
   name = 'Nombre',
   age = 'Edad',
   height = 'Altura (cm)',

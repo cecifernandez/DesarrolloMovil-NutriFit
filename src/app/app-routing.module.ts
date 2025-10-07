@@ -1,62 +1,87 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RegisterPage } from './pages/auth/register/register.page';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/start-nutri-fit/start-nutri-fit.module').then(m =>  m.StartNutriFitPageModule)
+    loadChildren: () =>
+      import('./pages/start-nutri-fit/start-nutri-fit.module').then(
+        (m) => m.StartNutriFitPageModule
+      ),
   },
   {
     path: 'welcome-nutri-fit',
-    loadChildren: () => import('./pages/onboarding/welcome-nutri-fit/welcome-nutri-fit.module').then(m => m.WelcolmeNutriFitPageModule)
+    loadChildren: () =>
+      import(
+        './pages/onboarding/welcome-nutri-fit/welcome-nutri-fit.module'
+      ).then((m) => m.WelcolmeNutriFitPageModule),
   },
   {
-    path: 'create-acc',
-    loadChildren: () => import('./pages/auth/create-acc/create-acc.module').then(m => m.CreateAccPageModule)
+    path: 'login',
+    loadChildren: () =>
+      import('./pages/auth/login/login.module').then((m) => m.LogInPageModule),
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/auth/register/register.module').then(
+      (m) => m.RegisterPageModule
+    )
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./pages/auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () =>
+      import('./pages/auth/forgot-password/forgot-password.module').then(
+        (m) => m.ForgotPasswordPageModule
+      ),
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./pages/main/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    path: 'home',
+    loadChildren: () =>
+      import('./pages/main/home/home.module').then(
+        (m) => m.HomePageModule
+      ),
   },
   {
-    path: 'search',
-    loadChildren: () => import('./pages/main/search/search.module').then( m => m.SearchPageModule)
+    path: 'routines',
+    loadChildren: () =>
+      import('./pages/main/routines/routines.module').then(
+        (m) => m.RoutinesPageModule
+      ),
   },
   {
-    path: 'fitness',
-    loadChildren: () => import('./pages/main/fitness/fitness.module').then( m => m.FitnessPageModule)
-  },
-  {
-    path: 'food',
-    loadChildren: () => import('./pages/main/food/food.module').then( m => m.FoodPageModule)
+    path: 'foods',
+    loadChildren: () =>
+      import('./pages/main/food/food.module').then(
+        (m) => m.FoodPageModule
+      ),
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/main/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () =>
+      import('./pages/main/profile/profile.module').then(
+        (m) => m.ProfilePageModule
+      ),
   },
   {
     path: 'progress',
-    loadChildren: () => import('./pages/extras/progress/progress.module').then( m => m.ProgressPageModule)
+    loadChildren: () =>
+      import('./pages/extras/progress/progress.module').then(
+        (m) => m.ProgressPageModule
+      ),
   },
   {
-    path: 'settings', 
-    loadChildren: () => import('./pages/extras/settings/settings.module').then( m => m.SettingsPageModule)
+    path: 'settins',
+    loadChildren: () =>
+      import('./pages/extras/settings/settings.module').then(
+        (m) => m.SettingsPageModule
+      ),
   },
-  {
-    path: 'datos-persona',
-    loadChildren: () => import('./pages/onboarding/datos-persona/datos-persona.module').then(m =>  m.DatosPersonaPageModule)
-  },
-
-
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

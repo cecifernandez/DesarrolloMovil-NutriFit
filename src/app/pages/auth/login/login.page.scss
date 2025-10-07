@@ -49,6 +49,8 @@
     .forgot-password {
       color: $text-color;
       font-weight: 500;
+
+      &:hover{text-decoration: underline; cursor: pointer;}
     }
 
     .dont-have-acc {
@@ -62,6 +64,8 @@
         font-weight: 600;
 
         line-height: 20px;
+
+        &:hover{text-decoration: underline; cursor: pointer;}
       }
     }
   }

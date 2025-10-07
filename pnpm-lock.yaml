@@ -21,8 +21,8 @@ importers:
         specifier: ^20.0.0
         version: 20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)
       '@angular/forms':
-        specifier: ^20.0.0
-        version: 20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/animations@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
+        specifier: ^20.3.2
+        version: 20.3.3(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/animations@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
       '@angular/platform-browser':
         specifier: ^20.0.0
         version: 20.1.7(@angular/animations@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))
@@ -34,7 +34,7 @@ importers:
         version: 20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/animations@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
       '@ionic/angular':
         specifier: ^8.0.0
-        version: 8.7.2(nxzhzz7jlsvknk22vvhqfuukja)
+        version: 8.7.2(cebfks2jnzo3weiuswfh5gimey)
       firebase:
         specifier: ^12.2.1
         version: 12.2.1
@@ -393,13 +393,13 @@ packages:
       zone.js:
         optional: true
 
-  '@angular/forms@20.1.7':
-    resolution: {integrity: sha512-gHfCeW7gp7GLjHfNOF+es8gAYph4+ZhgfvP9cdj9RmRy7ckQTuJ2OwrWmruqRcrB3J46uqENQyrNhJz0ubozYA==}
+  '@angular/forms@20.3.3':
+    resolution: {integrity: sha512-Rv3sO1vOAbw03IRK30CB45eucxZ1rI0Jyaa6QVmDlOzQ4bktkanbGxQtaxBdc9bKPBO1SVx27eTbStR7i3BNRg==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
     peerDependencies:
-      '@angular/common': 20.1.7
-      '@angular/core': 20.1.7
-      '@angular/platform-browser': 20.1.7
+      '@angular/common': 20.3.3
+      '@angular/core': 20.3.3
+      '@angular/platform-browser': 20.3.3
       rxjs: ^6.5.3 || ^7.4.0
 
   '@angular/language-service@20.1.7':
@@ -5842,7 +5842,7 @@ snapshots:
       '@angular/compiler': 20.1.7
       zone.js: 0.15.1
 
-  '@angular/forms@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/animations@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)':
+  '@angular/forms@20.3.3(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/animations@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)':
     dependencies:
       '@angular/common': 20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
       '@angular/core': 20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)
@@ -7217,10 +7217,10 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@ionic/angular@8.7.2(nxzhzz7jlsvknk22vvhqfuukja)':
+  '@ionic/angular@8.7.2(cebfks2jnzo3weiuswfh5gimey)':
     dependencies:
       '@angular/core': 20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)
-      '@angular/forms': 20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/animations@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
+      '@angular/forms': 20.3.3(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/animations@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
       '@angular/router': 20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/animations@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
       '@ionic/core': 8.7.2
       ionicons: 8.0.13

@@ -1,0 +1,6 @@
+<ion-card *ngFor="let card of cards" [ngClass]="card.type" [style.background-color]="card.color" class="card-conteiner">
+  <div class="content-card-rutin">
+    <ion-text class="text-rutin">{{ card.title }}</ion-text>
+    <ion-text class="exercise-text">{{ card.description }}</ion-text>
+  </div>
+</ion-card>

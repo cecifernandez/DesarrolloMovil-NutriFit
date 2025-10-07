@@ -1,0 +1,25 @@
+@import "/src/global.scss";
+
+.primary-button-with-icon {
+  margin: 0px;
+  padding: 8px 16px 8px 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+
+  max-height: 32px;
+  
+  background-color: $primary-color;
+  color: $secondary-color;
+  border-radius: 8px;
+  
+  .span-button {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+  }
+}

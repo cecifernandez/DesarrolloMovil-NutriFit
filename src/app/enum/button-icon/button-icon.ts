@@ -1,4 +1,6 @@
 export enum ButtonIcon {
-  google = "logo-google",
-  apple = "logo-apple",
+  home = "icon-home",
+  routines = "icon-routines",
+  foods = "icon-food",
+  profile = "icon-profile"
 }

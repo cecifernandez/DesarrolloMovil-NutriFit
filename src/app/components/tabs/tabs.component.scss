@@ -1,0 +1,32 @@
+@import '/src/global.scss';
+
+.tabs-container {
+  padding: 12px 8px;
+
+  height: fit-content;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 28px;
+  
+  background-color: $backgroud-input;
+
+  z-index: 10;
+
+  .tab-disabled {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 32px;
+    height: 32px;
+
+    background-color: $backgroud-input;
+  }
+}

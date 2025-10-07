@@ -36,21 +36,23 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
-
 // VARIABLES GLOBALES
 $primary-color: #82D68E;
 $secondary-color: #04460E;
-$text-color: #1B1B1B;
+
+$text-color: #1C1C1C;
+
+$backgroud-app: #F2EFE5;
+
+$backgroud-input: #E9E6DB;
+$text-input: #9A9A9A;
+
 $component-color-back: #ffffff;
 
-// FONT FAMILY - DM Sans
 * {
   font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
-  font-style: normal;
-}
-
-:host {
-  --ion-background-color: #000000;
+  font-size: 16px;
+  --ion-background-color: $backgroud-app;
 }

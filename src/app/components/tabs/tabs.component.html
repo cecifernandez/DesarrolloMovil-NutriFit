@@ -1,0 +1,20 @@
+<div class="tabs-container">
+  <div *ngFor="let tab of tabs">
+    <ng-container *ngIf="tab.name === activeTab; else inactiveTab">
+
+      <!-- TAB ACTIVO -->
+      <primary-button-with-icon
+        [iconPath]="tab.currentIconPath"
+        [label]="tab.label"
+        (click)="navigate(tab)">
+      </primary-button-with-icon>
+    </ng-container>
+
+    <!-- TAB INACTIVO -->
+    <ng-template #inactiveTab>
+      <button class="tab-disabled" (click)="navigate(tab)">
+        <img [src]="tab.currentIconPath" alt="{{tab.label}}" />
+      </button>
+    </ng-template>
+  </div>
+</div>
