@@ -1,0 +1,33 @@
+<ion-content [fullscreen]="true">
+  <ion-header class="header-">
+    <ion-toolbar class="custom-toolbar">
+      <ion-buttons slot="start">
+        <ion-button fill="clear"  >
+          <ion-icon name="arrow-back-outline" color="dark"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <div class="toolbar-subtitle">
+        Conocerte nos ayuda a personalizar tu plan
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="datos_content">
+    <div class="datos_header">
+      <h2 class="datos_text">Cuéntanos sobre vos</h2>
+      <ion-text class="datos_subtitle">Estos datos nos ayudan a personalizar tu plan de manera más precisa.</ion-text>
+    </div>
+  </div>
+
+  <div class="picker-container">
+    <picker-date></picker-date>
+    <picker-altura></picker-altura>
+    <picker-peso></picker-peso>
+    <picker-genero></picker-genero>
+  </div>
+
+  <div class="button-content">
+    <primary-button [propEnum]="ButtonText.next"></primary-button>
+  </div>
+</ion-content>

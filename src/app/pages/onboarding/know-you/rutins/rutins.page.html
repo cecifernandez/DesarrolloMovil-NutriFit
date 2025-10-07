@@ -1,0 +1,12 @@
+<ion-content [fullscreen]="true">
+  <div class="rutins-content-conteiner">
+    <div class="content-header">
+      <ion-icon name="arrow-back-outline" class="icon-back"></ion-icon>
+      <ion-text class="you-progress-text">Tu progreso empieza acá</ion-text>
+    </div>
+    <input-search></input-search>
+    <ion-text class="max-rutins">Podés elegir hasta 3 rutinas (2/3).</ion-text>
+    <card-rutin class="cards-rutins"></card-rutin>
+      <primary-button [propEnum]="ButtonText.next" class="button-next"></primary-button>    
+  </div>
+</ion-content>

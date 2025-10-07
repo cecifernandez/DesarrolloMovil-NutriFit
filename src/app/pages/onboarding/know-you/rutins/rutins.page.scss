@@ -1,0 +1,63 @@
+@import '/src/global.scss';
+
+.rutins-content-conteiner {
+  padding: 44px 16px 0px 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  gap: 12px;
+
+  position: relative;
+
+  .content-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 56px;
+
+    .icon-back {
+      color: $text-color;
+
+      font-size: 20px;
+    }
+
+    .you-progress-text {
+      width: 180px;
+      text-align: center;
+      color: $text-color;
+
+      font-size: 16px;
+      line-height: 20px;
+
+      font-weight: 600;
+    }
+  }
+
+  .max-rutins {
+    color: $text-color;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    line-height: 20px;
+  }
+
+  .cards-rutins {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+    .button-next {
+      width: 160px;
+
+      position: absolute;
+      z-index: 1;
+      
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  
+}
