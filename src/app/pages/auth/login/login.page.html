@@ -12,17 +12,22 @@
         iconPath="assets/svg/icon-auth/email.svg"
         label="Email"
         type="email"
+        [(ngModel)]="email"
       >
       </input-text-with-icon>
       <input-text-with-icon
         iconPath="assets/svg/icon-auth/password.svg"
         label="Contraseña"
         type="password"
+        [(ngModel)]="password"
       >
       </input-text-with-icon>
     </div>
 
-    <primary-button [propEnum]="ButtonText.logIn"></primary-button>
+    <ion-button (click)="login()">
+      soy un boton
+    </ion-button>
+    <!-- <primary-button [propEnum]="ButtonText.logIn" (click)="login()"></primary-button> -->
 
     <secondary-button-with-icon
       iconPath="assets/svg/icons/google.svg"

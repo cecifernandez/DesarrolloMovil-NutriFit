@@ -8,25 +8,24 @@ import firebase from 'firebase/compat/app';
 export class FirebaseService {
   constructor(private afAuth: AngularFireAuth) {}
 
-  // Registrar usuario
+  // Register user
   register(email: string, password: string) {
     return this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  // Login usuario
+  // LogIn user
   login(email: string, password: string) {
     return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
-  // Logout usuario
+  // LogOut user
   logout() {
     return this.afAuth.signOut();
   }
 
-  // Login con Google
+  // LogIn con Google 
   loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.afAuth.signInWithPopup(provider);
   }
 }
-

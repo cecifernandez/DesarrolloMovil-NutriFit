@@ -1,12 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'input-text-with-icon',
   templateUrl: './input-text-with-icon.component.html',
   styleUrls: ['./input-text-with-icon.component.scss'],
-  standalone: false
+  standalone: false,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputTextWithIconComponent),
+      multi: true
+    }
+  ]
 })
-export class InputTextWithIconComponent {
+export class InputTextWithIconComponent implements ControlValueAccessor {
   @Input() iconPath!: string;
   @Input() label!: string;
   @Input() type: string = 'text'; // tipo del input (text, password, email, etc.)
@@ -28,5 +36,26 @@ export class InputTextWithIconComponent {
     return this.showPassword
       ? 'assets/svg/icon-auth/password-show.svg'
       : 'assets/svg/icon-auth/password-hidden.svg';
+  }
+
+  value = '';
+  onChange: any = () => {};
+  onTouched: any = () => {};
+
+  writeValue(value: any) {
+    this.value = value;
+  }
+
+  registerOnChange(fn: any) {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any) {
+    this.onTouched = fn;
+  }
+
+  onInputChange(event: any) {
+    this.value = event.target.value;
+    this.onChange(this.value);
   }
 }

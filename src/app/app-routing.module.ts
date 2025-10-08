@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { RegisterPage } from './pages/auth/register/register.page';
 
 const routes: Routes = [
   {
@@ -71,16 +70,12 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'settins',
+    path: 'settings',
     loadChildren: () =>
       import('./pages/extras/settings/settings.module').then(
         (m) => m.SettingsPageModule
       ),
   },
-  {
-    path: 'settings', 
-    loadChildren: () => import('./pages/extras/settings/settings.module').then( m => m.SettingsPageModule)
-  }
 ];
 @NgModule({
   imports: [
@@ -88,4 +83,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
