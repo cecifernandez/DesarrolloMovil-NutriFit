@@ -5,9 +5,9 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./pages/start-nutri-fit/start-nutri-fit.module').then(
-        (m) => m.StartNutriFitPageModule
-      ),
+      import(
+        './pages/start-nutri-fit/start-nutri-fit.module'
+      ).then((m) => m.StartNutriFitPageModule),
   },
   {
     path: 'welcome-nutri-fit',
@@ -19,63 +19,66 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () =>
-      import('./pages/auth/login/login.module').then((m) => m.LogInPageModule),
+      import(
+        './pages/auth/login/login.module'
+      ).then((m) => m.LogInPageModule),
   },
   {
     path: 'register',
-    loadChildren: () => import('./pages/auth/register/register.module').then(
-      (m) => m.RegisterPageModule
-    )
-  },
-  {
-    path: 'forgot-password',
     loadChildren: () =>
-      import('./pages/auth/forgot-password/forgot-password.module').then(
-        (m) => m.ForgotPasswordPageModule
-      ),
+      import(
+        './pages/auth/register/register.module'
+      ).then((m) => m.RegisterPageModule),
   },
+  // {
+  //   path: 'forgot-password',
+  //   loadChildren: () =>
+  //     import(
+  //       './pages/auth/forgot-password/forgot-password.module'
+  //     ).then((m) => m.ForgotPasswordPageModule),
+  // },
   {
     path: 'home',
     loadChildren: () =>
-      import('./pages/main/home/home.module').then(
-        (m) => m.HomePageModule
-      ),
+      import(
+        './pages/main/home/home.module'
+      ).then((m) => m.HomePageModule),
   },
   {
     path: 'routines',
     loadChildren: () =>
-      import('./pages/main/routines/routines.module').then(
-        (m) => m.RoutinesPageModule
-      ),
+      import(
+        './pages/main/routines/routines.module'
+      ).then((m) => m.RoutinesPageModule),
   },
   {
     path: 'foods',
     loadChildren: () =>
-      import('./pages/main/food/food.module').then(
-        (m) => m.FoodPageModule
-      ),
+      import(
+        './pages/main/food/food.module'
+      ).then((m) => m.FoodPageModule),
   },
   {
     path: 'profile',
     loadChildren: () =>
-      import('./pages/main/profile/profile.module').then(
-        (m) => m.ProfilePageModule
-      ),
+      import(
+        './pages/main/profile/profile.module'
+      ).then((m) => m.ProfilePageModule),
   },
-  {
-    path: 'progress',
-    loadChildren: () =>
-      import('./pages/extras/progress/progress.module').then(
-        (m) => m.ProgressPageModule
-      ),
-  },
-  {
-    path: 'settings',
-    loadChildren: () =>
-      import('./pages/extras/settings/settings.module').then(
-        (m) => m.SettingsPageModule
-      ),
-  },
+  // {
+  //   path: 'progress',
+  //   loadChildren: () =>
+  //     import(
+  //       './pages/extras/progress/progress.module'
+  //     ).then((m) => m.ProgressPageModule),
+  // },
+  // {
+  //   path: 'settings',
+  //   loadChildren: () =>
+  //     import(
+  //       './pages/extras/settings/settings.module'
+  //     ).then((m) => m.SettingsPageModule),
+  // },
 ];
 @NgModule({
   imports: [
@@ -83,4 +86,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

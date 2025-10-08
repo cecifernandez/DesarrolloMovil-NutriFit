@@ -1,40 +1,31 @@
-<ion-input
-  readonly
-  [value]="currentValue"
-  [placeholder]="placeholder"
-  (click)="openModal()">
-</ion-input>
+<input-text-with-icon
+  iconPath="assets/svg/icons-create-acc/birthday.svg"
+  label="Fecha de Nacimiento"
+  type="text"
+  (click)="openModal()"
+></input-text-with-icon>
 
-<ion-modal #modal (didDismiss)="onDidDismiss($event)">
+<ion-modal #modal (didDismiss)="onDidDismiss($event)" class="modal-container">
   <ng-template>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button class="custom-text-p" (click)="closeModal('cancel')">X</ion-button>
-      </ion-buttons>
+    <div class="back-toolbar">
+      <ion-icon name="close-outline" class="icon-back" (click)="closeModal('cancel')"></ion-icon>
+      <ion-text class="text-modal">¿Cuándo naciste?</ion-text>
+      <button class="button-next" (click)="closeModal('confirm')">Siguiente</button>
+    </div>
 
-      <ion-title>¿Cuándo Naciste?</ion-title>
-
-      <ion-buttons slot="end">
-        <ion-button class="custom-button-p" (click)="closeModal('confirm')">Siguiente</ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-
-    <ion-picker>
-      
+    <ion-picker class="picker">
       <ion-picker-column [value]="selectedDay" (ionChange)="onDayChange($event)">
         <ion-picker-column-option *ngFor="let d of days" [value]="d">
           {{ d }}
         </ion-picker-column-option>
       </ion-picker-column>
 
-      
       <ion-picker-column [value]="selectedMonth" (ionChange)="onMonthChange($event)">
         <ion-picker-column-option *ngFor="let m of months" [value]="m.value">
           {{ m.name }}
         </ion-picker-column-option>
       </ion-picker-column>
 
-      
       <ion-picker-column [value]="selectedYear" (ionChange)="onYearChange($event)">
         <ion-picker-column-option *ngFor="let y of years" [value]="y">
           {{ y }}

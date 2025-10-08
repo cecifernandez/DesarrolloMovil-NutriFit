@@ -18,23 +18,25 @@
           iconPath="assets/svg/icon-auth/email.svg"
           label="Email"
           type="email"
+          [(ngModel)]="email"
         >
         </input-text-with-icon>
         <input-text-with-icon
           iconPath="assets/svg/icon-auth/password.svg"
           label="Contraseña"
           type="password"
+          [(ngModel)]="password"
         >
         </input-text-with-icon>
         <input-text-with-icon
           iconPath="assets/svg/icon-auth/password.svg"
           label="Confirmar constraseña"
-          type="password"
-        >
+          type="password" 
+        > <!-- [(ngModel)]="password" escribe en ambos inputs si se coloca, buscar solución -->
         </input-text-with-icon>
       </div>
 
-      <primary-button [propEnum]="ButtonText.register" (click)="onSignup()"></primary-button>
+      <primary-button [propEnum]="ButtonText.startApp" (click)="onSignup()"></primary-button>
 
       <secondary-button-with-icon
         iconPath="assets/svg/icons/google.svg"

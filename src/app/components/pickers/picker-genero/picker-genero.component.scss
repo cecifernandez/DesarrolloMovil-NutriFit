@@ -1,59 +1,39 @@
 @import '/src/global.scss';
 
-:host {
-  * {
-    font-family: "DM Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-  }
-}
-
 ion-modal {
   --height: auto;
-
   align-items: end;
 }
 
+.modal-container {
+  --background: #FFFFFF;
 
+  .back-toolbar {
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+    padding: 12px 8px;
 
-ion-picker {
-  margin-bottom: var(--ion-safe-area-bottom);
-}
+    .icon-back {
+      font-size: 16px;
+      color: $text-color;
+    }
 
+    .text-modal {
+      font-weight: 600;
+      font-size: 16px;
+      color: $text-color;
+      text-align: center;
+    }
 
-
-ion-input[readonly] {
-  --padding-start: 16px;
-  --padding-end: 36px;
-  --border-radius: 12px;
-  --background: #{$component-color-back};
-  --color: #000;
-  --placeholder-color: #999;
-  cursor: pointer;
-  position: relative;
-  width: 100%; 
-  max-width: 312px; 
-  box-sizing: border-box;
-  display: block;
-  margin: 0 auto; 
-}
-
-.custom-text-p {
-  --color: #{$text-color};
-}
-
-
-.custom-button-p {
-  --color: #{$primary-color};
-  --font-size: 1rem;
-
-}
-
-.toolbar-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1rem;
+    .button-next {
+      color: $primary-color;
+      font-size: 14px;
+      font-weight: 600;
+      background: none;
+      border: none;
+      text-align: center;
+    }
+  }
 }

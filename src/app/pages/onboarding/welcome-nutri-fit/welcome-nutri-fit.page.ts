@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ButtonText } from '@/app/enum/button-text/button-text';
-import { ButtonIcon } from '@/app/enum/button-icon/button-icon';
-import { InputText } from '@/app/enum/input-text/input-text';
 
 @Component({
   selector: 'welcome-nutri-fit',
@@ -12,9 +10,6 @@ import { InputText } from '@/app/enum/input-text/input-text';
 })
 export class WelcomeNutriFitPage implements OnInit {
   ButtonText = ButtonText;
-  ButtonIcon = ButtonIcon;
-
-  InputText = InputText;
 
   constructor() { }
 

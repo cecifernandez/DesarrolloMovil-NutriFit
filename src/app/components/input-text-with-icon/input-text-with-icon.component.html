@@ -1,13 +1,20 @@
-<div class="input-text-with-icon ion-display-flex">
-  <img *ngIf="iconPath" [src]="iconPath" alt="icon" />
-  <input [placeholder]="label" class="input-style" spellcheck="false" />
+<ion-item lines="none" class="input-item">
+  <div class="ion-display-flex ion-align-items-center conteiner">
+    <ion-icon [src]="iconPath" slot="start"></ion-icon>
+  
+    <ion-input
+      [type]="inputType"
+      [placeholder]="label"
+      [value]="value"
+      (ionInput)="onInputChange($event)"
+    ></ion-input>
+  </div>
 
-  <!-- Muestra el icono visibilidad si el tipo es 'password' -->
-  <img
+  <ion-icon
     *ngIf="type === 'password'"
     [src]="toggleIcon"
-    alt="Mostar contraseña"
-    class="icon-toggle"
+    slot="end"
     (click)="togglePasswordVisibility()"
-  />
-</div>
+    class="icon-toggle"
+  ></ion-icon>
+</ion-item>

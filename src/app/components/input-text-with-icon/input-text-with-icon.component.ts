@@ -55,7 +55,9 @@ export class InputTextWithIconComponent implements ControlValueAccessor {
   }
 
   onInputChange(event: any) {
-    this.value = event.target.value;
-    this.onChange(this.value);
+    const value = event.detail?.value ?? '';
+    this.value = value;
+    this.onChange(value);
+    this.onTouched();
   }
 }

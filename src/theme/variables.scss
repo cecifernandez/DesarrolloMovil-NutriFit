@@ -1,3 +1,5 @@
+@import '/src/global.scss';
+
 :root{
   --primary-color-green: #82D68E;
   --secondary-color-green: #04460E;
@@ -7,4 +9,23 @@
   --terciary-color-yellow: #E9E9E9;
   --primary-color-yellow-rgb: 242,239,229;
   --primary-font: 'DM Sans', sans-serif;
+}
+
+ion-picker {
+  --background: #FFFFFF;
+  --highlight-background: #F0F0F0;
+  --highlight-color: #000;
+  --border-radius: 6px;
+  --fade-background-rgb: #FFFFFF;
+}
+
+ion-picker-column {
+  --color: $text-color;
+  font-weight: 500;
+}
+
+ion-picker-column-option {
+  color: $text-color;
+  font-weight: 500;
+  --text-aling: center;
 }

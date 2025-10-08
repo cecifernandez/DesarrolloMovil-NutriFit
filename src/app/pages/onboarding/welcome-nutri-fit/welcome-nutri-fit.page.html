@@ -1,81 +1,37 @@
-<!-- <ion-content [fullscreen]="true" class="welcome-content">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Bienvenido</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  
-  <div class="page-container">
-    <div class="mosaic-columns">
-      <div class="mosaic-col col-left">
-        <div class="mosaic-item">
-          <ion-img src="assets/imgs/ft-1.jpg"></ion-img>
-        </div>
-        <div class="mosaic-item">
-          <ion-img src="assets/imgs/ft-4.jpg"></ion-img>
-        </div>
-        <div class="mosaic-item">
-          <ion-img src="assets/imgs/ft-7.jpg"></ion-img>
-        </div>
-      </div>
-
-      <div class="mosaic-col col-center">
-        <div class="mosaic-item">
-          <ion-img src="assets/imgs/ft-2.jpg"></ion-img>
-        </div>
-        <div class="mosaic-item item-logo">
-          <ion-img src="assets/imgs/ft-5.jpg"></ion-img>
-        </div>
-        <div class="mosaic-item">
-          <ion-img src="assets/imgs/logo.png"></ion-img>
-        </div>
-      </div>
-
-      <div class="mosaic-col col-right">
-        <div class="mosaic-item">
-          <ion-img src="assets/imgs/ft-3.jpg"></ion-img>
-        </div>
-        <div class="mosaic-item">
-          <ion-img src="assets/imgs/ft-6.jpg"></ion-img>
-        </div>
-        <div class="mosaic-item">
-          <ion-img src="assets/imgs/ft-8.jpg"></ion-img>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="content-section">
-      <div class="welcome-text">
-        <h1>Bienvenido a NutriFit</h1>
-        <p>La aplicación integral para transformar tu cuerpo y mente.</p>
-      </div>
-
-      <div class="buttons-container">
-        <ion-button expand="block" size="large" class="btn-primary">
-          Iniciar sesión con tu Email
-        </ion-button>
-
-        <ion-button
-          expand="block"
-          size="large"
-          fill="outline"
-          class="btn-google"
-        >
-          <ion-icon slot="start" name="logo-google"></ion-icon>
-          Iniciar sesión con Google
-        </ion-button>
-
-        <input-text [propEnum]="InputText.email"></input-text>
-
-        <div class="signup-text">
-          <p>¿No tenés cuenta?</p>
-          <ion-button fill="clear" size="small" class="signup-link">
-            Registrate aquí
-          </ion-button>
-        </div>
-      </div>
+<ion-content [fullscreen]="true" class="welcome-conteiner">
+  <div class="imgs-container">
+    <div class="mosaic">
+      <img src="assets/imgs/ft-1.jpg" class="imgs" />
+      <img src="assets/imgs/ft-2.jpg" class="imgs" />
+      <img src="assets/imgs/ft-3.jpg" class="imgs" />
+      <img src="assets/imgs/ft-4.jpg" class="imgs" />
+      <img src="assets/imgs/ft-5.jpg" class="imgs" />
+      <img src="assets/imgs/ft-6.jpg" class="imgs" />
+      <img src="assets/imgs/ft-7.jpg" class="imgs" />
+      <img src="assets/logo/logo.png" class="img-logo" />
+      <img src="assets/imgs/ft-8.jpg" class="imgs" />
     </div>
   </div>
-</ion-content> -->
+
+  <div class="welcome-content ion-display-flex ion-flex-column"> <!-- Degradado va ACA -->
+    <div class="welcome ion-display-flex ion-flex-column">
+      <ion-text class="welcome-text">Bienvenido a NutriFit</ion-text>
+      <ion-text class="app-text">La aplicación integral para transformar tu cuerpo y mente.</ion-text>
+    </div>
+    
+    <div class="buttons-conteiner ion-display-flex ion-flex-column">
+      <primary-button 
+        [propEnum]="ButtonText.logInEmail"
+      ></primary-button>
+  
+      <secondary-button-with-icon 
+        iconPath="assets/svg/icons/google.svg"
+        label="Iniciar sesión con Google"
+      ></secondary-button-with-icon>
+    </div>
+
+    <ion-text class="dont-have-acc">
+      ¿No tenés cuenta? <span class="register-button">Regístrate aquí</span>
+    </ion-text>
+  </div>
+</ion-content>

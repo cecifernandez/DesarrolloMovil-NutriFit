@@ -1,25 +1,19 @@
-<ion-input readonly [value]="currentValue" [placeholder]="placeholder" (click)="openModal()"></ion-input>
+<input-text-with-icon
+  iconPath="assets/svg/icons-create-acc/height.svg"
+  label="Altura"
+  type="text"
+  (click)="openModal()"
+></input-text-with-icon>
 
-
-<ion-modal #modal (didDismiss)="onDidDismiss($event)">
+<ion-modal #modal (didDismiss)="onDidDismiss($event)" class="modal-container">
   <ng-template>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button class="custom-text-p" (click)="closeModal('cancel')">x</ion-button>
-      </ion-buttons>
+    <div class="back-toolbar">
+      <ion-icon name="close-outline" class="icon-back" (click)="closeModal('cancel')"></ion-icon>
+      <ion-text class="text-modal">Tu altura</ion-text>
+      <button class="button-next" (click)="closeModal('confirm')">Siguiente</button>
+    </div>
 
-      <div class="toolbar-center">
-        Peso
-      </div>
-
-      <ion-buttons slot="end">
-        <ion-button class="custom-button-p" (click)="closeModal('confirm')">Siguiente</ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-
-
-    <ion-picker>
-
+    <ion-picker class="picker">
       <ion-picker-column [value]="selectedAltura" (ionChange)="onAlturaChange($event)">
         <ion-picker-column-option *ngFor="let n of alturaNumeros" [value]="n">
           {{ n }}
