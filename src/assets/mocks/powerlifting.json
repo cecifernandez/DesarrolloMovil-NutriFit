@@ -1,0 +1,12 @@
+[
+  { "name": "Deadlift", "difficulty": "hard", "instructions": "Levantar una barra del suelo con control, manteniendo la espalda recta." },
+  { "name": "Squat", "difficulty": "hard", "instructions": "Bajar con una barra sobre los hombros hasta los 90° y subir con fuerza." },
+  { "name": "Bench Press", "difficulty": "hard", "instructions": "Acostado, empujar una barra desde el pecho hasta la extensión total." },
+  { "name": "Overhead Press", "difficulty": "hard", "instructions": "Levantar la barra desde los hombros hasta estirar completamente los brazos." },
+  { "name": "Front Squat", "difficulty": "hard", "instructions": "Sujetar la barra al frente de los hombros y realizar sentadillas profundas." },
+  { "name": "Sumo Deadlift", "difficulty": "hard", "instructions": "Con pies abiertos, levantar la barra desde el suelo con agarre estrecho." },
+  { "name": "Pause Bench Press", "difficulty": "hard", "instructions": "Hacer bench press deteniendo la barra un segundo en el pecho antes de subir." },
+  { "name": "Rack Pulls", "difficulty": "hard", "instructions": "Desde una altura media, levantar la barra enfocado en la extensión final." },
+  { "name": "Good Mornings", "difficulty": "intermediate", "instructions": "Con barra sobre los hombros, inclinarse hacia adelante manteniendo la espalda recta." },
+  { "name": "Barbell Row", "difficulty": "intermediate", "instructions": "Tirar de la barra hacia el abdomen manteniendo la espalda en ángulo de 45°." }
+]

@@ -1,3 +1,29 @@
-<ion-content [fullscreen]="true">
-  <tabs activeTab="routines"></tabs>
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">
+      Entrenamientos<br />
+      listos para vos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="routines-page">
+
+  <div class="container">
+
+    <!-- Componente de búsqueda -->
+    <input-search></input-search>
+
+    <!-- Texto de límite -->
+    <p class="limit-text">
+      Podés elegir hasta 3 rutinas ({{ selectedRoutines.length }}/3).
+    </p>
+
+    <!-- Componente de cards -->
+    <card-rutin
+      [categories]="categories"
+      (cardSelected)="onCardSelected($event)"
+    ></card-rutin>
+  </div>
+
 </ion-content>

@@ -35,6 +35,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'about-you',
+    loadChildren: () =>
+      import('./pages/onboarding/about-you/about-you.module').then(
+        (m) => m.AboutYouModule
+      ),
+  },
+  {
     path: 'home',
     loadChildren: () =>
       import('./pages/main/home/home.module').then(

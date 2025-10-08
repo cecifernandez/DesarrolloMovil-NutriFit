@@ -11,7 +11,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('@/app/pages/onboarding/singup/start.module').then(
+          import('@/app/pages/onboarding/signup/start.module').then(
             (m) => m.StartPageModule
           ),
       },

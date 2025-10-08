@@ -1,0 +1,12 @@
+[
+  { "name": "Glute Bridge", "difficulty": "easy", "instructions": "Acostado, elevar la cadera apretando glúteos y volver a bajar." },
+  { "name": "Hip Thrust", "difficulty": "intermediate", "instructions": "Apoyar la espalda en un banco y subir la cadera con peso." },
+  { "name": "Donkey Kicks", "difficulty": "easy", "instructions": "En cuatro apoyos, elevar una pierna hacia atrás sin arquear la espalda." },
+  { "name": "Fire Hydrants", "difficulty": "easy", "instructions": "En cuatro apoyos, levantar la pierna lateralmente hasta la altura de la cadera." },
+  { "name": "Bulgarian Split Squat", "difficulty": "hard", "instructions": "Con un pie apoyado atrás, bajar el cuerpo en forma de zancada profunda." },
+  { "name": "Step Ups", "difficulty": "intermediate", "instructions": "Subir y bajar de un banco o escalón alternando piernas." },
+  { "name": "Lunges", "difficulty": "intermediate", "instructions": "Dar un paso al frente y bajar hasta que ambas rodillas formen 90°." },
+  { "name": "Side Lunges", "difficulty": "intermediate", "instructions": "Dar un paso lateral y bajar flexionando una pierna." },
+  { "name": "Cable Kickbacks", "difficulty": "hard", "instructions": "Con banda o polea, empujar una pierna hacia atrás manteniendo tensión." },
+  { "name": "Sumo Squat", "difficulty": "intermediate", "instructions": "Sentadilla con pies más separados y puntas hacia afuera." }
+]

@@ -12,24 +12,28 @@
           iconPath="assets/svg/icon-profile/disable.svg"
           label="Nombre usuario"
           type="text"
+          [(ngModel)]="username"
         >
         </input-text-with-icon>
         <input-text-with-icon
           iconPath="assets/svg/icon-auth/email.svg"
           label="Email"
           type="email"
+          [(ngModel)]="email"
         >
         </input-text-with-icon>
         <input-text-with-icon
           iconPath="assets/svg/icon-auth/password.svg"
           label="Contraseña"
           type="password"
+          [(ngModel)]="password"
         >
         </input-text-with-icon>
         <input-text-with-icon
           iconPath="assets/svg/icon-auth/password.svg"
           label="Confirmar constraseña"
           type="password"
+          [(ngModel)]="confirmPassword"
         >
         </input-text-with-icon>
       </div>
@@ -43,7 +47,7 @@
 
       <div class="ion-display-flex ion-flex-row ion-align-items-center ion-justify-content-center">
         <ion-text class="have-acc">
-          ¿Ya tenés una cuenta? <span class="login-button"> Inicia sesión</span>
+          ¿Ya tenés una cuenta? <span class="login-button" (click)="goToLogin()"> Inicia sesión</span>
         </ion-text>
       </div>
     </div>
