@@ -14,3 +14,4 @@ export class PrimaryButtonWithIconComponent implements OnInit {
 
   ngOnInit() {}
 }
+

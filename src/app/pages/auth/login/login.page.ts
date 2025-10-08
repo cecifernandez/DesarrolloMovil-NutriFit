@@ -28,7 +28,7 @@ export class LogInPage {
     private firebaseService: FirebaseService,
     private router: Router,
     private toastController: ToastController
-  ) {}
+  ) { }
 
   /**
    * Realiza el proceso de inicio de sesión del usuario.
@@ -43,52 +43,58 @@ export class LogInPage {
    */
 
   async login() {
-    try {
-      const userCredential = await this.firebaseService.login(this.email, this.password);
+    const emailTrimmed = this.email.trim();
 
-      console.log('Usuario registrado:', userCredential.user);
-      alert('Cuenta creada con éxito');
-    } catch (error: any) {
-      console.error('Error en registro:', error.message);
-      alert('Error: ' + error.message);
+    if (!emailTrimmed || !this.validateEmail(emailTrimmed)) {
+      this.mostrarErrorToast('Correo electrónico inválido');
+      return;
     }
-    // try {
-    //   const user = await this.firebaseService.login(this.email, this.password);
-    //   console.log('Usuario logueado:', user);
-    //   this.router.navigate(['./home']);
-    // } catch (error: any) {
-    //   console.error('Error al iniciar sesión:', error);
 
-    //   let errorMsg = 'Error desconocido';
+    if (!this.password) {
+      this.mostrarErrorToast('Contraseña requerida');
+      return;
+    }
 
-    //   const errorCode = error?.code || error?.error?.message;
+    try {
+      const user = await this.firebaseService.login(emailTrimmed, this.password);
+      this.router.navigate(['./home']);
+    } catch (error: any) {
 
-    //   switch (errorCode) {
-    //     case 'auth/user-not-found':
-    //     case 'EMAIL_NOT_FOUND':
-    //       errorMsg = 'Correo no registrado';
-    //       break;
+      let errorMsg = 'Error desconocido';
 
-    //     case 'auth/wrong-password':
-    //     case 'INVALID_PASSWORD':
-    //     case 'auth/invalid-credential':
-    //     case 'INVALID_LOGIN_CREDENTIALS':
-    //       errorMsg = 'Correo o contraseña incorrectos';
-    //       break;
+      const errorCode = error?.code || error?.error?.message;
 
-    //     case 'auth/invalid-email':
-    //     case 'INVALID_EMAIL':
-    //       errorMsg = 'Correo electrónico inválido';
-    //       break;
+      switch (errorCode) {
+        case 'auth/user-not-found':
+        case 'EMAIL_NOT_FOUND':
+          errorMsg = 'Correo no registrado';
+          break;
 
-    //     default:
-    //       errorMsg = error.message || errorCode || 'Error desconocido';
-    //       break;
-    //   }
+        case 'auth/wrong-password':
+        case 'INVALID_PASSWORD':
+        case 'auth/invalid-credential':
+        case 'INVALID_LOGIN_CREDENTIALS':
+          errorMsg = 'Correo o contraseña incorrectos';
+          break;
 
-    //   this.errorMessage = errorMsg;
-    //   this.mostrarErrorToast(errorMsg);
-    // }
+        case 'auth/invalid-email':
+        case 'INVALID_EMAIL':
+          errorMsg = 'Correo electrónico inválido';
+          break;
+
+        default:
+          errorMsg = error.message || errorCode || 'Error desconocido';
+          break;
+      }
+
+      this.errorMessage = errorMsg;
+      this.mostrarErrorToast(errorMsg);
+    }
+  }
+
+  validateEmail(email: string): boolean {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email.toLowerCase());
   }
 
   /**
@@ -108,7 +114,7 @@ export class LogInPage {
       message,
       duration: 3000,
       color: 'black',
-      position: 'middle',
+      position: 'top',
     });
     toast.present();
   }
