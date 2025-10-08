@@ -15,6 +15,7 @@ import { SearchComponent } from './search/search.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { WelcomeHeaderComponentComponent } from './welcome-header-component/welcome-header-component.component';
 import { SecondaryButtonComponent } from './secondary-button/secondary-button.component';
+import { ObjectiveComponent } from './objective/objective.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SecondaryButtonComponent } from './secondary-button/secondary-button.co
     CardRutinComponent,
     InputTextWithIconComponent,
     TabsComponent,
-    WelcomeHeaderComponentComponent
+    WelcomeHeaderComponentComponent,
+    ObjectiveComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +50,8 @@ import { SecondaryButtonComponent } from './secondary-button/secondary-button.co
     CardRutinComponent,
     InputTextWithIconComponent,
     TabsComponent,
-    WelcomeHeaderComponentComponent
+    WelcomeHeaderComponentComponent,
+    ObjectiveComponent
   ]
 })
 export class ComponentsModule {}
