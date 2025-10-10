@@ -27,6 +27,29 @@ export class ExercisesService {
     const url = `${this.apiUrl}?${paramName}=${paramValue}`;
 
     return new Observable<any[]>((observer) => {
+      
+      /**
+       * MODO DESARROLLO:
+       * Forzamos el uso de los mocks locales en lugar de la API real.
+       * Esto evita gastar las llamadas del plan gratuito de RapidAPI
+       * cada vez que se recarga la aplicación.
+       * 
+       * Dejar este bloque DESCOMENTADO mientras se trabaja en diseño o pruebas.
+       * COMENTAR este bloque y reactivar la API real (abajo) para la presentación.
+       */
+      this.http.get<any[]>(`/assets/mocks/${paramValue}.json`).subscribe({
+        next: (mockData) => {
+          observer.next(mockData.slice(0, limit));
+          observer.complete();
+        },
+        error: (mockErr) => {
+          console.error(`❌ Error al cargar el mock de ${paramValue}`, mockErr);
+          observer.error(mockErr);
+        }
+      });
+
+      // BLOQUE ORIGINAL DE LA API (DESACTIVADO EN MODO DESARROLLO)
+      /*
       this.http.get<any[]>(url, { headers }).subscribe({
         next: (data) => {
           observer.next(data.slice(0, limit));
@@ -47,6 +70,7 @@ export class ExercisesService {
           });
         }
       });
+      */
     });
   }
 }

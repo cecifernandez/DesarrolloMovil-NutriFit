@@ -103,4 +103,11 @@ export class LogInPage {
     });
     toast.present();
   }
+
+  /**
+   * Redirección a la página de Crea tu cuenta
+   */
+  goToRegister() {
+    this.router.navigate(['./register']);
+  }
 }

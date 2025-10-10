@@ -22,8 +22,11 @@
     <!-- Componente de cards -->
     <card-rutin
       [categories]="categories"
+      [allowCardToggle]="false"
+      [maxSelectedReached]="selectedRoutines.length >= 3"
       (cardSelected)="onCardSelected($event)"
     ></card-rutin>
   </div>
-
 </ion-content>
+
+<tabs activeTab="routines"></tabs>
