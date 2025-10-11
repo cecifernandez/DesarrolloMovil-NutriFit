@@ -1,0 +1,40 @@
+@import "/src/global.scss";
+
+$checkbox-green: #6ac06a !default;
+$checkbox-border: #cdcdcd !default;
+
+.checkbox-group {
+  --gap: 2px; /* espacio entre cada ion-item */
+
+  .item-checkbox {
+    background-color: $background-checkbox;
+    border: 1px solid $checkbox-border;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+
+
+    &.ion-checkbox-checked {
+      background-color: $background-checkbox-checked;
+      border-color: $checkbox-green;
+    }
+
+    ion-label {
+      font-weight: 500;
+      font-family: var(--font-family);
+      color: #333;
+    }
+
+    ion-checkbox {
+      --size: 26px;
+      --border-radius: 50%;
+      --border-width: 2px;
+      --border-color: #cdcdcd;
+      --background: transparent;
+    }
+    //no funciona no se por qué
+    &.ion-checkbox-checked ion-checkbox {
+      --background-color: $checkbox-green;
+      --border-color: $checkbox-green;
+    }
+  }
+}

@@ -1,12 +1,18 @@
-<ion-item>
-  <ion-icon slot="start" [src]="resolvedIcon" class="objective-icon"></ion-icon>
-  <ion-label>{{ resolvedLabel }}</ion-label>
-  <ion-checkbox
-    slot="end"
-    [checked]="checked"
-    (ionChange)="onToggle($event.detail.checked)">
-  </ion-checkbox>
-</ion-item>
-
+<div class="checkbox-group">
+  <ion-item class="item-checkbox" [class.ion-checkbox-checked]="checked">
+    <ion-icon
+      slot="start"
+      [src]="resolvedIcon"
+      class="objective-icon"
+    ></ion-icon>
+    <ion-label>{{ resolvedLabel }}</ion-label>
+    <ion-checkbox
+      slot="end"
+      [checked]="checked"
+      (ionChange)="onToggle($event.detail.checked)"
+    >
+    </ion-checkbox>
+  </ion-item>
+</div>
 <!-- ej de uso: -->
 <!-- <objective [type]="'sleep'" ></objective> -->

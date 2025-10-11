@@ -34,7 +34,7 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+//@import "@ionic/angular/css/palettes/dark.system.css";
 
 // VARIABLES GLOBALES
 $primary-color: #82D68E;
@@ -48,6 +48,10 @@ $backgroud-input: #E9E6DB;
 $text-input: #9A9A9A;
 
 $component-color-back: #ffffff;
+
+$background-checkbox: #E9E9E9;
+$background-checkbox-checked: #CBE7CE;
+$background-checkbox-box: #6AC06A;
 
 * {
   font-family: "DM Sans", sans-serif;
