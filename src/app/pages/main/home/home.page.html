@@ -1,9 +1,14 @@
 <ion-content [fullscreen]="true">
   <div class="header">
-    <ion-text class="title-header">Fecha</ion-text>
+    <ion-text class="title-header">{{ getTodayDate() }}</ion-text>
 
     <div class="spacer">
-      <ion-text class="username-header">Buenos dias, usuario </ion-text>
+      <ion-text
+        *ngIf="afAuth.authState | async as user"
+        class="username-header"
+      >
+        {{ greeting }}, {{ user.displayName }}
+      </ion-text>
     </div>
   </div>
 

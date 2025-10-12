@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
@@ -11,15 +12,38 @@ Chart.register(...registerables);
 })
 export class HomePage implements AfterViewInit {
  @ViewChild('caloriesCanvas') private caloriesCanvas!: ElementRef;
-
+  greeting: string = '';
   chart: any;
 
-  constructor() {}
+  constructor(public afAuth: AngularFireAuth) {}
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.createChart();
     }, 150);
+  }
+
+   ngOnInit() {
+    this.setGreeting();
+  }
+
+  getTodayDate(): string {
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long',  month: 'long', day: 'numeric' };
+    const today = new Date();
+    const dateString = today.toLocaleDateString('es-ES', options);
+    return dateString.charAt(0).toUpperCase() + dateString.slice(1);
+  }
+
+  setGreeting() {
+    const currentHour = new Date().getHours();
+
+    if (currentHour >= 5 && currentHour < 12) {
+      this.greeting = 'Buenos días'; // Mañana ☀️
+    } else if (currentHour >= 12 && currentHour < 20) {
+      this.greeting = 'Buenas tardes'; // Tarde 🌤️
+    } else {
+      this.greeting = 'Buenas noches'; // Noche 🌙
+    }
   }
 
   createChart() {
