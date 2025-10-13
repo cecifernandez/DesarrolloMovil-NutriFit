@@ -9,13 +9,13 @@ import { ButtonText } from '../../enum/button-text/button-text';
 })
 export class PrimaryButtonComponent implements OnInit {
   @Input() propEnum!: ButtonText;
-  @Output() click = new EventEmitter<void>();
+  @Output() buttonClick = new EventEmitter<void>();
   
   constructor() { }
 
   ngOnInit() { }
 
    onClick() {
-    this.click.emit();
+    this.buttonClick.emit();
   }
 }

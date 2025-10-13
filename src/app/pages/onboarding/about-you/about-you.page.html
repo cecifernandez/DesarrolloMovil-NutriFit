@@ -2,7 +2,7 @@
   <ion-header class="header-">
     <ion-toolbar class="custom-toolbar">
       <ion-buttons slot="start">
-        <ion-button fill="clear"  >
+        <ion-button fill="clear">
           <ion-icon name="arrow-back-outline" color="dark"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -20,14 +20,15 @@
     </div>
   </div>
 
-  <div class="picker-container">
-    <picker-date></picker-date>
-    <picker-altura></picker-altura>
-    <picker-peso></picker-peso>
-    <picker-genero></picker-genero>
-  </div>
+<div class="picker-container">
+  <picker-date></picker-date>
+  <picker-altura (valueSelected)="onAlturaSeleccionada($event)"></picker-altura>
+  <picker-peso (valueSelected)="onPesoSeleccionado($event)"></picker-peso>
+    <picker-genero (valueSelected)="onGeneroSeleccionado($event)"></picker-genero>
+</div>
+
 
   <div class="button-content">
-    <primary-button [propEnum]="ButtonText.next"></primary-button>
+    <primary-button [propEnum]="ButtonText.next" (buttonClick)="guardarDatos()"></primary-button>
   </div>
 </ion-content>
