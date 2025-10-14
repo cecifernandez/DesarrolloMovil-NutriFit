@@ -1,7 +1,7 @@
 @import "/src/global.scss";
 
 .conteiner-global {
-  gap: 140px;
+  gap: 28px;
   padding: 44px 24px;
 
   .about-you-conteiner {
@@ -49,8 +49,14 @@
       }
     }
 
-    .pickers-container {
+    .objective-container {
       gap: 8px;
+
+      .max-objective {
+        color: $text-color;
+        font-size: 14px;
+        font-weight: 600;
+      }
     }
   }
 }

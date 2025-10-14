@@ -1,7 +1,6 @@
 <ion-item lines="none" class="input-item">
   <div class="ion-display-flex ion-align-items-center conteiner">
-    <ion-icon [src]="iconPath" slot="start"></ion-icon>
-  
+    <img [src]="iconPath" slot="start" />
     <ion-input
       [type]="inputType"
       [placeholder]="label"
@@ -9,10 +8,10 @@
       (ionInput)="onInputChange($event)"
     ></ion-input>
   </div>
-
   <ion-icon
     *ngIf="type === 'password'"
     [src]="toggleIcon"
+    slot="end"
     slot="end"
     (click)="togglePasswordVisibility()"
     class="icon-toggle"

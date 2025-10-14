@@ -1,0 +1,51 @@
+<div class="conteiner-global ion-display-flex ion-flex-column">
+  <div class="about-you-conteiner ion-display-flex ion-flex-column">
+    <div class="about-you-content ion-display-flex ion-flex-column">
+      <div class="content-header ion-display-flex ion-flex-row">
+        <ion-icon name="arrow-back-outline" class="icon-back"></ion-icon>
+        <ion-text class="about-you-personalizate">Conocerte nos ayuda a personalizar tu plan</ion-text>
+      </div>
+      <div class="text-conteiner ion-display-flex ion-flex-column">
+        <ion-text class="title-about-you">Definí tu objetivo</ion-text>
+        <ion-text class="subtitle-about-you">Queremos saber hacia dónde apuntas para diseñar un plan a tu medida.</ion-text>
+      </div>
+    </div>
+    <div class="objective-container ion-display-flex ion-flex-column">
+      <objective 
+        label="Mejorar mi salud"
+        icon="assets/png/icon-objective/heart.png"
+        [active]="false"
+      ></objective>
+      <objective 
+        label="Bajar de peso"
+        icon="assets/png/icon-objective/weight-loss.png"
+        [active]="false"
+      ></objective>
+      <objective 
+        label="Ganar masa muscular"
+        icon="assets/png/icon-objective/dumbells.png"
+        [active]="false"
+      ></objective>
+      <objective 
+        label="Reducir el estrés"
+        icon="assets/png/icon-objective/salutation.png"
+        [active]="false"
+      ></objective>
+      <objective 
+        label="Dormir mejor"
+        icon="assets/png/icon-objective/sleep.png"
+        [active]="false"
+      ></objective>
+      <input-text-with-icon 
+        iconPath="assets/png/icon-objective/other.png"
+        label="Otro (escribí el tuyo)"
+        type="text"
+        class="input-class"
+      ></input-text-with-icon>
+      <ion-text class="max-objective">
+        Podés elegir hasta 3 objetivos (3/3).
+      </ion-text>
+    </div>
+  </div>
+  <primary-button [propEnum]="ButtonText.next"></primary-button>
+</div>

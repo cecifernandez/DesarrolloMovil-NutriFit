@@ -1,0 +1,65 @@
+@import '/src/global.scss';
+
+.conteiner-objective-elected {
+  padding: 12px 20px 12px 16px;
+  background: rgb(203, 231, 206);
+  border: 1px solid $primary-color !important;
+  border-radius: 8px;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  box-shadow: 0px 0.5px 2px 0px rgba(0, 0, 0, 0.16);
+
+  .content-objetive {
+    gap: 12px;
+
+    .objective-icon-elected {
+      height: 20px;
+      width: 20px;
+    }
+
+    .objective-text-elected {
+      font-family: "DM Sans", sans-serif;
+      color: $text-color;
+      font-weight: 500;
+    }
+  }
+
+  .objective-container {
+    .input-class {
+      border-radius: 8px;
+    }
+  }
+}
+
+.conteiner-objective-not-elected {
+  padding: 12px 20px 12px 16px;
+  background: #E9E6DB;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .content-objetive {
+    gap: 12px;
+
+    .objective-icon-not-elected {
+      height: 20px;
+      width: 20px;
+    }
+
+    .objective-text-not-elected {
+      font-family: "DM Sans", sans-serif;
+      color: $text-input;
+    }
+  }
+
+  .objective-container {
+    .input-class {
+      border-radius: 8px;
+    }
+  }
+}

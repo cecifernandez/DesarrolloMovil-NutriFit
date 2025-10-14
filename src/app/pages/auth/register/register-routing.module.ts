@@ -22,17 +22,17 @@ const routes: Routes = [
             (m) => m.AboutYouModule
           ),
       },
+      {
+        path: 'objective-person',
+        loadChildren: () =>
+          import('@/app/pages/onboarding/objective/objective.module').then(
+            (m) => m.ObjectivePageModule
+          ),
+      },
       // {
-      //   path: 'objective-person',
+      //   path: 'rutins-person',
       //   loadChildren: () =>
-      //     import('../../onboarding/objective/objective-person.module').then(
-      //       (m) => m.ObjetiveModule
-      //     ),
-      // },
-      // {
-      //   path: 'start-point-person',
-      //   loadChildren: () =>
-      //     import('../../onboarding/start-point-person/start-point-person.module').then(
+      //     import('').then(
       //       (m) => m.StartPointPerson
       //     ),
       // },

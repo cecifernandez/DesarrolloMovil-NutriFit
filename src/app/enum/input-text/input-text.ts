@@ -6,5 +6,5 @@ export enum InputText {
   name = 'Nombre',
   age = 'Edad',
   height = 'Altura (cm)',
-  weight = 'Peso (kg)'
+  weight = 'Peso (kg)',
 }

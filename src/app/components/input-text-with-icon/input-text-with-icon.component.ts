@@ -22,7 +22,7 @@ export class InputTextWithIconComponent implements ControlValueAccessor {
   showPassword = false;
 
   // Método para alternar visibilidad de la contraseña
-  togglePasswordVisibility() { 
+  togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
@@ -39,8 +39,8 @@ export class InputTextWithIconComponent implements ControlValueAccessor {
   }
 
   value = '';
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  onChange: any = () => { };
+  onTouched: any = () => { };
 
   writeValue(value: any) {
     this.value = value;
