@@ -149,6 +149,10 @@ export class RoutinesPage implements OnInit {
       }
       category.selectedExercises.push(exercise);
     }
+
+    // Cada vez que el usuario selecciona o deselecciona un ejercicio,
+    // se actualiza en el service para que el Home lo pueda leer luego.
+    this.exercisesService.setSelectedExercises(category.paramValue, category.selectedExercises);
   }
 
   /**

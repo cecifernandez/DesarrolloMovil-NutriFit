@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,29 @@ import { environment } from 'src/environments/environment';
 export class ExercisesService {
   private apiUrl = 'https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises';
 
+  // Guarda los ejercicios seleccionados por rutina
+  private selectedExercisesSubject = new BehaviorSubject<{ [key: string]: any[] }>({});
+  selectedExercises$ = this.selectedExercisesSubject.asObservable();
+
   constructor(private http: HttpClient) {}
+
+  /**
+   * Actualiza los ejercicios seleccionados para una rutina específica
+   */
+  setSelectedExercises(routine: string, exercises: any[]) {
+    const current = this.selectedExercisesSubject.value;
+    this.selectedExercisesSubject.next({
+      ...current,
+      [routine]: exercises
+    });
+  }
+
+  /**
+   * Devuelve todos los ejercicios seleccionados actuales
+   */
+  getSelectedExercises() {
+    return this.selectedExercisesSubject.value;
+  }
 
   /**
    * Obtiene ejercicios filtrados por tipo o músculo.

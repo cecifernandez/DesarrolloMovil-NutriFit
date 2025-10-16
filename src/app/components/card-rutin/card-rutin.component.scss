@@ -1,5 +1,6 @@
 @import '/src/global.scss';
 
+/* CARD PRINCIPAL */
 ion-card {
   position: relative;
   z-index: 1;
@@ -15,6 +16,7 @@ ion-card {
   }
 }
 
+/* CONTENIDO DE LA CARD */
 .content-card-rutin {
   padding: 16px;
   height: 150px;
@@ -35,6 +37,7 @@ ion-card {
   }
 }
 
+/* LISTA DE EJERCICIOS */
 .exercises-list {
   position: relative;
   z-index: 10;
@@ -44,12 +47,14 @@ ion-card {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
+/* GRID DE EJERCICIOS */
 .exercise-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 10px;
 }
 
+/* CARD DE CADA EJERCICIO */
 .exercise-card {
   background: #fff;
   border-radius: 8px;
@@ -57,31 +62,35 @@ ion-card {
   cursor: pointer;
   text-align: center;
   transition: all 0.2s ease-in-out;
+  color: #000;
 
   &.selected {
-    background-color: #000;
-    color: #fff;
+    background-color: #82D68E !important;
   }
 
-  p {
+  .exercise-name {
     margin: 0;
     font-weight: 500;
+    color: #000 !important;
   }
 
-  small {
+  .exercise-difficulty {
     opacity: 0.6;
-  }
-
-  .exercise-counter {
-    font-size: 14px;
-    font-weight: 600;
-    color: #000;
-    margin-bottom: 12px;
-    text-align: right;
-
-    small {
-      font-weight: 400;
-      color: #555;
-    }
+    color: #000 !important;
   }
 }
+
+/* CONTADOR */
+.exercise-counter {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-align: left;
+  color: #000;
+
+  small {
+    font-weight: 400;
+    color: #000;
+  }
+}
+
