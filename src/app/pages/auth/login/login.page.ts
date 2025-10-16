@@ -29,7 +29,7 @@ export class LogInPage {
     private firebaseService: FirebaseService,
     private router: Router,
     private toastController: ToastController
-  ) {}
+  ) { }
 
   /**
    * Realiza el proceso de inicio de sesión del usuario.
@@ -54,7 +54,13 @@ export class LogInPage {
       let errorMsg = 'Error desconocido';
 
       const errorCode = error?.code || error?.error?.message;
+      const errorCode = error?.code || error?.error?.message;
 
+      switch (errorCode) {
+        case 'auth/user-not-found':
+        case 'EMAIL_NOT_FOUND':
+          errorMsg = 'Correo no registrado';
+          break;
       switch (errorCode) {
         case 'auth/user-not-found':
         case 'EMAIL_NOT_FOUND':
@@ -67,12 +73,26 @@ export class LogInPage {
         case 'INVALID_LOGIN_CREDENTIALS':
           errorMsg = 'Correo o contraseña incorrectos';
           break;
+        case 'auth/wrong-password':
+        case 'INVALID_PASSWORD':
+        case 'auth/invalid-credential':
+        case 'INVALID_LOGIN_CREDENTIALS':
+          errorMsg = 'Correo o contraseña incorrectos';
+          break;
 
         case 'auth/invalid-email':
         case 'INVALID_EMAIL':
           errorMsg = 'Correo electrónico inválido';
           break;
+        case 'auth/invalid-email':
+        case 'INVALID_EMAIL':
+          errorMsg = 'Correo electrónico inválido';
+          break;
 
+        default:
+          errorMsg = error.message || errorCode || 'Error desconocido';
+          break;
+      }
         default:
           errorMsg = error.message || errorCode || 'Error desconocido';
           break;

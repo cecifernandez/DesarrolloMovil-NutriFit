@@ -16,4 +16,6 @@ export enum ButtonText {
   routines = "Rutinas",
   foods = "Comidas",
   profile = "Perfil"
+  
 }
+

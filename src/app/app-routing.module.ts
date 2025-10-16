@@ -69,6 +69,14 @@ const routes: Routes = [
         (m) => m.ProfilePageModule
       ),
   },
+
+  {
+    path: 'about-you',
+    loadChildren: () =>
+      import('./pages/onboarding/about-you/about-you.module').then(
+        (m) => m.AboutYouModule
+      ),
+  },
   {
     path: 'progress',
     loadChildren: () =>
