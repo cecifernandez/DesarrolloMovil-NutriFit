@@ -1,0 +1,12 @@
+[
+  { "name": "Push Ups", "difficulty": "intermediate", "instructions": "Desde plancha, bajar el pecho al suelo y empujar hacia arriba." },
+  { "name": "Pull Ups", "difficulty": "hard", "instructions": "Colgarse de una barra y elevar el cuerpo hasta que la barbilla pase la barra." },
+  { "name": "Bench Press", "difficulty": "intermediate", "instructions": "Acostado, empujar la barra desde el pecho hacia arriba." },
+  { "name": "Deadlift", "difficulty": "hard", "instructions": "Levantar una barra desde el suelo manteniendo la espalda recta." },
+  { "name": "Bicep Curl", "difficulty": "easy", "instructions": "Flexionar los brazos levantando mancuernas hacia los hombros." },
+  { "name": "Tricep Dips", "difficulty": "intermediate", "instructions": "Apoyarse en un banco y bajar el cuerpo flexionando los codos." },
+  { "name": "Overhead Press", "difficulty": "intermediate", "instructions": "Empujar mancuernas o barra por encima de la cabeza." },
+  { "name": "Squat", "difficulty": "easy", "instructions": "Bajar el cuerpo flexionando las rodillas hasta formar un ángulo de 90°." },
+  { "name": "Bent Over Row", "difficulty": "intermediate", "instructions": "Con barra o mancuernas, tirar hacia el abdomen manteniendo la espalda recta." },
+  { "name": "Lateral Raises", "difficulty": "easy", "instructions": "Levantar mancuernas hacia los lados con los brazos semirrectos." }
+]

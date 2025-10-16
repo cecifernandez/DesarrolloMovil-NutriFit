@@ -1,8 +1,11 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
+
+// IMPORTAR el servicio (descomentar cuando se una con el código del Home)
+/** import { ExercisesService } from 'src/app/services/exercises.service'; */
 
 @Component({
   selector: 'app-home',
@@ -10,21 +13,39 @@ Chart.register(...registerables);
   styleUrls: ['home.page.scss'],
   standalone: false,
 })
-export class HomePage implements AfterViewInit {
+
+export class HomePage implements AfterViewInit, OnInit {
  @ViewChild('caloriesCanvas') private caloriesCanvas!: ElementRef;
   greeting: string = '';
   chart: any;
 
+    // Este código permite que los ejercicios seleccionados en la tab de Rutinas
+  // se reflejen automáticamente en el Home cuando hagamos el merge.
+  // Descomentar e integrar cuando estemos trabajando sobre el .ts correspondiente.
+
+  // Acá se van a guardar los ejercicios seleccionados por rutina
+  /** selectedExercises: any = {}; */
+
+  // Inyectar el servicio (ajustar según el constructor existente)
+  /** constructor(private exercisesService: ExercisesService) {} */
+
   constructor(public afAuth: AngularFireAuth) {}
+
+  ngOnInit() {
+    // Escucha los cambios desde la tab de rutinas
+    /** 
+     * this.exercisesService.selectedExercises$.subscribe(data => {
+     *   this.selectedExercises = data;
+     *   console.log('Ejercicios actualizados desde Rutinas:', data);
+     * });
+     */
+    this.setGreeting();
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.createChart();
     }, 150);
-  }
-
-   ngOnInit() {
-    this.setGreeting();
   }
 
   getTodayDate(): string {

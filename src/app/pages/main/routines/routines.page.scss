@@ -1,1 +1,96 @@
 @import "/src/global.scss";
+
+.routines-page {
+  --background: #f8f5ee;
+
+  .container {
+    padding: 16px;
+    padding-bottom: 120px;
+  }
+
+  ion-title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    color: #000000;
+    padding-top: 8px;
+  }
+
+  .limit-text {
+    margin: 16px 0;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  input-search {
+    display: block;
+    margin-top: 16px;
+  }
+
+  card-rutin {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .routine-category {
+    margin-top: 12px;
+    position: relative;
+    z-index: 10; // Asegura que quede sobre las cards
+
+    .exercises-list {
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 8px;
+      background-color: #f8f5ee;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      position: relative;
+      z-index: 20; // permite clickear
+    }
+
+    h3 {
+      color: #000;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+  }
+
+  .exercise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+  }
+
+  .exercise-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
+
+    &.selected {
+      background-color: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    p {
+      color: inherit;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    small {
+      color: inherit;
+      opacity: 0.8;
+    }
+  }
+}
+
+ion-card {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}

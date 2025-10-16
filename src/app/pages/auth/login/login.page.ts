@@ -44,15 +44,6 @@ export class LogInPage {
    */
 
   async login() {
-    // try {
-    //   const userCredential = await this.firebaseService.login(this.email, this.password);
-
-    //   console.log('Usuario registrado:', userCredential.user);
-    //   alert('Cuenta creada con éxito');
-    // } catch (error: any) {
-    //   console.error('Error en registro:', error.message);
-    //   alert('Error: ' + error.message);
-    // }
     try {
       const user = await this.firebaseService.login(this.email, this.password);
       console.log('Usuario logueado:', user);
@@ -108,9 +99,16 @@ export class LogInPage {
     const toast = await this.toastController.create({
       message,
       duration: 3000,
-      color: 'black',
+      color: 'danger',
       position: 'middle',
     });
     toast.present();
+  }
+
+  /**
+   * Redirección a la página de Crea tu cuenta
+   */
+  goToRegister() {
+    this.router.navigate(['./register']);
   }
 }

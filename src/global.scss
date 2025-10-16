@@ -60,3 +60,35 @@ $background-checkbox-box: #6AC06A;
   font-size: 16px;
   --ion-background-color: $backgroud-app;
 }
+
+:root {
+  color-scheme: light;
+}
+
+/* --- Forzar ion-toolbar blanco (sin importar modo oscuro) --- */
+ion-toolbar {
+  --background: #ffffff !important; /* fondo blanco fijo */
+  --color: #1d1d1d !important;      /* texto oscuro fijo */
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1); /* leve sombra opcional */
+}
+
+/* === Inputs siempre claros === */
+ion-item,
+ion-input {
+  --background: #ffffff !important; /* fondo blanco */
+  --color: #1c1c1c !important;      /* texto oscuro */
+  --placeholder-color: #9a9a9a !important; /* placeholder gris */
+  --highlight-color-focused: #82d68e !important; /* línea al enfocar */
+}
+
+/* Quitar fondo oscuro del content si lo hay */
+ion-content {
+  --background: #f2efe5 !important;
+}
+
+/* Si usás un wrapper personalizado (como input-text-with-icon) */
+input-text-with-icon,
+.input-item {
+  background: #ffffff !important;
+  color: #1c1c1c !important;
+}

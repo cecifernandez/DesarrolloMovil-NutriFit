@@ -1,0 +1,12 @@
+[
+  { "name": "Jumping Jacks", "difficulty": "easy", "instructions": "Saltar abriendo y cerrando piernas con los brazos al ritmo." },
+  { "name": "High Knees", "difficulty": "intermediate", "instructions": "Correr en el lugar elevando las rodillas al nivel de la cadera." },
+  { "name": "Burpees", "difficulty": "hard", "instructions": "Bajar al suelo, hacer una flexión y luego saltar con los brazos extendidos." },
+  { "name": "Mountain Climbers", "difficulty": "intermediate", "instructions": "En posición de plancha, alternar piernas hacia el pecho rápidamente." },
+  { "name": "Jump Rope", "difficulty": "easy", "instructions": "Saltar con una cuerda girándola con las muñecas." },
+  { "name": "Butt Kicks", "difficulty": "easy", "instructions": "Correr en el lugar golpeando los glúteos con los talones." },
+  { "name": "Skaters", "difficulty": "intermediate", "instructions": "Saltar de un lado al otro imitando un movimiento de patinador." },
+  { "name": "Tuck Jumps", "difficulty": "hard", "instructions": "Saltar y llevar las rodillas al pecho, cayendo con control." },
+  { "name": "Jump Squats", "difficulty": "intermediate", "instructions": "Hacer una sentadilla y al subir dar un salto explosivo." },
+  { "name": "Jog in Place", "difficulty": "easy", "instructions": "Correr suavemente en el lugar manteniendo un ritmo constante." }
+]
