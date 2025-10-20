@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IonModal } from '@ionic/angular';
 
 @Component({
@@ -6,13 +7,15 @@ import { IonModal } from '@ionic/angular';
   templateUrl: './picker-altura.component.html',
   styleUrls: ['./picker-altura.component.scss'],
   standalone: false,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => PickerAlturaComponent),
+      multi: true
+    }
+  ],
 })
-export class PickerAlturaComponent implements OnInit {
-
-  @Input() placeholder: string = 'Selecciona la altura';
-  @Input() value: string = 'Altura';
-  @Output() valueSelected = new EventEmitter<string>();
-
+export class PickerAlturaComponent implements ControlValueAccessor {
   @ViewChild(IonModal) modal!: IonModal;
 
   alturaNumeros: number[] = [];
@@ -20,42 +23,50 @@ export class PickerAlturaComponent implements OnInit {
 
   selectedAltura: number = 170;
   selectedUnidad: string = 'cm';
-  currentValue: string = '';
+  value: string = '';
+
+  private onChange: (value: string) => void = () => {};
+  private onTouched: () => void = () => {};
 
   ngOnInit(): void {
     this.alturaNumeros = Array.from({ length: 200 }, (_, i) => i + 1);
-    this.currentValue = this.value || `${this.selectedAltura} ${this.selectedUnidad}`;
+    this.value = `${this.selectedAltura} ${this.selectedUnidad}`;
   }
 
   openModal() {
-    
     this.modal.present();
   }
 
   closeModal(role: string) {
-    this.modal.dismiss(`${this.selectedAltura} ${this.selectedUnidad}`, role);
     if (role === 'confirm') {
-      this.currentValue = `${this.selectedAltura} ${this.selectedUnidad}`;
-      this.valueSelected.emit(this.currentValue);
+      this.value = `${this.selectedAltura} ${this.selectedUnidad}`;
+      this.onChange(this.value); // actualiza el ngModel
+      this.onTouched();
     }
+    this.modal.dismiss();
   }
 
-  onDidDismiss(event: CustomEvent) {
-    const { role } = event.detail;
-    if (role !== 'confirm') return;
-
-    const newValue = event.detail.data;
-    if (newValue) {
-      this.currentValue = newValue;
-      this.valueSelected.emit(this.currentValue);
-    }
+  onDidDismiss() {
+    this.onTouched();
   }
 
-  onAlturaChange(value: any) {
-    this.selectedAltura = value.detail?.value || value;
+  onAlturaChange(fn: any) {
+    this.selectedAltura = Number(fn.detail.value);
   }
 
-  onUnidadChange(value: any) {
-    this.selectedUnidad = value.detail?.value || value;
+  onUnidadChange(fn: any) {
+    this.selectedUnidad = fn.detail.value;
+  }
+
+  writeValue(value: any) {
+    this.value = value;
+  }
+  
+  registerOnChange(fn: any) {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any) {
+    this.onTouched = fn;
   }
 }

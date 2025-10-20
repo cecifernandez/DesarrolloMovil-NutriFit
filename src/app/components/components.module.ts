@@ -16,6 +16,7 @@ import { TabsComponent } from './tabs/tabs.component';
 import { WelcomeHeaderComponentComponent } from './welcome-header-component/welcome-header-component.component';
 import { SecondaryButtonComponent } from './secondary-button/secondary-button.component';
 import { ObjectiveComponent } from './objective/objective.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ObjectiveComponent } from './objective/objective.component';
   imports: [
     CommonModule,
     IonicModule,
+    FormsModule
   ],
   exports: [
     PrimaryButtonComponent,

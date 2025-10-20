@@ -12,18 +12,22 @@
 
   box-shadow: 0px 0.5px 2px 0px rgba(0, 0, 0, 0.16);
 
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+
   .content-objetive {
     gap: 12px;
 
     .objective-icon-elected {
       height: 20px;
       width: 20px;
+      user-select: none;
     }
 
     .objective-text-elected {
-      font-family: "DM Sans", sans-serif;
       color: $text-color;
       font-weight: 500;
+      user-select: none;
     }
   }
 
@@ -43,17 +47,21 @@
   flex-direction: row;
   justify-content: space-between;
 
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+
   .content-objetive {
     gap: 12px;
 
     .objective-icon-not-elected {
       height: 20px;
       width: 20px;
+      user-select: none;
     }
 
     .objective-text-not-elected {
-      font-family: "DM Sans", sans-serif;
       color: $text-input;
+      user-select: none;
     }
   }
 

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
+import { RegisterForm } from './app/models/register.models';
+import { LoginForm } from './app/models/login.models';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +11,16 @@ export class FirebaseService {
   constructor(private afAuth: AngularFireAuth) {}
 
   // Register user
-  register(email: string, password: string) {
+  register(inputs: RegisterForm) {
+    const { email, password } = inputs;
+
     return this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
   // LogIn user
-  login(email: string, password: string) {
+  login(inputs: LoginForm) {
+    const { email, password } = inputs;
+    
     return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 

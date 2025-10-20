@@ -1,8 +1,7 @@
 @import "/src/global.scss";
 
-.welcome-conteiner {
-  background-color: #FFFFFF;
-
+.content {
+  
   .imgs-container {
     padding: 0;
     margin: 0;
@@ -12,12 +11,15 @@
     .mosaic {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
       grid-auto-flow: dense;
+      gap: 8px;
+      justify-items: center;
     }
 
     .imgs {
-      width: 120px;
+      width: 100%;
+      max-width: 110px;
+      aspect-ratio: 3 / 4;
       height: 170px;
       object-fit: cover;
       border: none;
@@ -40,7 +42,7 @@
     height: fit-content;
 
     position: fixed;
-    bottom: 0;
+    bottom: 0px;
     left: 0;
     right: 0;
 

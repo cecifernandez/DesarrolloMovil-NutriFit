@@ -12,6 +12,7 @@
     gap: 40px;
 
     .button-close {
+      cursor: pointer;
       color: $text-color;
       font-size: 20px;
     }
@@ -38,6 +39,15 @@
       }
     }
   }
+
+  .button-login {
+    --background: #82D68E;
+    --color: #000000;
+    --border-radius: 10px;
+    font-weight: 600;
+    height: 48px;
+  }
+
 
   .conteiner-inputs {
     gap: 8px;

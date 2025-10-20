@@ -1,7 +1,7 @@
 @import '/src/global.scss';
 
 .input-item {
-  --background: #{$backgroud-input};
+  --background: #{$backgroud-input} !important;
   --padding-start: 0;
   --inner-padding-end: 0;
   --inner-border-width: 0;
@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   padding: 12px 16px 12px 20px;
-  background-color: $backgroud-input;
+  background-color: $backgroud-input !important;
   border-radius: 8px;
   max-height: 44px;
   box-shadow: none;
@@ -20,7 +20,6 @@
   .conteiner {
     gap: 8px;
     width: 100%;
-    flex: 1;
 
     img {
       max-width: 20px;
@@ -28,10 +27,10 @@
     }
 
     ion-input {
-      --background: transparent;
+      --background: $backgroud-input !important;
       --padding-start: 0;
       --padding-end: 0;
-      --color: #{$text-input};
+      --color: #{$text-input} !important;
       font-size: 16px;
       border: none;
       outline: none;

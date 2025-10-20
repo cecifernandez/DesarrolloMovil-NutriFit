@@ -64,11 +64,11 @@ const routes: Routes = [
       import(
         './pages/main/profile/profile.module'
       ).then((m) => m.ProfilePageModule),
-  },  {
+  },
+  {
     path: 'objective',
     loadChildren: () => import('./pages/onboarding/objective/objective.module').then( m => m.ObjectivePageModule)
   },
-
   // {
   //   path: 'progress',
   //   loadChildren: () =>

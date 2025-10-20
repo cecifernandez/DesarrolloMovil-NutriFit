@@ -1,64 +1,44 @@
 import {
   Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
+  forwardRef,
   ViewChild
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IonModal } from '@ionic/angular';
+import { MONTHS } from '@/app/constants/months.constants';
 
 @Component({
   standalone: false,
   selector: 'picker-date',
   templateUrl: './picker-date.component.html',
   styleUrls: ['./picker-date.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => PickerDateComponent),
+      multi: true
+    }
+  ],
 })
-export class PickerDateComponent implements OnInit {
-  @Input() placeholder: string = '';
-  @Input() value: string = '';
-  @Output() valueSelected = new EventEmitter<string>();
-
+export class PickerDateComponent implements ControlValueAccessor {
   @ViewChild(IonModal) modal!: IonModal;
-
   days: number[] = [];
-  months: { name: string; value: number }[] = [];
+  months = MONTHS;
   years: number[] = [];
 
   selectedDay: number = 1;
   selectedMonth: number = 1;
   selectedYear: number = 2000;
+  value: string = '';
 
-  currentValue: string = '';
+  private onChange: (value: string) => void = () => {};
+  private onTouched: () => void = () => {};
 
-  ngOnInit(): void {
-    this.months = [
-      { name: 'Enero', value: 1 },
-      { name: 'Febrero', value: 2 },
-      { name: 'Marzo', value: 3 },
-      { name: 'Abril', value: 4 },
-      { name: 'Mayo', value: 5 },
-      { name: 'Junio', value: 6 },
-      { name: 'Julio', value: 7 },
-      { name: 'Agosto', value: 8 },
-      { name: 'Septiembre', value: 9 },
-      { name: 'Octubre', value: 10 },
-      { name: 'Noviembre', value: 11 },
-      { name: 'Diciembre', value: 12 },
-    ];
-
+  ngOnInit() {
     const currentYear = new Date().getFullYear();
     this.years = Array.from({ length: 100 }, (_, i) => currentYear - i);
 
-    if (this.value) {
-      const [day, month, year] = this.value.split('/').map(Number);
-      this.selectedDay = day;
-      this.selectedMonth = month;
-      this.selectedYear = year;
-    }
-
-    this.actualizarDias();
-    this.currentValue = this.formatDate(this.selectedDay, this.selectedMonth, this.selectedYear);
+    this.updateDay();
   }
 
   openModal() {
@@ -66,48 +46,49 @@ export class PickerDateComponent implements OnInit {
   }
 
   closeModal(role: string) {
-    const formatted = this.formatDate(this.selectedDay, this.selectedMonth, this.selectedYear);
-    this.modal.dismiss(formatted, role);
-
     if (role === 'confirm') {
-      this.currentValue = formatted;
-      this.valueSelected.emit(formatted);
+      this.value = this.formatDate(this.selectedDay, this.selectedMonth, this.selectedYear);
+      this.onChange(this.value); // actualiza el ngModel
+      this.onTouched();
     }
+    this.modal.dismiss();
   }
 
-  onDidDismiss(event: CustomEvent) {
-    const { role, data } = event.detail;
-    if (role !== 'confirm') return;
-
-    this.currentValue = data;
-    this.valueSelected.emit(data);
+  writeValue(value: any) {
+    this.value = value;
+  }
+  
+  registerOnChange(fn: any) {
+    this.onChange = fn;
   }
 
-  onDayChange(event: any) {
-    this.selectedDay = Number(event.detail?.value);
+  registerOnTouched(fn: any) {
+    this.onTouched = fn;
   }
 
-  onMonthChange(event: any) {
-    this.selectedMonth = Number(event.detail?.value);
-    this.actualizarDias();
+  onDidDismiss() {
+    this.onTouched();
   }
 
-  onYearChange(event: any) {
-    this.selectedYear = Number(event.detail?.value);
-    this.actualizarDias();
+  onDayChange(e: any) {
+    this.selectedDay = e.detail.value;
   }
 
-  private actualizarDias() {
-    const maxDays = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
+  onMonthChange(e: any) {
+    this.selectedMonth = e.detail.value;
+    this.updateDay();
+  }
+
+  onYearChange(e: any) {
+    this.selectedYear = e.detail.value;
+    this.updateDay();
+  }
+
+  private updateDay() {
+    const maxDays =  new Date(this.selectedYear, this.selectedMonth, 0).getDate();
     this.days = Array.from({ length: maxDays }, (_, i) => i + 1);
 
-    if (this.selectedDay > maxDays) {
-      this.selectedDay = maxDays;
-    }
-  }
-
-  private getDaysInMonth(month: number, year: number): number {
-    return new Date(year, month, 0).getDate();
+    if (this.selectedDay > maxDays) this.selectedDay = maxDays;
   }
 
   private formatDate(day: number, month: number, year: number): string {

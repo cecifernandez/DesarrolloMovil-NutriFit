@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ButtonText } from '@/app/enum/button-text/button-text';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'welcome-nutri-fit',
@@ -11,7 +12,15 @@ import { ButtonText } from '@/app/enum/button-text/button-text';
 export class WelcomeNutriFitPage implements OnInit {
   ButtonText = ButtonText;
 
-  constructor() { }
+  goToLoginWithEmail() {
+    this.router.navigate(['./login']);
+  }
+
+  goToRegister() {
+    this.router.navigate(['./register']);
+  }
+
+  constructor(private router: Router) { }
 
   ngOnInit() { }
 }

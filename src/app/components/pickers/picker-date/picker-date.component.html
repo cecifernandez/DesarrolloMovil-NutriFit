@@ -3,9 +3,11 @@
   label="Fecha de Nacimiento"
   type="text"
   (click)="openModal()"
-></input-text-with-icon>
+  [ngModel]="value"
+  [readonly]="true"
+  ></input-text-with-icon>
 
-<ion-modal #modal (didDismiss)="onDidDismiss($event)" class="modal-container">
+<ion-modal #modal (didDismiss)="onDidDismiss()" class="modal-container">
   <ng-template>
     <div class="back-toolbar">
       <ion-icon name="close-outline" class="icon-back" (click)="closeModal('cancel')"></ion-icon>
@@ -14,19 +16,19 @@
     </div>
 
     <ion-picker class="picker">
-      <ion-picker-column [value]="selectedDay" (ionChange)="onDayChange($event)">
+      <ion-picker-column (ionChange)="onDayChange($event)" [value]="selectedDay" > 
         <ion-picker-column-option *ngFor="let d of days" [value]="d">
           {{ d }}
         </ion-picker-column-option>
       </ion-picker-column>
 
-      <ion-picker-column [value]="selectedMonth" (ionChange)="onMonthChange($event)">
+      <ion-picker-column (ionChange)="onMonthChange($event)" [value]="selectedMonth" >
         <ion-picker-column-option *ngFor="let m of months" [value]="m.value">
           {{ m.name }}
         </ion-picker-column-option>
       </ion-picker-column>
 
-      <ion-picker-column [value]="selectedYear" (ionChange)="onYearChange($event)">
+      <ion-picker-column (ionChange)="onYearChange($event)" [value]="selectedYear" >
         <ion-picker-column-option *ngFor="let y of years" [value]="y">
           {{ y }}
         </ion-picker-column-option>

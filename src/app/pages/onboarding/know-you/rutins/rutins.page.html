@@ -1,12 +1,16 @@
 <ion-content [fullscreen]="true">
   <div class="rutins-content-conteiner">
     <div class="content-header">
-      <ion-icon name="arrow-back-outline" class="icon-back"></ion-icon>
+      <ion-icon name="arrow-back-outline" class="icon-back" (click)="backObjectivePerson()"></ion-icon>
       <ion-text class="you-progress-text">Tu progreso empieza acá</ion-text>
     </div>
-    <input-search></input-search>
-    <ion-text class="max-rutins">Podés elegir hasta 3 rutinas (2/3).</ion-text>
-    <card-rutin class="cards-rutins"></card-rutin>
-      <primary-button [propEnum]="ButtonText.next" class="button-next"></primary-button>    
+    <div class="content-routines">
+      <ion-text class="max-rutins">Podés elegir hasta 3 rutinas ({{ selectedRoutineCount }}/3).</ion-text>
+      <card-rutin [categories]="categories" [maxSelectedReached]="selectedRoutines.length >= 3"
+        (cardSelected)="onCardSelected($event)" (exerciseSelected)="onExerciseSelected($event)"
+        class="cards-rutins"></card-rutin>
+    </div>
+    <primary-button *ngIf="selectedRoutines.length >= 1" [propEnum]="ButtonText.next" class="button-next"
+      (click)="goToHome()"></primary-button>
   </div>
 </ion-content>

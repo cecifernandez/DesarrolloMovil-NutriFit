@@ -1,16 +1,30 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IonModal } from '@ionic/angular';
-
 
 @Component({
   selector: 'picker-genero',
   templateUrl: './picker-genero.component.html',
   styleUrls: ['./picker-genero.component.scss'],
-  standalone:false
+  standalone: false,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => PickerGeneroComponent),
+      multi: true,
+    },
+  ],
 })
 
-export class PickerGeneroComponent {
-    private _options: string[] = ['Femenino', 'Masculino', 'Otro'];
+export class PickerGeneroComponent implements ControlValueAccessor {
+  @Input() value: string = '';
+
+  @ViewChild(IonModal) modal!: IonModal;
+
+  private onChange: (value: string) => void = () => {};
+  private onTouched: () => void = () => {};
+
+  private _options: string[] = ['Femenino', 'Masculino', 'Otro'];
 
   @Input()
   set options(value: string[]) {
@@ -23,13 +37,6 @@ export class PickerGeneroComponent {
     return this._options;
   }
 
-  @Input() placeholder: string = 'Selecciona una opción';
-  @Input() value: string = 'Género';
-
-  @Output() valueSelected = new EventEmitter<string>();
-
-  @ViewChild(IonModal) modal!: IonModal;
-
   currentValue: string = '';
 
   ngOnInit() {
@@ -41,17 +48,31 @@ export class PickerGeneroComponent {
   }
 
   closeModal(role: string) {
-    this.modal.dismiss(this.currentValue, role);
     if (role === 'confirm') {
-      this.valueSelected.emit(this.currentValue);
+      this.value = this.currentValue;
+      this.onChange(this.value); // actualiza el ngModel
+      this.onTouched();
     }
+    this.modal.dismiss();
   }
 
   onIonChange(event: CustomEvent) {
     this.currentValue = event.detail.value;
   }
 
-  onDidDismiss(event: CustomEvent) {
-    
+  onDidDismiss() {
+    this.onTouched();
+  }
+
+  writeValue(value: any) {
+    this.value = value;
+  }
+
+  registerOnChange(fn: any) {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any) {
+    this.onTouched = fn;
   }
 }

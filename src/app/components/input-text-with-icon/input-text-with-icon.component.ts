@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
@@ -18,7 +18,13 @@ export class InputTextWithIconComponent implements ControlValueAccessor {
   @Input() iconPath!: string;
   @Input() label!: string;
   @Input() type: string = 'text'; // tipo del input (text, password, email, etc.)
+  @Input() value: string = '';
+  @Input() readonly: boolean = false;
+  @Input() disabled: boolean = false;
 
+  @Output() onClick = new EventEmitter<void>();
+
+  
   showPassword = false;
 
   // Método para alternar visibilidad de la contraseña
@@ -38,9 +44,8 @@ export class InputTextWithIconComponent implements ControlValueAccessor {
       : 'assets/svg/icon-auth/password-hidden.svg';
   }
 
-  value = '';
-  onChange: any = () => { };
-  onTouched: any = () => { };
+  private onChange: any = () => {};
+  private onTouched: () => void = () => {};
 
   writeValue(value: any) {
     this.value = value;
@@ -55,9 +60,10 @@ export class InputTextWithIconComponent implements ControlValueAccessor {
   }
 
   onInputChange(event: any) {
-    const value = event.detail?.value ?? '';
-    this.value = value;
-    this.onChange(value);
+    const input = event.target as HTMLInputElement;
+    // const value = event.detail?.value ?? '';
+    this.value = input.value;
+    this.onChange(this.value);
     this.onTouched();
   }
 }

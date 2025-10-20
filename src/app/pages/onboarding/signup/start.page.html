@@ -1,7 +1,7 @@
   <ion-content [fullscreen]="true">
     <div class="conteiner-content ion-display-flex ion-flex-column">
       <div class="conteiner-register">
-        <ion-icon name="close-outline" class="button-close"></ion-icon>
+        <ion-icon name="close-outline" class="button-close" (click)="backWelcome()"></ion-icon>
         <div class="content-register ion-display-flex ion-flex-column">
           <ion-text class="text-register">Crea tu cuenta</ion-text>
           <ion-text class="text-register-acc">Sumaté creando una cuenta nueva.</ion-text>
@@ -12,27 +12,29 @@
           iconPath="assets/svg/icon-profile/disable.svg"
           label="Nombre usuario"
           type="text"
+          [(ngModel)]="inputs.username"
         >
         </input-text-with-icon>
         <input-text-with-icon
           iconPath="assets/svg/icon-auth/email.svg"
           label="Email"
           type="email"
-          [(ngModel)]="email"
+          [(ngModel)]="inputs.email"
         >
         </input-text-with-icon>
         <input-text-with-icon
           iconPath="assets/svg/icon-auth/password.svg"
           label="Contraseña"
           type="password"
-          [(ngModel)]="password"
+          [(ngModel)]="inputs.password"
         >
         </input-text-with-icon>
         <input-text-with-icon
           iconPath="assets/svg/icon-auth/password.svg"
           label="Confirmar constraseña"
-          type="password" 
-        > <!-- [(ngModel)]="password" escribe en ambos inputs si se coloca, buscar solución -->
+          type="password"
+          [(ngModel)]="inputs.passwordConfirm"
+          >
         </input-text-with-icon>
       </div>
 
@@ -45,7 +47,7 @@
 
       <div class="ion-display-flex ion-flex-row ion-align-items-center ion-justify-content-center">
         <ion-text class="have-acc">
-          ¿Ya tenés una cuenta? <span class="login-button"> Inicia sesión</span>
+          ¿Ya tenés una cuenta? <span class="login-button" (click)="goToLogin()">Inicia sesión</span>
         </ion-text>
       </div>
     </div>

@@ -2,7 +2,6 @@
   <div class="about-you-conteiner ion-display-flex ion-flex-column">
     <div class="about-you-content ion-display-flex ion-flex-column">
       <div class="content-header ion-display-flex ion-flex-row">
-        <ion-icon name="arrow-back-outline" class="icon-back"></ion-icon>
         <ion-text class="about-you-personalizate">Conocerte nos ayuda a personalizar tu plan</ion-text>
       </div>
     
@@ -13,11 +12,11 @@
     </div>
   
     <div class="pickers-container ion-display-flex ion-flex-column">
-      <picker-date></picker-date>
-      <picker-peso></picker-peso>
-      <picker-altura></picker-altura>
-      <picker-genero></picker-genero>
+      <picker-date [(ngModel)]="personDate.birthDate"></picker-date>
+      <picker-peso [(ngModel)]="personDate.weight"></picker-peso>
+      <picker-altura [(ngModel)]="personDate.height"></picker-altura>
+      <picker-genero [(ngModel)]="personDate.gender"></picker-genero>
     </div>
   </div>
-  <primary-button [propEnum]="ButtonText.next"></primary-button>
+  <primary-button [propEnum]="ButtonText.next" (click)="goNext()"></primary-button>
 </div>

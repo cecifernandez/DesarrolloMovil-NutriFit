@@ -1,38 +1,100 @@
 @import '/src/global.scss';
 
-.card-conteiner {
-  margin: 0px;
+.card-container {
+  width: 100%;
   border-radius: 8px;
-
-  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.15);
+  
+  margin: 0px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   
   .content-card-rutin {
     padding: 16px;
     height: 140px;
-
+    max-height: 160px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: start;
-    gap: 8;
-
+  
     .text-rutin {
-      max-width: 210px;
-      text-wrap: wrap;
-      color: $text-color;
-
       font-size: 24px;
-      line-height: 28px;
-
-      font-weight: 700;
-    }
-
-    .exercise-text {
+      font-weight: 600;
       color: $text-color;
+    }
+  
+    .exercise-text {
       font-size: 14px;
-      line-height: 20px;
+      color: $text-color;
+    }
+  }
 
-      font-weight: 400;
+  .exercises-list {
+    position: relative;
+    z-index: 10;
+    padding: 16px;
+    background-color: $backgroud-input;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .selected-exercise {
+      gap: 8px;
+      justify-items: center;
+      align-items: center;
+
+      .icon-back {
+        font-size: 14px;
+        color: $text-color;
+        cursor: pointer;
+      }
+      
+      .exercise-counter {
+        font-size: 14px;
+        font-weight: 600;
+        color: $text-color;
+        margin: 0px;      
+        text-align: start;
+      
+        small {
+          font-weight: 400;
+          color: $text-input;
+        }
+      }
+    }
+    
+    .exercise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      
+      .exercise-card {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        background: $backgroud-app;
+        border-radius: 8px;
+        padding: 8px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.2s ease-in-out;
+      
+        &.selected {
+          background-color: #999;
+          color: #fff;
+        }
+      
+        .exercise-name {
+          color: $text-color;
+          margin: 0;
+        }
+      
+        .exercise-difficulty {
+          color: $text-color;
+          opacity: 0.6;
+        }
+      }
     }
   }
 }

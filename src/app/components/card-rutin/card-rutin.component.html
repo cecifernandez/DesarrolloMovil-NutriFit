@@ -1,6 +1,44 @@
-<ion-card *ngFor="let card of cards" [ngClass]="card.type" [style.background-color]="card.color" class="card-conteiner">
+<ion-card
+  *ngFor="let card of cards"
+  class="card-container"
+  [style.background-color]="card.color"
+  [class.active]="selectedCard === card.title"
+  [class.disabled]="maxSelectedReached && selectedCard !== card.title && !isCardSelected(card.title)"
+  (click)="onSelect(card)"
+>
   <div class="content-card-rutin">
     <ion-text class="text-rutin">{{ card.title }}</ion-text>
     <ion-text class="exercise-text">{{ card.description }}</ion-text>
+  </div>
+
+  <!-- Lista de ejercicios dentro de la card -->
+  <div
+    *ngIf="selectedCard === card.title"
+    class="exercises-list"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="ion-display-flex ion-flex-row selected-exercise">
+      <ion-icon
+        name="close-outline"
+        class="icon-back"
+        (click)="onSelect(card); $event.stopPropagation()"
+      ></ion-icon>
+
+      <h3 class="exercise-counter">
+        Ejercicios seleccionados: {{ getExerciseCount(card.title) }}/5
+      </h3>
+    </div>
+
+    <div class="exercise-grid">
+      <div
+        *ngFor="let exercise of getExercisesForCard(card.title)"
+        class="exercise-card"
+        [class.selected]="isExerciseSelected(card.title, exercise)"
+        (click)="toggleExerciseSelection(card.title, exercise)"
+      >
+        <p class="exercise-name">{{ exercise.name }}</p>
+        <small class="exercise-difficulty">{{ exercise.difficulty }}</small>
+      </div>
+    </div>
   </div>
 </ion-card>

@@ -11,7 +11,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('@/app/pages/onboarding/singup/start.module').then(
+          import('@/app/pages/onboarding/signup/start.module').then(
             (m) => m.StartPageModule
           ),
       },
@@ -29,13 +29,13 @@ const routes: Routes = [
             (m) => m.ObjectivePageModule
           ),
       },
-      // {
-      //   path: 'rutins-person',
-      //   loadChildren: () =>
-      //     import('').then(
-      //       (m) => m.StartPointPerson
-      //     ),
-      // },
+      {
+        path: 'routines-person',
+        loadChildren: () =>
+          import('@/app/pages/onboarding/know-you/rutins/rutins.module').then(
+            (m) => m.RutinsPageModule
+          ),
+      },
     ],
   },
 ];

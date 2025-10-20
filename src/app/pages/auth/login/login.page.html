@@ -1,10 +1,10 @@
 <ion-content [fullscreen]="true">
   <div class="conteiner-content ion-display-flex ion-flex-column">
     <div class="conteiner-login">
-      <ion-icon name="close-outline" class="button-close"></ion-icon>
+      <ion-icon name="close-outline" class="button-close" (click)="backWelcome()"></ion-icon>
       <div class="content-login ion-display-flex ion-flex-column">
         <ion-text class="text-login">Iniciar sesión</ion-text>
-        <ion-text class="text-connect-acc">Conectaté con tu cuenta.</ion-text>
+        <ion-text class="text-connect-acc">Conectate con tu cuenta.</ion-text>
       </div>
     </div>
     <div class="conteiner-inputs ion-display-flex ion-flex-column">
@@ -12,14 +12,14 @@
         iconPath="assets/svg/icon-auth/email.svg"
         label="Email"
         type="email"
-        [(ngModel)]="email" name="email"
+        [(ngModel)]="inputs.email" 
       >
       </input-text-with-icon>
       <input-text-with-icon
         iconPath="assets/svg/icon-auth/password.svg"
         label="Contraseña"
         type="password"
-        [(ngModel)]="password"
+        [(ngModel)]="inputs.password"
       >
       </input-text-with-icon>
     </div>
@@ -34,9 +34,9 @@
     <div
       class="conteiner-links ion-display-flex ion-flex-column ion-align-items-center"
     >
-      <ion-text class="forgot-password">¿Olvidaste la contraseña?</ion-text>
+      <ion-text class="forgot-password" (click)="goToForgotPass()">¿Olvidaste la contraseña?</ion-text>
       <ion-text class="dont-have-acc">
-        ¿No tenés cuenta? <span class="register-button">Regístrate aquí</span>
+        ¿No tenés cuenta? <span class="register-button" (click)="goToRegister()">Regístrate aquí</span>
       </ion-text>
     </div>
   </div>

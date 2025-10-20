@@ -6,12 +6,14 @@
       [placeholder]="label"
       [value]="value"
       (ionInput)="onInputChange($event)"
+      (click)="onClick.emit()"
+      [readonly]="readonly"
+      [disabled]="disabled"
     ></ion-input>
   </div>
   <ion-icon
     *ngIf="type === 'password'"
     [src]="toggleIcon"
-    slot="end"
     slot="end"
     (click)="togglePasswordVisibility()"
     class="icon-toggle"

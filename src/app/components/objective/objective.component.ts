@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'objective',
@@ -9,11 +9,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ObjectiveComponent {
   @Input() label!: string;
   @Input() icon!: string;
-  @Input() active: boolean = false;
-  @Output() selected = new EventEmitter<boolean>();
+  @Input() checked: boolean = false;
+  @Input() disabled: boolean = false;
+
+  @Output() checkedChange = new EventEmitter<boolean>();
 
   toggle() {
-    this.active = !this.active;
-    this.selected.emit(this.active);
+    if (this.disabled) return;
+    this.checked = !this.checked;
+    this.checkedChange.emit(this.checked);
   }
 }

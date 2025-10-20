@@ -1,5 +1,5 @@
-import { ButtonIcon } from "../enum/button-icon/button-icon";
-import { ButtonText } from "../enum/button-text/button-text";
+import { ButtonIcon } from "@/app/enum/button-icon/button-icon";
+import { ButtonText } from "@/app/enum/button-text/button-text";
 
 export interface Tab {
   name: string;

@@ -11,14 +11,8 @@
       gap: 56px;
 
       .content-header {
-        justify-content: start;
+        justify-content: center;
         align-items: center;
-        gap: 56px;
-
-        .icon-back {
-          color: $text-color;
-          font-size: 20px;
-        }
 
         .about-you-personalizate {
           max-width: 175px;

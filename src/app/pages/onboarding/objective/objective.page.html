@@ -2,7 +2,7 @@
   <div class="about-you-conteiner ion-display-flex ion-flex-column">
     <div class="about-you-content ion-display-flex ion-flex-column">
       <div class="content-header ion-display-flex ion-flex-row">
-        <ion-icon name="arrow-back-outline" class="icon-back"></ion-icon>
+        <ion-icon name="arrow-back-outline" class="icon-back" (click)="backAboutPerson()"></ion-icon>
         <ion-text class="about-you-personalizate">Conocerte nos ayuda a personalizar tu plan</ion-text>
       </div>
       <div class="text-conteiner ion-display-flex ion-flex-column">
@@ -14,38 +14,50 @@
       <objective 
         label="Mejorar mi salud"
         icon="assets/png/icon-objective/heart.png"
-        [active]="false"
+        [disabled]="selectedCount >= 3 && !objectivePerson.mejorarSalud"
+        [(checked)]="objectivePerson.mejorarSalud"
+        (checkedChange)="onObjectiveChange('mejorarSalud', $event)"
       ></objective>
       <objective 
         label="Bajar de peso"
         icon="assets/png/icon-objective/weight-loss.png"
-        [active]="false"
+        [disabled]="selectedCount >= 3 && !objectivePerson.bajarPeso"
+        [(checked)]="objectivePerson.bajarPeso"
+        (checkedChange)="onObjectiveChange('bajarPeso', $event)"
       ></objective>
       <objective 
         label="Ganar masa muscular"
         icon="assets/png/icon-objective/dumbells.png"
-        [active]="false"
+        [disabled]="selectedCount >= 3 && !objectivePerson.ganarMasaMuscular"
+        [(checked)]="objectivePerson.ganarMasaMuscular"
+        (checkedChange)="onObjectiveChange('ganarMasaMuscular', $event)"
       ></objective>
       <objective 
         label="Reducir el estrés"
         icon="assets/png/icon-objective/salutation.png"
-        [active]="false"
+        [disabled]="selectedCount >= 3 && !objectivePerson.reducirEstres"
+        [(checked)]="objectivePerson.reducirEstres"
+        (checkedChange)="onObjectiveChange('reducirEstres', $event)"
       ></objective>
       <objective 
         label="Dormir mejor"
         icon="assets/png/icon-objective/sleep.png"
-        [active]="false"
+        [disabled]="selectedCount >= 3 && !objectivePerson.dormirMejor"
+        [(checked)]="objectivePerson.dormirMejor"
+        (checkedChange)="onObjectiveChange('dormirMejor', $event)"
       ></objective>
       <input-text-with-icon 
         iconPath="assets/png/icon-objective/other.png"
         label="Otro (escribí el tuyo)"
+        [disabled]="selectedCount >= 3 && objectivePerson.otro.trim() === ''" 
         type="text"
         class="input-class"
+        [(ngModel)]="objectivePerson.otro"
       ></input-text-with-icon>
-      <ion-text class="max-objective">
-        Podés elegir hasta 3 objetivos (3/3).
+      <ion-text class="max-objective" *ngIf="selectedCount > 0">
+        Podés elegir hasta 3 objetivos ({{ selectedCount }}/3).
       </ion-text>
     </div>
   </div>
-  <primary-button [propEnum]="ButtonText.next"></primary-button>
+  <primary-button [propEnum]="ButtonText.next" (click)="goNext()"></primary-button>
 </div>

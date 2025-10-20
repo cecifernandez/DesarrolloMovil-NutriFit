@@ -3,9 +3,11 @@
   label="Altura"
   type="text"
   (click)="openModal()"
+  [ngModel]="value"
+  [readonly]="true"
 ></input-text-with-icon>
 
-<ion-modal #modal (didDismiss)="onDidDismiss($event)" class="modal-container">
+<ion-modal #modal (didDismiss)="onDidDismiss()" class="modal-container">
   <ng-template>
     <div class="back-toolbar">
       <ion-icon name="close-outline" class="icon-back" (click)="closeModal('cancel')"></ion-icon>

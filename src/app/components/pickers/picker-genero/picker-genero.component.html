@@ -2,11 +2,12 @@
   iconPath="assets/svg/icons-create-acc/gender.svg"
   label="Genero"
   type="text"
+  [value]="value"
   (click)="openModal()"
->
-</input-text-with-icon>
+  [readonly]="true"
+></input-text-with-icon>
 
-<ion-modal #modal (didDismiss)="onDidDismiss($event)" class="modal-container">
+<ion-modal #modal (didDismiss)="onDidDismiss()" class="modal-container">
   <ng-template>
     <div class="back-toolbar">
       <ion-icon name="close-outline" class="icon-back" (click)="closeModal('cancel')"></ion-icon>
