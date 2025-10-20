@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { FirebaseService } from '@/firebase.service';
-
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ButtonText } from '@/app/enum/button-text/button-text';
 import { ButtonIcon } from '@/app/enum/button-icon/button-icon';
 import { InputText } from '@/app/enum/input-text/input-text';
-import { LoginForm, LoginFormModel } from '@/app/models/login.models';
 import { ZodError } from 'zod';
+import { LoginForm } from '@/app/models/login.models';
 
 @Component({
   selector: 'app-login',
@@ -64,14 +63,8 @@ export class LogInPage {
 
   async login() {
     try {
-      const result = LoginFormModel.safeParse(this.inputs);
-
-      if (!result.success) {
-        throw result.error;
-      }
-
-      await this.firebaseService.login(result.data);
-
+      const user = await this.firebaseService.login(this.inputs);
+      console.log('Usuario logueado:', user);
       this.router.navigate(['./home']);
     } catch (error: any) {
       let errorMsg =

@@ -1,1 +1,62 @@
 @import "/src/global.scss";
+
+.header {
+  padding: 16px 16px 0 16px;
+  .title-header {
+    font-size: 12px;
+    color: #9a9a9a;
+  }
+  .spacer {
+    padding-top: 5px;
+    .username-header {
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+}
+
+.chart-card {
+  background: #f7f7f7;
+  border-radius: 16px;
+  border: solid 1px #e1e1e1;
+  margin: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: 150px;
+  position: relative;
+
+  .card-header {
+    .calories-text {
+      position: relative;
+      font-weight: 600;
+      font-size: 16px;
+      top: -20px;
+    }
+  }
+}
+
+.routines-section {
+  padding: 30px 16px 0 16px;
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .see-all {
+      font-size: 12px;
+      color: $primary-color;
+    }
+  }
+  .routines-list {
+    padding-top: 5px;
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px;
+  }
+}

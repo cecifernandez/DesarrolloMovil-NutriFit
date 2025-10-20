@@ -2,15 +2,12 @@ import { GoalOption } from "@/types/goal-option.type";
 import { RoutineType } from "./routine.category.inteface";
 
 export interface UserProfile {
-  uid: string; /** ID del usuario en Firebase */
-  email: string;
   username: string;
-  password: string;
 
   /** Datos personales */
   birthDate: string;
-  weight: number;
-  height: number;
+  weight: number | undefined;
+  height: number | undefined;
   gender: 'Masculino' | 'Femenino' | 'Otro';
 
   /** Objetivos del usuario */
@@ -18,6 +15,8 @@ export interface UserProfile {
 
   /** Rutinas seleccionadas */
   routines: RoutineType[];
+
+  imageUser?: string;
 
   createdAt: string;
   updatedAt?: string;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,Output,EventEmitter} from '@angular/core';
 import { ButtonText } from '../../enum/button-text/button-text';
 
 @Component({
@@ -9,8 +9,13 @@ import { ButtonText } from '../../enum/button-text/button-text';
 })
 export class PrimaryButtonComponent implements OnInit {
   @Input() propEnum!: ButtonText;
-
+  @Output() buttonClick = new EventEmitter<void>();
+  
   constructor() { }
 
   ngOnInit() { }
+
+   onClick() {
+    this.buttonClick.emit();
+  }
 }

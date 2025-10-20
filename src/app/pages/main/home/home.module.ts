@@ -7,6 +7,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 
 import { ComponentsModule } from '@/app/components/components.module';
+import { BaseChartDirective } from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -14,8 +15,9 @@ import { ComponentsModule } from '@/app/components/components.module';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    ComponentsModule
-  ],
+    ComponentsModule,
+    BaseChartDirective,
+    ],
   declarations: [HomePage]
 })
 export class HomePageModule {}

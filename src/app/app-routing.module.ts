@@ -65,6 +65,14 @@ const routes: Routes = [
         './pages/main/profile/profile.module'
       ).then((m) => m.ProfilePageModule),
   },
+
+  {
+    path: 'about-you',
+    loadChildren: () =>
+      import('./pages/onboarding/about-you/about-you.module').then(
+        (m) => m.AboutYouModule
+      ),
+  },
   {
     path: 'objective',
     loadChildren: () => import('./pages/onboarding/objective/objective.module').then( m => m.ObjectivePageModule)

@@ -1,3 +1,33 @@
 <ion-content [fullscreen]="true">
+  <div class="header">
+    <ion-text class="title-header">{{ getTodayDate() }}</ion-text>
+
+    <div class="spacer">
+      <ion-text
+        *ngIf="afAuth.authState | async as user"
+        class="username-header"
+      >
+        {{ greeting }}, {{ user.displayName }}
+      </ion-text>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="card-header ion-display-flex">
+      <h3 class="calories-text">🔥 Calorías</h3>
+    </div>
+    <canvas class="caloriesChart" #caloriesCanvas></canvas>
+  </div>
+
+  <div class="routines-section">
+    <div class="section-header">
+      <ion-text class="section-title">Tus rutinas</ion-text>
+      <ion-text class="see-all">Ver todo</ion-text>
+    </div>
+    <div class="routines-list">
+      <card-rutin class="cards-routines"></card-rutin>
+    </div>
+  </div>
+
   <tabs activeTab="home"></tabs>
 </ion-content>
