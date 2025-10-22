@@ -104,8 +104,8 @@ export class StartPage {
     const toast = await this.toastController.create({
       message,
       duration: 3000,
-      color: 'danger',
-      position: 'middle',
+      color: 'white',
+      position: 'bottom',
     });
     await toast.present();
   }
@@ -136,6 +136,7 @@ export class StartPage {
         message: `¡Bienvenido ${user.displayName ?? 'usuario'}!`,
         duration: 3000,
         color: 'success',
+        position: "bottom"
       });
       await toast.present();
     } catch (error: any) {
@@ -143,7 +144,8 @@ export class StartPage {
       const toast = await this.toastController.create({
         message: 'Error al registrarte con Google: ' + (error.message || ''),
         duration: 3000,
-        color: 'danger',
+        color: 'white',
+        position: "bottom"
       });
       await toast.present();
     }

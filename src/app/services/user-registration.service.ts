@@ -20,7 +20,7 @@ export class UserRegistrationService {
     // Filtrar campos sensibles antes de guardar
     const filteredPartial = this.removeSensitiveFields(partial);
 
-     // Fusionar con lo que ya había
+    // Fusionar con lo que ya había
     this.userData = { ...this.userData, ...filteredPartial };
 
     // También eliminar las claves sensibles antes de guardar al localStorage

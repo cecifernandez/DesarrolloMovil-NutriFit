@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { FirebaseService } from 'src/firebase.service';
 import { ToastController } from '@ionic/angular';
+import { ButtonText } from '@/app/enum/button-text/button-text';
+import { InputText } from '@/app/enum/input-text/input-text';
+import { LoginForm } from '@/app/models/login.models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,11 +14,23 @@ import { ToastController } from '@ionic/angular';
 })
 export class ForgotPasswordPage {
   email: string = '';
+  ButtonText = ButtonText;
+  ButtonInputEmail = InputText;
+
+  input: LoginForm = {
+    email: '',
+    password: ''
+  };
 
   constructor(
     private firebaseService: FirebaseService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private router: Router
   ) {}
+
+  goToLogin() {
+    this.router.navigate(['./login']);
+  }
 
   async resetPassword() {
     if (!this.email) {
@@ -22,17 +38,19 @@ export class ForgotPasswordPage {
         message: 'Por favor, ingresá tu correo electrónico.',
         duration: 2500,
         color: 'warning',
+        position: "bottom"
       });
       await toast.present();
       return;
     }
 
     try {
-      await this.firebaseService.resetPassword(this.email);
+      await this.firebaseService.resetPassword(this.input.email);
       const toast = await this.toastCtrl.create({
         message: 'Correo enviado. Revisá tu bandeja de entrada.',
         duration: 3000,
         color: 'success',
+        position: "bottom"
       });
       await toast.present();
     } catch (error: any) {
@@ -40,6 +58,7 @@ export class ForgotPasswordPage {
         message: 'Error: ' + (error.message || 'No se pudo enviar el correo.'),
         duration: 3000,
         color: 'danger',
+        position: "bottom"
       });
       await toast.present();
     }

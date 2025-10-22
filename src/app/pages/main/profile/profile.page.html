@@ -1,17 +1,11 @@
 <ion-content [fullscreen]="true" class="profile-content">
-
-
   <div class="profile-card">
     <ion-avatar class="profile-avatar" (click)="changeProfilePhoto()">
       <img [src]="profileImage" alt="Foto de perfil" />
     </ion-avatar>
-
     <h2>{{ dataUser.name }}</h2>
-
-
     <h2 class="profile-name"></h2>
     <p class="profile-gender">{{ dataUser.gener }}</p>
-
     <div class="profile-stats">
       <div class="stat-item">
         <h3>{{ dataUser.weight }}<span>Kg</span></h3>
@@ -22,10 +16,5 @@
         <p>Altura</p>
       </div>
     </div>
-
-
-
-
   </div>
-
 </ion-content>
