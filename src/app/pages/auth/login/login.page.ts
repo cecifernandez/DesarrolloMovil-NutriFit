@@ -39,12 +39,12 @@ export class LogInPage {
     this.router.navigate(['./welcome-nutri-fit']);
   }
 
-  /* Redireccioonaiento a vista forgot-password */
+  /* Redireccionamiento a vista forgot-password */
   goToForgotPass() {
     this.router.navigate(['./forgot-password']);
   }
 
-  /* Redireccioonaiento a vista register */
+  /* Redireccionamiento a vista register */
   goToRegister() {
     this.router.navigate(['./register']);
   }
@@ -105,5 +105,44 @@ export class LogInPage {
       position: 'middle',
     });
     toast.present();
+  }
+
+  /**
+   * Inicia sesión con Google mediante popup.
+   *
+   * Utiliza el método loginWithGooglePopup del servicio FirebaseService.
+   * Redirige al usuario a '/about-you' si es nuevo, o a '/home' si ya existía.
+   * Muestra un toast de bienvenida con el nombre del usuario.
+   *
+   * @async
+   * @returns {Promise<void>}
+   */
+  async loginWithGoogle() {
+    try {
+      const result = await this.firebaseService.loginWithGooglePopup();
+
+      const user = result.user!; // Usuario autenticado
+      const isNewUser = result.additionalUserInfo?.isNewUser;
+
+      // Determina la ruta a la que se redirige
+      const route = isNewUser ? '/about-you' : '/home';
+      await this.router.navigateByUrl(route, { replaceUrl: true });
+
+      // Muestra toast de bienvenida
+      const toast = await this.toastController.create({
+        message: `¡Bienvenido ${user.displayName ?? 'usuario'}!`,
+        duration: 3000,
+        color: 'success',
+      });
+      await toast.present();
+    } catch (error: any) {
+      // Muestra toast de error en caso de fallo
+      const toast = await this.toastController.create({
+        message: 'Error al iniciar sesión con Google: ' + (error.message || ''),
+        duration: 3000,
+        color: 'danger',
+      });
+      await toast.present();
+    }
   }
 }
