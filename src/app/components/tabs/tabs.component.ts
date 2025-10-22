@@ -31,13 +31,13 @@ export class TabsComponent implements OnInit {
       route: '/routines',
       currentIconPath: '',
     },
-    {
-      name: 'foods',
-      icon: ButtonIcon.foods,
-      label: ButtonText.foods,
-      route: '/foods',
-      currentIconPath: '',
-    },
+    // {
+    //   name: 'foods',
+    //   icon: ButtonIcon.foods,
+    //   label: ButtonText.foods,
+    //   route: '/foods',
+    //   currentIconPath: '',
+    // },
     {
       name: 'profile',
       icon: ButtonIcon.profile,

@@ -10,6 +10,7 @@ import z, { ZodError } from 'zod';
 import { RoutineTypeModel } from '@/app/models/routine.models';
 import { ButtonText } from '@/app/enum/button-text/button-text';
 
+
 @Component({
   selector: 'rutins',
   templateUrl: './rutins.page.html',
@@ -36,7 +37,7 @@ export class RutinsPage implements OnInit {
     try {
       this.categories = await loadBaseRoutines(this.exercisesService);
 
-      const result = RoutineTypeModel.safeParse(this.categories);
+      const result = z.array(RoutineTypeModel).safeParse(this.categories);
 
       if (!result.success) throw result.error;
     } catch (error: unknown) {
@@ -74,36 +75,29 @@ export class RutinsPage implements OnInit {
       await this.mostrarErrorToast('Solo puedes seleccionar hasta 3 rutinas.');
       return;
     }
-
-    category.selected = !alreadySelected;
-
-    if (category.selected) {
-      this.selectedRoutines.push(category.paramValue);
-    } else {
-      category.selectedExercises = [];
-      this.selectedRoutines = this.selectedRoutines.filter(
-        (r) => r !== category.paramValue
-      );
-    }
   }
 
   // --- EJERCICIO SELECCIÓN ---
-  async onExerciseSelected(event: { cardTitle: string; exercises: Exercise[] }) {
+  async onExerciseSelected(event: {
+    cardTitle: string;
+    exercises: Exercise[];
+  }) {
     const category = this.categories.find((c) => c.name === event.cardTitle);
     if (!category) return;
 
-    // Si intenta seleccionar ejercicios en una rutina nueva y ya hay 3 rutinas elegidas
+    // Bloquear si intenta seleccionar ejercicios de una rutina NO seleccionada y ya alcanzó el límite
     if (!category.selected && this.maxSelectedReached) {
       await this.mostrarErrorToast('Ya alcanzaste el límite de 3 rutinas.');
       return;
     }
 
+    // Permitir seleccionar o deseleccionar ejercicios dentro de las rutinas elegidas
     category.selectedExercises = event.exercises;
 
+    // --- Manejo del estado de selección ---
     if (category.selectedExercises.length > 0 && !category.selected) {
       category.selected = true;
       this.selectedRoutines.push(category.paramValue);
-
     } else if (category.selectedExercises.length === 0 && category.selected) {
       category.selected = false;
       this.selectedRoutines = this.selectedRoutines.filter(
@@ -115,16 +109,17 @@ export class RutinsPage implements OnInit {
   // --- NAVEGACIÓN Y ERRORES ---
   goToHome() {
     try {
-      const result = RoutineTypeModel.safeParse(this.categories);
+      const result = z.array(RoutineTypeModel).safeParse(this.categories);
+      console.log(result);
 
       if (!result.success) throw result.error;
 
       this.userRegistratorService.setData({
-        selectedRoutines: this.categories.filter(c => c.selected),
+        selectedRoutines: this.categories.filter((c) => c.selected),
       });
 
       this.router.navigate(['./home']);
-    } catch (error : unknown) {
+    } catch (error: unknown) {
       let errorMsg = 'Hubo un error al cargar las rutinas.';
 
       if (error instanceof ZodError && error.issues.length > 0) {

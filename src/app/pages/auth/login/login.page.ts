@@ -64,7 +64,7 @@ export class LogInPage {
   async login() {
     try {
       const user = await this.firebaseService.login(this.inputs);
-      console.log('Usuario logueado:', user);
+
       this.router.navigate(['./home']);
     } catch (error: any) {
       let errorMsg =
@@ -102,7 +102,7 @@ export class LogInPage {
       message,
       duration: 3000,
       color: 'red',
-      position: 'middle',
+      position: 'bottom',
     });
     toast.present();
   }

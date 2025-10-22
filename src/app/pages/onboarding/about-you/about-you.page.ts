@@ -48,7 +48,7 @@ export class AboutYouPage {
         height: parseInt(result.data.height),
       };
 
-      // Se guardan los datos del primer paso en el servicio compartido
+      // Se guardan los datos del segundo paso en el servicio compartido
       this.userRegistrationService.setData(data);
 
       // Navega al siguiente formulario
