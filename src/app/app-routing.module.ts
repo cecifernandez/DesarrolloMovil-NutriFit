@@ -30,13 +30,13 @@ const routes: Routes = [
         './pages/auth/register/register.module'
       ).then((m) => m.RegisterPageModule),
   },
-  // {
-  //   path: 'forgot-password',
-  //   loadChildren: () =>
-  //     import(
-  //       './pages/auth/forgot-password/forgot-password.module'
-  //     ).then((m) => m.ForgotPasswordPageModule),
-  // },
+  {
+    path: 'forgot-password',
+    loadChildren: () =>
+      import(
+        './pages/auth/forgot-password/forgot-password.module'
+      ).then((m) => m.ForgotPasswordPageModule),
+  },
   {
     path: 'home',
     loadChildren: () =>
