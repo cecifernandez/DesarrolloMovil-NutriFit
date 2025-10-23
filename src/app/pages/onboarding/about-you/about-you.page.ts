@@ -34,7 +34,7 @@ export class AboutYouPage {
     gender: ''
   };
 
-  goNext() {
+  async goNext() {
     try {
       const result = PersonalDataModel.safeParse(this.personDate);
 
@@ -50,6 +50,9 @@ export class AboutYouPage {
 
       // Se guardan los datos del segundo paso en el servicio compartido
       this.userRegistrationService.setData(data);
+
+       await this.userRegistrationService.saveToFirestore();
+
 
       // Navega al siguiente formulario
       this.router.navigate(['../objective-person'], { relativeTo: this.route });

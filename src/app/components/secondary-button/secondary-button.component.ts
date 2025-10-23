@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, HostBinding } from '@angular/core';
 
 import { ButtonText } from '@/app/enum/button-text/button-text';
 
@@ -8,10 +8,22 @@ import { ButtonText } from '@/app/enum/button-text/button-text';
   styleUrls: ['./secondary-button.component.scss'],
   standalone: false
 })
-export class SecondaryButtonComponent  implements OnInit {
+export class SecondaryButtonComponent implements OnInit {
   @Input() propEnum!: ButtonText;
-  
+  @Input() active: boolean = false;
+
+  @Output() buttonClick = new EventEmitter<void>();
+
+  @HostBinding('class.active') get isActive() {
+    return this.active;
+  }
+  onClick() {
+    this.buttonClick.emit();
+  }
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+
 }

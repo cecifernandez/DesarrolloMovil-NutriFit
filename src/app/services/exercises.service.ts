@@ -65,7 +65,7 @@ export class ExercisesService {
           observer.complete();
         },
         error: (mockErr) => {
-          console.error(`❌ Error al cargar el mock de ${paramValue}`, mockErr);
+          console.error(`Error al cargar el mock de ${paramValue}`, mockErr);
           observer.error(mockErr);
         }
       });
@@ -86,7 +86,7 @@ export class ExercisesService {
               observer.complete();
             },
             error: (mockErr) => {
-              console.error(`❌ Error al cargar el mock de ${paramValue}`, mockErr);
+              console.error(`Error al cargar el mock de ${paramValue}`, mockErr);
               observer.error(mockErr);
             }
           });

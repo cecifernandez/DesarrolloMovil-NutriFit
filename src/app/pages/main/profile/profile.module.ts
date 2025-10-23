@@ -9,14 +9,19 @@ import { ProfilePage } from './profile.page';
 
 import { ComponentsModule } from '@/app/components/components.module';
 
+
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
   ],
-  declarations: [ProfilePage]
+  declarations: [
+    ProfilePage
+  ]
 })
-export class ProfilePageModule {}
+export class ProfilePageModule { }

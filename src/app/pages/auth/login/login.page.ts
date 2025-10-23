@@ -49,36 +49,7 @@ export class LogInPage {
     this.router.navigate(['./register']);
   }
 
-  async signinWithGoogle() {
-    try {
-      const result = await this.firebaseService.loginWithGooglePopup();
 
-      const user = result.user!;
-      const isNewUser = result.additionalUserInfo?.isNewUser;
-
-      // Determinar ruta según sea usuario nuevo o existente
-      const route = isNewUser ? '/about-you' : '/home';
-      await this.router.navigateByUrl(route, { replaceUrl: true });
-
-      // Mostrar toast de bienvenida
-      const toast = await this.toastController.create({
-        message: `¡Bienvenido ${user.displayName ?? 'usuario'}!`,
-        duration: 3000,
-        color: 'success',
-        position: "bottom"
-      });
-      await toast.present();
-    } catch (error: any) {
-      // Mostrar toast de error si falla la autenticación
-      const toast = await this.toastController.create({
-        message: 'Error al registrarte con Google: ' + (error.message || ''),
-        duration: 3000,
-        color: 'white',
-        position: "bottom"
-      });
-      await toast.present();
-    }
-  }
 
   /**
    * Realiza el proceso de inicio de sesión del usuario.
@@ -156,31 +127,30 @@ export class LogInPage {
    * @returns {Promise<void>}
    */
   async loginWithGoogle() {
-    try {
-      const result = await this.firebaseService.loginWithGooglePopup();
+  try {
+    const result = await this.firebaseService.loginWithGooglePopup();
+    const user = result.user!;
 
-      const user = result.user!; // Usuario autenticado
-      const isNewUser = result.additionalUserInfo?.isNewUser;
+    // Preguntamos al servicio si es usuario nuevo
+    const isNewUser = await this.firebaseService.isNewUser(user.uid);
 
-      // Determina la ruta a la que se redirige
-      const route = isNewUser ? '/about-you' : '/home';
-      await this.router.navigateByUrl(route, { replaceUrl: true });
+    const route = isNewUser ? '/about-you' : '/home';
+    await this.router.navigateByUrl(route, { replaceUrl: true });
 
-      // Muestra toast de bienvenida
-      const toast = await this.toastController.create({
-        message: `¡Bienvenido ${user.displayName ?? 'usuario'}!`,
-        duration: 3000,
-        color: 'success',
-      });
-      await toast.present();
-    } catch (error: any) {
-      // Muestra toast de error en caso de fallo
-      const toast = await this.toastController.create({
-        message: 'Error al iniciar sesión con Google: ' + (error.message || ''),
-        duration: 3000,
-        color: 'danger',
-      });
-      await toast.present();
-    }
+    const toast = await this.toastController.create({
+      message: `¡Bienvenido ${user.displayName ?? 'usuario'}!`,
+      duration: 3000,
+      color: 'success',
+    });
+    await toast.present();
+
+  } catch (error: any) {
+    const toast = await this.toastController.create({
+      message: 'Error al iniciar sesión con Google: ' + (error.message || ''),
+      duration: 3000,
+      color: 'danger',
+    });
+    await toast.present();
   }
+}
 }

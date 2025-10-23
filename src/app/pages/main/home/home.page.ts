@@ -1,5 +1,7 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
+import type { User } from 'firebase/auth';
+import { inject } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
@@ -18,6 +20,7 @@ export class HomePage implements AfterViewInit, OnInit {
  @ViewChild('caloriesCanvas') private caloriesCanvas!: ElementRef;
   greeting: string = '';
   chart: any;
+  user: User | null = null;
 
     // Este código permite que los ejercicios seleccionados en la tab de Rutinas
   // se reflejen automáticamente en el Home cuando hagamos el merge.
@@ -29,7 +32,11 @@ export class HomePage implements AfterViewInit, OnInit {
   // Inyectar el servicio (ajustar según el constructor existente)
   /** constructor(private exercisesService: ExercisesService) {} */
 
-  constructor(public afAuth: AngularFireAuth) {}
+  private auth: Auth;
+
+  constructor() {
+    this.auth = inject(Auth); // inyección modular
+  }
 
   ngOnInit() {
     // Escucha los cambios desde la tab de rutinas
@@ -39,6 +46,11 @@ export class HomePage implements AfterViewInit, OnInit {
      *   console.log('Ejercicios actualizados desde Rutinas:', data);
      * });
      */
+    
+    onAuthStateChanged(this.auth, (user) => {
+      this.user = user;
+    });
+
     this.setGreeting();
   }
 
