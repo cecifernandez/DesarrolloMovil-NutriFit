@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   loadChildren: () =>
+  //     import(
+  //       './pages/start-nutri-fit/start-nutri-fit.module'
+  //     ).then((m) => m.StartNutriFitPageModule),
+  // },
   {
     path: '',
-    loadChildren: () =>
-      import(
-        './pages/start-nutri-fit/start-nutri-fit.module'
-      ).then((m) => m.StartNutriFitPageModule),
-  },
-  {
-    path: 'welcome-nutri-fit',
     loadChildren: () =>
       import(
         './pages/onboarding/welcome-nutri-fit/welcome-nutri-fit.module'
