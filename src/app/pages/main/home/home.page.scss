@@ -32,6 +32,14 @@
       font-size: 16px;
       top: -20px;
     }
+
+    .start-count {
+      font-size: 0.95rem; 
+      font-weight: 500;
+      line-height: 1.1;
+      margin-left: auto; 
+      cursor: pointer;
+    }
   }
 }
 
@@ -55,8 +63,8 @@
   }
   .routines-list {
     padding-top: 5px;
-    display: flex; 
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     gap: 15px;
   }
 }

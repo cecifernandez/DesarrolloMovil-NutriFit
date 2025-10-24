@@ -11,7 +11,7 @@ Chart.register(...registerables);
 // IMPORTAR el servicio (descomentar cuando se una con el código del Home)
 /** import { ExercisesService } from 'src/app/services/exercises.service'; */
 
-interface ActivityData{
+interface ActivityData {
   distance: number;
   duration: number;
   calories: number;
@@ -26,7 +26,7 @@ interface ActivityData{
 })
 
 export class HomePage implements AfterViewInit, OnInit {
- @ViewChild('caloriesCanvas') private caloriesCanvas!: ElementRef;
+  @ViewChild('caloriesCanvas') private caloriesCanvas!: ElementRef;
   greeting: string = '';
   chart: any;
 
@@ -35,21 +35,21 @@ export class HomePage implements AfterViewInit, OnInit {
   private watchId: string | null = null;
   private positions: Position[] = [];
   private startTime: number = 0;
-  
+
   // Configuración del usuario
   userWeight: number = 0;
-  
+
   // Datos en tiempo real
   currentDistance = 0;
   currentDuration = 0;
   currentSpeed = 0;
   estimatedCalories = 0;
-  
+
   // Resultados finales
   activityResults: ActivityData | null = null;
-  
+
   private statusInterval: any;
-  
+
   // Factores de calorías por km según actividad
   private readonly CALORIE_FACTORS = {
     walking: 50,   // < 5 km/h
@@ -58,7 +58,7 @@ export class HomePage implements AfterViewInit, OnInit {
     cycling: 40    // > 20 km/h
   };
 
-    // Este código permite que los ejercicios seleccionados en la tab de Rutinas
+  // Este código permite que los ejercicios seleccionados en la tab de Rutinas
   // se reflejen automáticamente en el Home cuando hagamos el merge.
   // Descomentar e integrar cuando estemos trabajando sobre el .ts correspondiente.
 
@@ -68,7 +68,7 @@ export class HomePage implements AfterViewInit, OnInit {
   // Inyectar el servicio (ajustar según el constructor existente)
   /** constructor(private exercisesService: ExercisesService) {} */
 
-  constructor(public afAuth: AngularFireAuth, private userService: UserRegistrationService, private caloriesService: CaloriesTrackingService) {}
+  constructor(public afAuth: AngularFireAuth, private userService: UserRegistrationService, private caloriesService: CaloriesTrackingService) { }
 
   ngOnInit() {
     const user = this.userService.getData();
@@ -96,7 +96,7 @@ export class HomePage implements AfterViewInit, OnInit {
   }
 
   getTodayDate(): string {
-    const options: Intl.DateTimeFormatOptions = { weekday: 'long',  month: 'long', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
     const today = new Date();
     const dateString = today.toLocaleDateString('es-ES', options);
     return dateString.charAt(0).toUpperCase() + dateString.slice(1);
@@ -119,36 +119,35 @@ export class HomePage implements AfterViewInit, OnInit {
     const labels = this.caloriesService.getLast7DaysLabels();
     const dataValues = this.caloriesService.getWeeklyCalories();
 
+    // 1) Encontrar el/los máximos
+    const maxValue = Math.max(...dataValues);
+    const isMaxIndex = dataValues.map(v => v === maxValue);
 
-    // Lógica para que solo 'Jue' sea verde
-    const backgroundColors = labels.map(label => label === 'Jue' ? '#82D68E' : '#EAEAEA');
-    const textColors = labels.map(label => label === 'Jue' ? '#82D68E' : '#9e9e9e');
-
+    // 2) Colores dinámicos según si es máximo o no
+    const backgroundColors = isMaxIndex.map(isMax => isMax ? '#82D68E' : '#EAEAEA');
+    const textColors = isMaxIndex.map(isMax => isMax ? '#82D68E' : '#9e9e9e');
+    const fontWeights = isMaxIndex.map(isMax => isMax ? 'bold' as const : 'normal' as const);
 
     this.chart = new Chart(this.caloriesCanvas.nativeElement, {
-      type: 'bar', // Tipo de gráfico
+      type: 'bar',
       data: {
-        labels: labels,
+        labels,
         datasets: [{
           data: dataValues,
           backgroundColor: backgroundColors,
-          borderRadius: 8, // ¡Para redondear las barras!
-          borderSkipped: false, // Necesario para que redondee todas las esquinas
+          borderRadius: 8,
+          borderSkipped: false
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          // Oculta la leyenda superior
-          legend: {
-            display: false
-          },
-          // Personaliza el tooltip que aparece al hacer clic
+          legend: { display: false },
           tooltip: {
             enabled: true,
             callbacks: {
-              label: function(context) {
+              label: function (context) {
                 return `${context.parsed.y} kcal`;
               }
             },
@@ -162,19 +161,13 @@ export class HomePage implements AfterViewInit, OnInit {
           }
         },
         scales: {
-          y: {
-            display: false
-          },
+          y: { display: false },
           x: {
             display: true,
-            grid: {
-              display: false, 
-            },
+            grid: { display: false },
             ticks: {
-              color: (context) => textColors[context.index], // Aplica colores dinámicos a las etiquetas
-              font: {
-                weight: (context) => (labels[context.index] === 'Jue' ? 'bold' : 'normal'),
-              }
+              color: (ctx) => textColors[ctx.index],
+              font: (ctx) => ({ weight: fontWeights[ctx.index] })
             }
           }
         }
@@ -183,11 +176,11 @@ export class HomePage implements AfterViewInit, OnInit {
   }
 
 
- async getPermissions(): Promise<boolean> {
+  async getPermissions(): Promise<boolean> {
     try {
       const status = await Geolocation.requestPermissions();
       console.log('Geolocation permission status:', status);
-      
+
       return status.location === 'granted';
     } catch (e) {
       console.error('Error requesting location permissions', e);
@@ -230,7 +223,7 @@ export class HomePage implements AfterViewInit, OnInit {
             console.error('Error en watchPosition:', err);
             return;
           }
-          
+
           if (position) {
             this.positions.push(position);
             console.log('Nueva posición:', {
@@ -248,7 +241,7 @@ export class HomePage implements AfterViewInit, OnInit {
       }, 1000);
 
       console.log('Seguimiento iniciado');
-      
+
     } catch (error) {
       console.error('Error iniciando actividad:', error);
       alert('Error al iniciar el seguimiento');
@@ -290,18 +283,18 @@ export class HomePage implements AfterViewInit, OnInit {
       // Limpiar datos
       this.positions = [];
       this.startTime = 0;
-      
+
     } catch (error) {
       console.error('Error deteniendo actividad:', error);
     }
   }
 
   // ============ CÁLCULOS ============
-  
+
   private updateStatus() {
     const distance = this.calculateTotalDistance();
     const duration = (Date.now() - this.startTime) / 1000 / 60; // minutos
-    
+
     this.currentDistance = distance;
     this.currentDuration = duration;
     this.currentSpeed = duration > 0 ? (distance / duration) * 60 : 0;
@@ -322,7 +315,7 @@ export class HomePage implements AfterViewInit, OnInit {
         this.positions[i].coords.latitude,
         this.positions[i].coords.longitude
       );
-      
+
       // Filtrar saltos improbables (más de 100m entre lecturas)
       if (distance < 0.1) {
         totalDistance += distance;
@@ -336,15 +329,15 @@ export class HomePage implements AfterViewInit, OnInit {
     const R = 6371; // Radio de la Tierra en km
     const dLat = this.toRad(lat2 - lat1);
     const dLon = this.toRad(lon2 - lon1);
-    
-    const a = 
+
+    const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(this.toRad(lat1)) * Math.cos(this.toRad(lat2)) *
       Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    
+
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c;
-    
+
     return distance;
   }
 
@@ -354,15 +347,15 @@ export class HomePage implements AfterViewInit, OnInit {
 
   private calculateCalories(distance: number, speed: number): number {
     let factor = 50; // walking por defecto
-    
+
     if (speed < 5) factor = this.CALORIE_FACTORS.walking;
     else if (speed < 8) factor = this.CALORIE_FACTORS.jogging;
     else if (speed < 20) factor = this.CALORIE_FACTORS.running;
     else factor = this.CALORIE_FACTORS.cycling;
-    
+
     const weightFactor = this.userWeight / 70;
     const calories = distance * factor * weightFactor;
-    
+
     return Math.round(calories);
   }
 

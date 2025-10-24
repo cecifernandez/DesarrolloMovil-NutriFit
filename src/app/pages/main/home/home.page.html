@@ -13,8 +13,9 @@
   </div>
 
   <div class="chart-card">
-    <div class="card-header ion-display-flex">
+    <div class="card-header ion-display-flex ion-justify-content-between ion-align-items-center">
       <h3 class="calories-text">🔥 Calorías</h3>
+      <h3 class="start-count" (click)="startActivity()">Empezar a contar</h3>
     </div>
     <canvas class="caloriesChart" #caloriesCanvas></canvas>
   </div>
