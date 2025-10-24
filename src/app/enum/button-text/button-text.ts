@@ -15,7 +15,8 @@ export enum ButtonText {
   home = "Inicio",
   routines = "Rutinas",
   foods = "Comidas",
-  profile = "Perfil"
+  profile = "Perfil",
   
+  sendLink = "Enviar enlace"
 }
 

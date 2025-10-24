@@ -114,7 +114,7 @@ export class ObjectivePage implements OnInit {
 
       const { data } = result;
 
-      // Se guardan los datos del primer paso en el servicio compartido
+      // Se guardan los datos del tercer paso en el servicio compartido
       this.userRegistrationService.setData(data);
 
       // Navega al siguiente formulario

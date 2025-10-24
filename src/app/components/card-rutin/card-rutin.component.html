@@ -24,9 +24,9 @@
         (click)="onSelect(card); $event.stopPropagation()"
       ></ion-icon>
 
-      <h3 class="exercise-counter">
+      <ion-text class="exercise-counter">
         Ejercicios seleccionados: {{ getExerciseCount(card.title) }}/5
-      </h3>
+      </ion-text>
     </div>
 
     <div class="exercise-grid">

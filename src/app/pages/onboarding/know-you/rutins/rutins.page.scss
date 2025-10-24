@@ -1,7 +1,7 @@
 @import '/src/global.scss';
 
 .rutins-content-conteiner {
-  padding: 44px 16px 0px 16px;
+  padding: 44px 24px 0px 24px;
 
   display: flex;
   flex-direction: column;
@@ -17,18 +17,14 @@
     gap: 56px;
 
     .icon-back {
-      color: $text-color;
       font-size: 20px;
+      color: $text-color;
       cursor: pointer;
     }
 
     .you-progress-text {
-      text-align: center;
-      color: $text-color;
-
       font-size: 16px;
-      line-height: 20px;
-
+      color: $text-color;
       font-weight: 600;
     }
   }
@@ -37,6 +33,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    margin: 0px;
     
     .max-rutins {
       color: $text-color;
@@ -50,7 +47,7 @@
     .cards-rutins {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 16px;
     }
   }
 

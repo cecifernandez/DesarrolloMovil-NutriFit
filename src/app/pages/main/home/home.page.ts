@@ -72,6 +72,7 @@ export class HomePage implements AfterViewInit, OnInit {
 
   ngOnInit() {
     const user = this.userService.getData();
+    console.log('Datos del usuario cargados en Home:', user);
     this.userWeight = user.weight ? user.weight : 0;
     // Escucha los cambios desde la tab de rutinas
     /** 

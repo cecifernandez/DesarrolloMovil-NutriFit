@@ -7,18 +7,35 @@ type ObjectivePersonal = z.infer<typeof ObjectivePersonalModel>;
 
 @Injectable({ providedIn: 'root' })
 export class UserRegistrationService {
+  private removeSensitiveFields<T extends Record<string, any>>(data: T): T {
+    if (!data) return data;
+
+    const { email, password, passwordConfirm, ...safeData } = data;
+    return safeData as T;
+  }
+
   private userData: Partial<UserProfile & ObjectivePersonal> = {};
 
   setData(partial: Partial<UserProfile & ObjectivePersonal>) {
-    this.userData = { ...this.userData, ...partial };
-    localStorage.setItem('user', JSON.stringify((this.userData)));
+    // Filtrar campos sensibles antes de guardar
+    const filteredPartial = this.removeSensitiveFields(partial);
+
+    // Fusionar con lo que ya había
+    this.userData = { ...this.userData, ...filteredPartial };
+
+    // También eliminar las claves sensibles antes de guardar al localStorage
+    const filteredUserData = this.removeSensitiveFields(this.userData);
+
+    localStorage.setItem('user', JSON.stringify((filteredUserData)));
   }
 
   getData(): Partial<UserProfile & ObjectivePersonal> {
     const stored = localStorage.getItem('user');
+
     if (stored) {
-      this.userData = JSON.parse(stored); // <-- parseamos el string a objeto
+      this.userData = JSON.parse(stored);
     }
+
     return this.userData;
   }
 

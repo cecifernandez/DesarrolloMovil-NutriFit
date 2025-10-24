@@ -34,9 +34,11 @@
     }
 
     .start-count {
-      font-size: 0.95rem; 
-      font-weight: 500;
-      line-height: 1.1;
+      position: relative;
+      font-size: 10px; 
+      color: #82D68E;
+      font-weight: bold;
+      top: -20px;
       margin-left: auto; 
       cursor: pointer;
     }

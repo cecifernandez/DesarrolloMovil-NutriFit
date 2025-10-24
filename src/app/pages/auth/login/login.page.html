@@ -23,17 +23,12 @@
       >
       </input-text-with-icon>
     </div>
-
-    <ion-button (click)="login()" class="button-login">
-      Iniciar sesión
-    </ion-button>
-    <!-- <primary-button [propEnum]="ButtonText.logIn" (click)="login()"></primary-button> -->
-
+    <primary-button [propEnum]="ButtonText.logIn" (click)="login()"></primary-button>
     <secondary-button-with-icon
       iconPath="assets/svg/icons/google.svg"
       label="Iniciar sesión con Google"
+      (click)="signinWithGoogle()"
     ></secondary-button-with-icon>
-
     <div
       class="conteiner-links ion-display-flex ion-flex-column ion-align-items-center"
     >

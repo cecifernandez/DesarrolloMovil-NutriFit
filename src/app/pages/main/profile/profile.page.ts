@@ -12,6 +12,7 @@ export class ProfilePage implements OnInit {
   profileImage: string = 'https://ionicframework.com/docs/img/demos/avatar.svg';
 
   dataUser = {
+    name: '',
     gener: '',
     weight: 0,
     height: 0
@@ -21,6 +22,7 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
     const user = this.userRegistrationService.getData();
+    this.dataUser.name = user.username ? user.username : 'Usuario'
     this.dataUser.gener = user.gender ? user.gender : '';
     this.dataUser.weight = user.weight ? user.weight : 0;
     this.dataUser.height = user.height ? user.height : 0;

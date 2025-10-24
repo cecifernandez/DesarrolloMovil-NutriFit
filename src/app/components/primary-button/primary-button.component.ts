@@ -1,5 +1,5 @@
 import { Component, OnInit, Input,Output,EventEmitter} from '@angular/core';
-import { ButtonText } from '../../enum/button-text/button-text';
+import { ButtonText } from '@/app/enum/button-text/button-text';
 
 @Component({
   selector: 'primary-button',
@@ -15,7 +15,7 @@ export class PrimaryButtonComponent implements OnInit {
 
   ngOnInit() { }
 
-   onClick() {
+  onClick() {
     this.buttonClick.emit();
   }
 }

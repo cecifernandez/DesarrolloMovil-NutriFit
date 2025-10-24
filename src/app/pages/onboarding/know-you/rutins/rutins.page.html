@@ -8,7 +8,8 @@
       <ion-text class="max-rutins">Podés elegir hasta 3 rutinas ({{ selectedRoutineCount }}/3).</ion-text>
       <card-rutin [categories]="categories" [maxSelectedReached]="selectedRoutines.length >= 3"
         (cardSelected)="onCardSelected($event)" (exerciseSelected)="onExerciseSelected($event)"
-        class="cards-rutins"></card-rutin>
+        class="cards-rutins"
+        ></card-rutin>
     </div>
     <primary-button *ngIf="selectedRoutines.length >= 1" [propEnum]="ButtonText.next" class="button-next"
       (click)="goToHome()"></primary-button>
