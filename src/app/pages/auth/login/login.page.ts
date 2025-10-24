@@ -36,7 +36,7 @@ export class LogInPage {
 
   /* Redireccionamiento a vista welcome-nutri-fit */
   backWelcome() {
-    this.router.navigate(['./welcome-nutri-fit']);
+    this.router.navigate(['/']);
   }
 
   /* Redireccionamiento a vista forgot-password */

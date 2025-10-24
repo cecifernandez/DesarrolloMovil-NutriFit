@@ -14,7 +14,7 @@ const routes: Routes = [
     loadChildren: () =>
       import(
         './pages/onboarding/welcome-nutri-fit/welcome-nutri-fit.module'
-      ).then((m) => m.WelcolmeNutriFitPageModule),
+      ).then((m) => m.WelcomeNutriFitPageModule),
   },
   {
     path: 'login',

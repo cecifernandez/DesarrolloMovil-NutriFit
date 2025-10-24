@@ -35,7 +35,7 @@ export class StartPage {
 
   /* Redireccionamiento a vista welcome-nutri-fit */
   backWelcome() {
-    this.router.navigate(['./welcome-nutri-fit']);
+    this.router.navigate(['/']);
   }
 
   /* Redireccionamiento a vista login */
