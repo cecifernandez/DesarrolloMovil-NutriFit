@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import { RegisterForm } from './app/models/register.models';
 import { LoginForm } from './app/models/login.models';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -82,5 +83,23 @@ export class FirebaseService {
    */
   resetPassword(email: string) {
     return this.afAuth.sendPasswordResetEmail(email);
+  }
+
+  /**
+   * Redirige al usuario si ya tiene una sesión activa.
+   *
+   * Este método consulta el estado actual de autenticación mediante Firebase.
+   * Si el usuario está logueado, lo redirige a la ruta especificada (por defecto, '/home').
+   *
+   * @param {Router} router - Instancia del enrutador de Angular para realizar la navegación.
+   * @param {string} [fallbackRoute='/home'] - Ruta a la que se redirige si el usuario está autenticado.
+   * @returns {void}
+ */
+  redirectIfAuthenticated(router: Router, fallbackRoute = '/home') {
+    this.afAuth.currentUser.then(user => {
+      if (user) {
+        router.navigate([fallbackRoute]);
+      }
+    });
   }
 }
