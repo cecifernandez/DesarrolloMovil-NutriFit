@@ -8,6 +8,7 @@ Aplicación móvil desarrollada con **Ionic + Angular** para ayudar a los usuari
 
 - Ionic Framework
 - Angular
+- Typescript
 - Firebase Authentication
 - Firestore
 - AngularFire (compat)
