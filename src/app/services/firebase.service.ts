@@ -18,8 +18,8 @@ import {
   Timestamp,
   getDoc
 } from '@angular/fire/firestore';
-import { RegisterForm } from './app/models/register.models';
-import { LoginForm } from './app/models/login.models';
+import { RegisterForm } from '../models/register.models';
+import { LoginForm } from '../models/login.models';
 import { Observable } from 'rxjs';
 
 @Injectable({

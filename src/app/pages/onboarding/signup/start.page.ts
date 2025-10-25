@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ButtonText } from '@/app/enum/button-text/button-text';
-import { FirebaseService } from '@/firebase.service';
+import { FirebaseService } from '@/app/services/firebase.service';
 import { RegisterForm, RegisterFormModel } from '@/app/models/register.models';
 import { ZodError } from 'zod';
 import { UserRegistrationService } from '@/app/services/user-registration.service';

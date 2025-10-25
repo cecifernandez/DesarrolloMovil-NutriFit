@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
+import { Firestore, doc, getDoc } from '@angular/fire/firestore';
+import { Auth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class ExercisesService {
   private selectedExercisesSubject = new BehaviorSubject<{ [key: string]: any[] }>({});
   selectedExercises$ = this.selectedExercisesSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private firestore: Firestore, private auth: Auth) {}
 
   /**
    * Actualiza los ejercicios seleccionados para una rutina específica
@@ -94,5 +96,18 @@ export class ExercisesService {
       });
       */
     });
+  }
+
+  async getUserRoutines(): Promise<any[]> {
+    const user = await this.auth.currentUser;
+    if (!user) return [];
+
+    const ref = doc(this.firestore, `users/${user.uid}`);
+    const snap = await getDoc(ref);
+
+    if (!snap.exists()) return [];
+    const data = snap.data();
+
+    return data['selectedRoutines'] || [];
   }
 }

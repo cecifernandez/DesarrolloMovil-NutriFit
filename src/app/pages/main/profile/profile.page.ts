@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { UserRegistrationService } from '@/app/services/user-registration.service';
 import { ButtonText } from '@/app/enum/button-text/button-text';
- import { FirebaseService } from '@/firebase.service';
+ import { FirebaseService } from '@/app/services/firebase.service';
  import { Auth } from '@angular/fire/auth'; 
  import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { UserProfile } from '@/app/interfaces/user-profile.interface';

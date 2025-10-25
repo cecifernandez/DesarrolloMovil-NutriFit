@@ -8,10 +8,10 @@ import { UserRegistrationService } from '@/app/services/user-registration.servic
 import { CaloriesTrackingService } from '@/app/services/calories-tracking.service';
 
 
-Chart.register(...registerables);
-
 // IMPORTAR el servicio (descomentar cuando se una con el código del Home)
-/** import { ExercisesService } from 'src/app/services/exercises.service'; */
+import { ExercisesService } from 'src/app/services/exercises.service'; 
+
+Chart.register(...registerables);
 
 interface ActivityData {
   distance: number;
@@ -32,6 +32,11 @@ export class HomePage implements AfterViewInit, OnInit {
   greeting: string = '';
   chart: any;
   user: User | null = null;
+  public userData: any = {};
+  private auth: Auth;
+
+  selectedRoutines: any[] = [];
+  public allCategories: any[] = [];
 
   // Estado del tracking
   isTracking = false;
@@ -71,19 +76,30 @@ export class HomePage implements AfterViewInit, OnInit {
   // Inyectar el servicio (ajustar según el constructor existente)
   /** constructor(private exercisesService: ExercisesService) {} */
 
-  constructor(public afAuth: AngularFireAuth, private userService: UserRegistrationService, private caloriesService: CaloriesTrackingService) { }
+  constructor(private userService: UserRegistrationService, private caloriesService: CaloriesTrackingService, private exercisesService: ExercisesService) { 
+    this.auth = inject(Auth); 
+  }
 
-  ngOnInit() {
-    const user = this.userService.getData();
-    console.log('Datos del usuario cargados en Home:', user);
-    this.userWeight = user.weight ? user.weight : 0;
+  async ngOnInit() {
+    await this.userService.loadUserFromFirestore();
+    this.userData = this.userService.getData();
+    console.log('Datos del usuario cargados en Home:', this.userData);
+    this.selectedRoutines = await this.exercisesService.getUserRoutines();
+    console.log('Rutinas cargadas desde Firebase:', this.selectedRoutines);
+    this.userWeight = this.userData.weight ? this.userData.weight : 0;
     // Escucha los cambios desde la tab de rutinas
-    /** 
-     * this.exercisesService.selectedExercises$.subscribe(data => {
-     *   this.selectedExercises = data;
-     *   console.log('Ejercicios actualizados desde Rutinas:', data);
-     * });
-     */
+     
+      // this.exercisesService.selectedExercises$.subscribe(data => {
+      //   this.selectedExercises = data;
+      //   console.log('Ejercicios actualizados desde Rutinas:', data);
+      // });
+     
+      try {
+      this.allCategories = await this.exercisesService.getUserRoutines(); 
+      console.log('Categorías cargadas para el creador:', this.allCategories);
+    } catch (error) {
+      console.error('Error al cargar las categorías de ejercicios', error);
+    }
     
     onAuthStateChanged(this.auth, (user) => {
       this.user = user;

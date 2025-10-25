@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ButtonText } from '@/app/enum/button-text/button-text';
 import { Router } from '@angular/router';
-import { FirebaseService } from '@/firebase.service';
+import { FirebaseService } from '@/app/services/firebase.service';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -28,7 +28,17 @@ export class WelcomeNutriFitPage implements OnInit {
     private toastController: ToastController
   ) { }
 
-  ngOnInit() { }
+  /**
+   * Verifica si el usuario ya está autenticado al iniciar el componente.
+   *
+   * Si hay una sesión activa, redirige automáticamente al usuario a la ruta definida
+   * (por defecto, '/home'), evitando que acceda a pantallas públicas como Welcome.
+   *
+   * @returns {void}
+  */
+  ngOnInit() { 
+    //this.firebaseService.redirectIfAuthenticated(this.router);
+  }
 
   /**
    * Inicia sesión con Google mediante popup.
@@ -45,11 +55,11 @@ export class WelcomeNutriFitPage implements OnInit {
       const result = await this.firebaseService.loginWithGooglePopup();
 
       const user = result.user!; // Usuario autenticado
-      const isNewUser = result.additionalUserInfo?.isNewUser;
+      // const isNewUser = result.additionalUserInfo?.isNewUser;
 
-      // Determina la ruta a la que se redirige
-      const route = isNewUser ? '/about-you' : '/home';
-      await this.router.navigateByUrl(route, { replaceUrl: true });
+      // // Determina la ruta a la que se redirige
+      // const route = isNewUser ? '/about-you' : '/home';
+      // await this.router.navigateByUrl(route, { replaceUrl: true });
 
       // Muestra toast de bienvenida
       const toast = await this.toastController.create({

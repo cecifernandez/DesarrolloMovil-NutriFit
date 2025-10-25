@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Firestore, doc, setDoc, Timestamp } from "@angular/fire/firestore";
+import { Firestore, doc, setDoc, Timestamp, getDoc } from "@angular/fire/firestore";
 import { Auth } from "@angular/fire/auth";
 import { UserProfile } from "../interfaces/user-profile.interface";
 import { ObjectivePersonalModel } from "../models/objective.models";
@@ -40,6 +40,25 @@ export class UserRegistrationService {
     updatedAt: Timestamp.now() 
   }, { merge: true });
 
+  }
+
+  async loadUserFromFirestore() {
+    const user = this.auth.currentUser;
+    if (!user) {
+      console.warn('loadUserFromFirestore: No hay usuario autenticado.');
+      return null;
+    }
+
+    const userRef = doc(this.firestore, `users/${user.uid}`);
+    const docSnap = await getDoc(userRef);
+
+    if (docSnap.exists()) {
+      this.userData = docSnap.data() as Partial<UserProfile & ObjectivePersonal>;
+      return this.userData;
+    } else {
+      console.warn('loadUserFromFirestore: No se encontraron datos para el usuario.');
+      return null;
+    }
   }
 
   getData(): Partial<UserProfile & ObjectivePersonal> {

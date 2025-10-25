@@ -1,10 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+// 1. Importa la API modular (nueva) para Firestore
+import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'card-rutin',
   templateUrl: './card-rutin.component.html',
   styleUrls: ['./card-rutin.component.scss'],
-  standalone: false,
+  standalone: false, // Asegúrate que este componente esté declarado en un NgModule
 })
 export class CardRutinComponent {
   @Input() categories: any[] = [];
@@ -22,6 +25,12 @@ export class CardRutinComponent {
     { title: 'Piernas y Glúteos', description: '10 Ejercicios programados', type: 'inferior', color: 'rgb(56, 176, 0, 40%)' },
     { title: 'Entrenamiento de Fuerza', description: '10 Ejercicios programados', type: 'fuerza', color: 'rgb(255, 107, 107, 40%)' },
   ];
+
+  constructor(
+    // 2. Inyecta 'Firestore' (nuevo) en lugar de 'AngularFirestore' (antiguo)
+    private firestore: Firestore,
+    private auth: Auth
+  ) {}
 
   onSelect(card: any) {
     this.cardSelected.emit(card.title);
@@ -68,5 +77,42 @@ export class CardRutinComponent {
 
   getExerciseCount(cardTitle: string): number {
     return this.selectedExercises[cardTitle]?.length || 0;
+  }
+
+  // 3. guardar rutina en Firebase (con sintaxis modular)
+  async saveRoutine(cardTitle: string) {
+    const user = this.auth.currentUser;
+    if (!user) {
+      alert('Debes iniciar sesión para guardar la rutina.');
+      return;
+    }
+
+    const selected = this.selectedExercises[cardTitle];
+    if (!selected || selected.length === 0) {
+      alert('Seleccioná al menos un ejercicio antes de guardar.');
+      return;
+    }
+
+    const card = this.cards.find(c => c.title === cardTitle);
+    const routineData = {
+      title: card?.title,
+      description: card?.description,
+      exercises: selected,
+      createdAt: new Date(),
+    };
+
+    try {
+      // 4. Esta es la nueva sintaxis para guardar datos
+      // Crea la referencia a la subcolección: 'userRoutines/{userId}/routines'
+      const routinesCollectionRef = collection(this.firestore, `userRoutines/${user.uid}/routines`);
+      
+      // Añade el nuevo documento a esa subcolección
+      await addDoc(routinesCollectionRef, routineData);
+
+      alert(`Rutina "${cardTitle}" guardada con éxito ✅`);
+    } catch (error) {
+      console.error('Error guardando rutina:', error);
+      alert('Ocurrió un error al guardar la rutina.');
+    }
   }
 }
