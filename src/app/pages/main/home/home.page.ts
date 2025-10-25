@@ -1,5 +1,7 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
+import type { User } from 'firebase/auth';
+import { inject } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { UserRegistrationService } from '@/app/services/user-registration.service';
@@ -29,6 +31,7 @@ export class HomePage implements AfterViewInit, OnInit {
   @ViewChild('caloriesCanvas') private caloriesCanvas!: ElementRef;
   greeting: string = '';
   chart: any;
+  user: User | null = null;
 
   // Estado del tracking
   isTracking = false;
@@ -81,6 +84,11 @@ export class HomePage implements AfterViewInit, OnInit {
      *   console.log('Ejercicios actualizados desde Rutinas:', data);
      * });
      */
+    
+    onAuthStateChanged(this.auth, (user) => {
+      this.user = user;
+    });
+
     this.setGreeting();
   }
 

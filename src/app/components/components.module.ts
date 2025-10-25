@@ -42,6 +42,7 @@ import { FormsModule } from '@angular/forms';
   ],
   exports: [
     PrimaryButtonComponent,
+    SecondaryButtonComponent,
     PrimaryButtonWithIconComponent,
     SecondaryButtonWithIconComponent,
     PickerDateComponent,

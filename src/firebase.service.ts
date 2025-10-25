@@ -1,86 +1,135 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  sendPasswordResetEmail,
+  GoogleAuthProvider,
+  signInWithPopup,
+  UserCredential
+} from '@angular/fire/auth';
+import {
+ Firestore,
+  collection,
+  collectionData,
+  doc,
+  setDoc,
+  Timestamp,
+  getDoc
+} from '@angular/fire/firestore';
 import { RegisterForm } from './app/models/register.models';
 import { LoginForm } from './app/models/login.models';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class FirebaseService {
-  constructor(private afAuth: AngularFireAuth) {}
+
+
+  constructor(private auth: Auth, private firestore: Firestore) {}
 
   /**
-   * Registra un nuevo usuario con email y contraseña.
-   *
-   * Esta función utiliza Firebase Authentication para crear un usuario
-   * con correo electrónico y contraseña. Devuelve una promesa con
-   * el resultado de la creación del usuario.
-   *
-   * @param {RegisterForm} inputs - Objeto con email y password del usuario.
-   * @returns {Promise<firebase.auth.UserCredential>} Resultado de la creación de usuario.
+   * Registra un nuevo usuario y guarda sus datos en Firestore.
    */
-  register(inputs: RegisterForm) {
-    const { email, password } = inputs;
-    return this.afAuth.createUserWithEmailAndPassword(email, password);
+  async register(inputs: RegisterForm): Promise<UserCredential> {
+    const { email, password, username } = inputs;
+
+    try {
+      // Crear usuario en Firebase Authentication
+      const result = await createUserWithEmailAndPassword(this.auth, email, password);
+
+      // Guardar datos del usuario en Firestore
+      if (result.user?.uid) {
+        const userRef = doc(this.firestore, `users/${result.user.uid}`);
+        await setDoc(userRef, {
+          uid: result.user.uid,
+          email,
+          username: username ?? '',
+          createdAt: Timestamp.now()
+        });
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Error al registrar usuario:', error);
+      throw error;
+    }
   }
 
   /**
-   * Inicia sesión de un usuario con email y contraseña.
-   *
-   * Utiliza Firebase Authentication para autenticar al usuario.
-   *
-   * @param {LoginForm} inputs - Objeto con email y password del usuario.
-   * @returns {Promise<firebase.auth.UserCredential>} Resultado del inicio de sesión.
+   * Inicia sesión con email y contraseña.
    */
   login(inputs: LoginForm) {
     const { email, password } = inputs;
-    return this.afAuth.signInWithEmailAndPassword(email, password);
+    return signInWithEmailAndPassword(this.auth, email, password);
   }
 
   /**
-   * Cierra la sesión del usuario actual.
-   *
-   * Llama a Firebase Authentication para cerrar la sesión activa.
-   *
-   * @returns {Promise<void>} Promesa que se resuelve cuando el usuario se desconecta.
+   * Cierra sesión del usuario actual.
    */
   logout() {
-    return this.afAuth.signOut();
+    return signOut(this.auth);
   }
 
   /**
-   * Inicia sesión o registra un usuario con Google mediante un popup.
-   *
-   * Esta función abre un popup de autenticación de Google. Devuelve
-   * el objeto UserCredential que contiene información del usuario
-   * autenticado y, si corresponde, información adicional.
-   *
-   * @async
-   * @throws {Error} Si no se puede obtener el usuario de Google.
-   * @returns {Promise<firebase.auth.UserCredential>} Resultado del login con Google.
+   * Inicia sesión con Google mediante un popup.
    */
-  async loginWithGooglePopup() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const result = await this.afAuth.signInWithPopup(provider);
+ async isNewUser(uid: string): Promise<boolean> {
+    const userRef = doc(this.firestore, `users/${uid}`);
+    const userSnap = await getDoc(userRef);
+    return !userSnap.exists(); // true si es nuevo
+  }
 
-    if (!result.user) {
-      throw new Error('No se pudo obtener el usuario de Google.');
+  async loginWithGooglePopup() {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(this.auth, provider);
+
+    if (result.user) {
+      const userRef = doc(this.firestore, `users/${result.user.uid}`);
+      await setDoc(
+        userRef,
+        {
+          uid: result.user.uid,
+          email: result.user.email,
+          displayName: result.user.displayName ?? '',
+          photoURL: result.user.photoURL ?? '',
+          provider: 'google',
+          createdAt: Timestamp.now()
+        },
+        { merge: true }
+      );
     }
 
-    return result; // devuelve UserCredential
+    return result;
   }
-
   /**
-   * Envía un correo para restablecer la contraseña del usuario.
-   *
-   * Esta función utiliza Firebase Authentication para enviar un email
-   * al usuario con instrucciones para restablecer su contraseña.
-   *
-   * @param {string} email - Correo electrónico del usuario que desea restablecer la contraseña.
-   * @returns {Promise<void>} Promesa que se resuelve cuando el email es enviado.
+   * Envía correo para restablecer la contraseña.
    */
   resetPassword(email: string) {
-    return this.afAuth.sendPasswordResetEmail(email);
+    return sendPasswordResetEmail(this.auth, email);
   }
+
+ 
+/**
+   * Obtiene los datos del usuario actualmente autenticado.
+   */
+  async getCurrentUserData() {
+    const user = this.auth.currentUser;
+    if (!user) {
+      throw new Error('Usuario no autenticado');
+    }
+
+    const userRef = doc(this.firestore, `users/${user.uid}`);
+    const docSnap = await getDoc(userRef);
+    return docSnap; // devuelve DocumentSnapshot
+  }
+  
+  getUsers(): Observable<any[]> {
+  const usersRef = collection(this.firestore, 'users');
+  return collectionData(usersRef, { idField: 'id' }) as Observable<any[]>;
+}
 }

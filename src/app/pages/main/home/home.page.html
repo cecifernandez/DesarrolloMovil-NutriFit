@@ -4,10 +4,10 @@
 
     <div class="spacer">
       <ion-text
-        *ngIf="afAuth.authState | async as user"
+        *ngIf="user" class="username-header"
         class="username-header"
       >
-        {{ greeting }}, {{ user.displayName }}
+         {{ greeting }}, {{ user.displayName ?? 'Usuario' }}
       </ion-text>
     </div>
   </div>
