@@ -92,3 +92,37 @@
   width: fit-content;
   margin: auto;
 }
+
+.chart-card {
+  background: #f7f7f7;
+  border-radius: 16px;
+  border: solid 1px #e1e1e1;
+  margin: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: 150px;
+  position: relative;
+
+  .card-header {
+    .calories-text {
+      position: relative;
+      font-weight: 600;
+      font-size: 16px;
+      top: -20px;
+    }
+  }
+}
+
+.total-week-text {
+  position: relative;
+  font-weight: 600;
+  font-size: 16px;
+  top: -20px;
+  color: var(--ion-color-dark);
+
+  .label-text {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--ion-color-medium-shade);
+  }
+}
