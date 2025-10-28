@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { authGuard } from './guards/auth-guard';
+import { noAuthGuard } from './guards/no-auth-guard';
 
 const routes: Routes = [
   // {
@@ -11,6 +13,7 @@ const routes: Routes = [
   // },
   {
     path: '',
+    canActivate: [noAuthGuard],
     loadChildren: () =>
       import(
         './pages/onboarding/welcome-nutri-fit/welcome-nutri-fit.module'
@@ -18,6 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
+    canActivate: [noAuthGuard],
     loadChildren: () =>
       import(
         './pages/auth/login/login.module'
@@ -25,6 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'register',
+    canActivate: [noAuthGuard],
     loadChildren: () =>
       import(
         './pages/auth/register/register.module'
@@ -32,6 +37,7 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
+    canActivate: [noAuthGuard],
     loadChildren: () =>
       import(
         './pages/auth/forgot-password/forgot-password.module'
@@ -39,6 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
+    canActivate: [authGuard],
     loadChildren: () =>
       import(
         './pages/main/home/home.module'
@@ -46,20 +53,22 @@ const routes: Routes = [
   },
   {
     path: 'routines',
+    canActivate: [authGuard],
     loadChildren: () =>
       import(
         './pages/main/routines/routines.module'
       ).then((m) => m.RoutinesPageModule),
   },
-  {
-    path: 'foods',
-    loadChildren: () =>
-      import(
-        './pages/main/food/food.module'
-      ).then((m) => m.FoodPageModule),
-  },
+  // {
+  //   path: 'foods',
+  //   loadChildren: () =>
+  //     import(
+  //       './pages/main/food/food.module'
+  //     ).then((m) => m.FoodPageModule),
+  // },
   {
     path: 'profile',
+    canActivate: [authGuard],
     loadChildren: () =>
       import(
         './pages/main/profile/profile.module'

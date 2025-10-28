@@ -1,7 +1,9 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { UserRegistrationService } from '@/app/services/user-registration.service';
-import { ButtonText } from '@/app/enum/button-text/button-text';
+import { FirebaseService } from '@/firebase.service';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';import { ButtonText } from '@/app/enum/button-text/button-text';
 import { FirebaseService } from '@/app/services/firebase.service';
 import { Auth } from '@angular/fire/auth';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
@@ -20,10 +22,20 @@ Chart.register(...registerables);
   standalone: false
 })
 export class ProfilePage implements OnInit {
+  /**
+   * URL de la imagen de perfil actual del usuario.
+   * Si no se ha seleccionado ninguna, se muestra una imagen por defecto.
+   * @type {string}
+   */
   @ViewChild('caloriesCanvas') private caloriesCanvas!: ElementRef;
 
   profileImage: string = 'https://ionicframework.com/docs/img/demos/avatar.svg';
 
+  /**
+   * Datos del usuario obtenidos desde el servicio de registro.
+   * Contiene nombre, género, peso y altura.
+   * @type {{ name: string; gener: string; weight: number; height: number }}
+   */
   dataUser = {
     name: '',
     gender: 'Otro',
@@ -119,10 +131,14 @@ export class ProfilePage implements OnInit {
   }
 
   /**
- * Abre la cámara o galería del dispositivo para permitir al usuario seleccionar o tomar
- * una nueva foto de perfil. Si la acción es exitosa, actualiza la imagen en pantalla.
- */
-
+   * Abre la cámara o la galería del dispositivo para permitir al usuario
+   * seleccionar o tomar una nueva foto de perfil.
+   *
+   * Si la acción es exitosa, actualiza la imagen mostrada en la interfaz.
+   *
+   * @async
+   * @returns {Promise<void>} Promesa que se resuelve cuando la foto ha sido seleccionada o tomada.
+   */
   async changeProfilePhoto() {
     console.log('Evento click detectado');
     if (!Camera) {
@@ -142,6 +158,39 @@ export class ProfilePage implements OnInit {
       this.profileImage = image.dataUrl!;
     } catch (error) {
       console.error('Error al tomar/seleccionar la foto:', error);
+    }
+  }
+
+  /**
+   * Cierra la sesión del usuario actual utilizando Firebase Authentication.
+   * 
+   * Muestra un mensaje de confirmación si el cierre es exitoso,
+   * o un mensaje de error si ocurre algún problema durante el proceso.
+   *
+   * @async
+   * @returns {Promise<void>} Promesa que se resuelve tras cerrar la sesión y redirigir al login.
+   */
+  async logoutUser() {
+    try {
+      await this.firebaseService.logout();
+
+      const toast = await this.toastController.create({
+        message: 'Sesión cerrada correctamente.',
+        duration: 2000,
+        color: 'medium'
+      });
+      await toast.present();
+
+      // Redirigir al welcome
+      this.router.navigate(['/']);
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+      const toast = await this.toastController.create({
+        message: 'Error al cerrar sesión. Intenta nuevamente.',
+        duration: 2000,
+        color: 'danger'
+      });
+      await toast.present();
     }
   }
   /**

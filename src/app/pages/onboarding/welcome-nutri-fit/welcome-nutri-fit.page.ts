@@ -37,7 +37,7 @@ export class WelcomeNutriFitPage implements OnInit {
    * @returns {void}
   */
   ngOnInit() { 
-    //this.firebaseService.redirectIfAuthenticated(this.router);
+    this.firebaseService.redirectIfAuthenticated(this.router);
   }
 
   /**

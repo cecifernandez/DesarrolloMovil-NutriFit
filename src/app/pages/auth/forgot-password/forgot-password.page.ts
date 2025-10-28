@@ -28,6 +28,18 @@ export class ForgotPasswordPage {
     private router: Router
   ) {}
 
+   /**
+   * Verifica si el usuario ya está autenticado al iniciar el componente.
+   *
+   * Si hay una sesión activa, redirige automáticamente al usuario a la ruta definida
+   * (por defecto, '/home'), evitando que acceda a pantallas públicas como Welcome.
+   *
+   * @returns {void}
+  */
+  ngOnInit() { 
+    this.firebaseService.redirectIfAuthenticated(this.router);
+  }
+
   goToLogin() {
     this.router.navigate(['./login']);
   }
