@@ -4,6 +4,13 @@ import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ExercisesService } from 'src/app/services/exercises.service';
+import { ButtonText } from '@/app/enum/button-text/button-text';
+import z, { ZodError } from 'zod';
+import { RoutineTypeModel } from '@/app/models/routine.models';
+import { UserRegistrationService } from '@/app/services/user-registration.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+
 
 /**
  * Representa una categoría de rutina (por ejemplo: "Cardio" o "Musculación").
@@ -24,13 +31,22 @@ import { ExercisesService } from 'src/app/services/exercises.service';
   standalone: false
 })
 export class RoutinesPage implements OnInit {
+
+
+
+
+
   /** Lista de categorías de rutinas cargadas desde la API o mocks. */
   categories: RoutineType[] = [];
 
   /** Lista de nombres de rutinas seleccionadas (máximo 3). */
   selectedRoutines: string[] = [];
 
-  constructor(private exercisesService: ExercisesService) {}
+  constructor(
+    private exercisesService: ExercisesService,
+ 
+
+  ) {}
 
   /**
    * Método del ciclo de vida de Angular.
@@ -60,7 +76,7 @@ export class RoutinesPage implements OnInit {
     ];
 
     // Convertimos cada categoría en una llamada al servicio
-    const requests = baseCategories.map(cat => 
+    const requests = baseCategories.map(cat =>
       this.exercisesService.getExercises(cat.paramName, cat.paramValue, 10).pipe(
         map(data => ({
           ...cat,
@@ -185,4 +201,7 @@ export class RoutinesPage implements OnInit {
   isExerciseSelected(category: RoutineType, exercise: Exercise): boolean {
     return category.exercises.some(e => e.name === exercise.name);
   }
+
+  
+
 }

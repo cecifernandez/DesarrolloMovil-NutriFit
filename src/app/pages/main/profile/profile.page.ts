@@ -9,6 +9,7 @@ import { UserProfile } from '@/app/interfaces/user-profile.interface';
 import { Observable } from 'rxjs';
 import { Chart, registerables } from 'chart.js';
 import { CaloriesTrackingService } from '@/app/services/calories-tracking.service';
+import { ExercisesService } from 'src/app/services/exercises.service';
 Chart.register(...registerables);
 
 
@@ -18,7 +19,7 @@ Chart.register(...registerables);
   styleUrls: ['./profile.page.scss'],
   standalone: false
 })
-export class ProfilePage implements OnInit, AfterViewInit {
+export class ProfilePage implements OnInit {
   @ViewChild('caloriesCanvas') private caloriesCanvas!: ElementRef;
 
   profileImage: string = 'https://ionicframework.com/docs/img/demos/avatar.svg';
@@ -30,6 +31,7 @@ export class ProfilePage implements OnInit, AfterViewInit {
     height: 0
   }
 
+
   activeTab: 'rutinas' | 'estadisticas' = 'rutinas';
 
   ButtonText = ButtonText;
@@ -39,20 +41,34 @@ export class ProfilePage implements OnInit, AfterViewInit {
   chart: any;
   totalLast7Days: number = 0;
 
+
+  public selectedRoutines: any[] = [];
+  public allCategories: any[] = [];
+
+
   constructor(
     private userRegistrationService: UserRegistrationService,
     private firebaseService: FirebaseService,
     private firestore: Firestore,
     private auth: Auth,
-    private caloriesService: CaloriesTrackingService
+    private caloriesService: CaloriesTrackingService,
+    private exercisesService: ExercisesService,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loadUserData();
+    try {
+        const userRoutines = await this.exercisesService.getUserRoutines(); // desde Firebase
+        if (userRoutines && userRoutines.length > 0) {
+          // Mostrar solo las seleccionadas
+          this.selectedRoutines = userRoutines.filter(r => r.selected);
+        }
+      } catch (error) {
+        console.error('Error al cargar rutinas en Profile:', error);
+      }
   }
 
-  ngAfterViewInit() {
-  }
+
 
   /**
    * Carga los datos del usuario autenticado desde Firebase Firestore.
@@ -131,7 +147,7 @@ export class ProfilePage implements OnInit, AfterViewInit {
   /**
     * Cambia entre las pestañas "Mis rutinas" y "Estadísticas"
     */
-  setActiveTab(tab: 'rutinas' | 'estadisticas') {
+  async setActiveTab(tab: 'rutinas' | 'estadisticas') {
     console.log('Tab cambiado a:', tab);
     this.activeTab = tab;
 
@@ -160,6 +176,25 @@ export class ProfilePage implements OnInit, AfterViewInit {
         this.chart.destroy();
         this.chart = null;
       }
+    }
+    if (tab === 'rutinas') {
+      if (this.chart) {
+        this.chart.destroy();
+        this.chart = null;
+      }
+
+
+      try {
+        const userRoutines = await this.exercisesService.getUserRoutines(); // desde Firebase
+        if (userRoutines && userRoutines.length > 0) {
+          // Mostrar solo las seleccionadas
+          this.selectedRoutines = userRoutines.filter(r => r.selected);
+        }
+      } catch (error) {
+        console.error('Error al cargar rutinas en Profile:', error);
+      }
+
+
     }
   }
 
@@ -252,5 +287,7 @@ export class ProfilePage implements OnInit, AfterViewInit {
       }
     });
   }
+
+
 
 }

@@ -16,22 +16,10 @@ export class AppComponent {
   }
   
   ngOnInit() {
-    this.testFirebaseConnection();
+    
   }
 
-   async testFirebaseConnection() {
-    try {
-      const testCol = collection(this.firestore, 'test');
-      const testDoc = await addDoc(testCol, {
-        message: 'Conexión Firebase OK',
-        timestamp: Timestamp.now(),
-      });
-      console.log('Conectado a Firebase. Documento creado con ID:', testDoc.id);
-    } catch (error) {
-      console.error('Error de conexión Firebase:', error);
-    }
-  }
-
+   
 
   initializeApp() {
     this.platform.ready().then(() => {

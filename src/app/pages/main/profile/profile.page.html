@@ -38,7 +38,12 @@
       <canvas class="caloriesChart" #caloriesCanvas></canvas>
     </div>
   </div>
-
+  <!-- RUTINAS -->
+   <div class="routines-section">
+    <div *ngIf="activeTab === 'rutinas'" class="routines-list">
+  <card-rutin class="cards-routines" [categories]="selectedRoutines" [viewExcercises]="true"></card-rutin>
+</div>
+   </div>
 
 </ion-content>
 <tabs activeTab="home"></tabs>

@@ -126,3 +126,29 @@
     color: var(--ion-color-medium-shade);
   }
 }
+
+.routines-section {
+  padding: 30px 16px 0 16px;
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .see-all {
+      font-size: 12px;
+      color: $primary-color;
+    }
+  }
+  .routines-list {
+    padding-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+}

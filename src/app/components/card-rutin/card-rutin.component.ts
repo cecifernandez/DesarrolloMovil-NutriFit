@@ -12,6 +12,7 @@ import { Auth } from '@angular/fire/auth';
 export class CardRutinComponent {
   @Input() categories: any[] = [];
   @Input() maxSelectedReached: boolean = false;
+  @Input() viewExcercises: boolean = false;
 
   @Output() cardSelected = new EventEmitter<string>();
   @Output() exerciseSelected = new EventEmitter<{ cardTitle: string; exercises: any[] }>();
@@ -33,11 +34,13 @@ export class CardRutinComponent {
   ) {}
 
   onSelect(card: any) {
+    console.log("ASF  ", this.categories)
     this.cardSelected.emit(card.title);
     this.selectedCard = this.selectedCard === card.title ? null : card.title;
   }
 
   isCardSelected(cardTitle: string): boolean {
+    
     return this.selectedCard === cardTitle;
   }
 
@@ -49,8 +52,15 @@ export class CardRutinComponent {
       (c) => normalize(c.name) === normalize(cardTitle)
     );
 
-    return category ? category.exercises.slice(0, 10) : [];
+    console.log("CAtegori", category.selectedExercises.length)
+    return category.selectedExercises.length > 0 && this.viewExcercises ? category.selectedExercises : category.exercises.slice(0, 10) ;
   }
+
+/*
+getExercisesForCard(cardTitle: string) {
+  const category = this.categories.find(c => c.name === cardTitle);
+  return category ? category.selectedExercises || [] : [];
+}*/
 
   toggleExerciseSelection(cardTitle: string, exercise: any) {
     if (!this.selectedExercises[cardTitle]) this.selectedExercises[cardTitle] = [];
