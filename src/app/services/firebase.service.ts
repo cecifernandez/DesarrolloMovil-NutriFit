@@ -7,7 +7,8 @@ import {
   sendPasswordResetEmail,
   GoogleAuthProvider,
   signInWithPopup,
-  UserCredential
+  UserCredential,
+  onAuthStateChanged
 } from '@angular/fire/auth';
 import {
  Firestore,
@@ -21,6 +22,7 @@ import {
 import { RegisterForm } from '../models/register.models';
 import { LoginForm } from '../models/login.models';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -129,7 +131,15 @@ export class FirebaseService {
   }
   
   getUsers(): Observable<any[]> {
-  const usersRef = collection(this.firestore, 'users');
-  return collectionData(usersRef, { idField: 'id' }) as Observable<any[]>;
-}
+    const usersRef = collection(this.firestore, 'users');
+    return collectionData(usersRef, { idField: 'id' }) as Observable<any[]>;
+  }
+
+  redirectIfAuthenticated(router: Router, fallbackRoute = '/home'): void {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        router.navigate([fallbackRoute]);
+      }
+    });
+  }
 }
