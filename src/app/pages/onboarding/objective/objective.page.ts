@@ -118,7 +118,7 @@ export class ObjectivePage implements OnInit {
       this.userRegistrationService.setData(data);
 
       // Navega al siguiente formulario
-      this.router.navigate(['../routines-person'], { relativeTo: this.route });
+      this.router.navigate(['/routines'], { relativeTo: this.route });
     } catch (error: unknown) {
       let errorMsg =
         'Hubo un error en la aplicación, intenta nuevamente más tarde.';
