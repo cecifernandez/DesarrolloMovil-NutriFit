@@ -10,7 +10,11 @@ import { Auth } from '@angular/fire/auth';
   standalone: false, // Asegúrate que este componente esté declarado en un NgModule
 })
 export class CardRutinComponent {
-  @Input() categories: any[] = [];
+  @Input() categories: Array<{
+    name?: string;
+    exercises?: any[];
+    selectedExercises?: any[];
+  }> = [];
   @Input() maxSelectedReached: boolean = false;
   @Input() viewExcercises: boolean = false;
 
@@ -31,36 +35,38 @@ export class CardRutinComponent {
     // 2. Inyecta 'Firestore' (nuevo) en lugar de 'AngularFirestore' (antiguo)
     private firestore: Firestore,
     private auth: Auth
-  ) {}
+  ) { }
 
   onSelect(card: any) {
-    console.log("ASF  ", this.categories)
     this.cardSelected.emit(card.title);
     this.selectedCard = this.selectedCard === card.title ? null : card.title;
   }
 
   isCardSelected(cardTitle: string): boolean {
-    
+
     return this.selectedCard === cardTitle;
   }
 
   getExercisesForCard(cardTitle: string) {
-    const normalize = (t: string) =>
-      t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const norm = (t?: string) =>
+      (t ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-    const category = this.categories.find(
-      (c) => normalize(c.name) === normalize(cardTitle)
-    );
+    const category = this.categories?.find(c => norm(c.name) === norm(cardTitle));
 
-    console.log("CAtegori", category.selectedExercises.length)
-    return category.selectedExercises.length > 0 && this.viewExcercises ? category.selectedExercises : category.exercises.slice(0, 10) ;
+    // si no hay categoría, devolvés vacío para no romper el template
+    if (!category) return [];
+
+    const selected = category.selectedExercises ?? [];
+    const base = category.exercises ?? [];
+
+  return selected.length > 0 && this.viewExcercises ? category.selectedExercises : category.exercises?.slice(0, 10) ;
   }
 
-/*
-getExercisesForCard(cardTitle: string) {
-  const category = this.categories.find(c => c.name === cardTitle);
-  return category ? category.selectedExercises || [] : [];
-}*/
+  /*
+  getExercisesForCard(cardTitle: string) {
+    const category = this.categories.find(c => c.name === cardTitle);
+    return category ? category.selectedExercises || [] : [];
+  }*/
 
   toggleExerciseSelection(cardTitle: string, exercise: any) {
     if (!this.selectedExercises[cardTitle]) this.selectedExercises[cardTitle] = [];
@@ -115,7 +121,7 @@ getExercisesForCard(cardTitle: string) {
       // 4. Esta es la nueva sintaxis para guardar datos
       // Crea la referencia a la subcolección: 'userRoutines/{userId}/routines'
       const routinesCollectionRef = collection(this.firestore, `userRoutines/${user.uid}/routines`);
-      
+
       // Añade el nuevo documento a esa subcolección
       await addDoc(routinesCollectionRef, routineData);
 

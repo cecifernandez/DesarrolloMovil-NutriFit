@@ -4,7 +4,6 @@ import { UserRegistrationService } from '@/app/services/user-registration.servic
 import { FirebaseService } from '@/firebase.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';import { ButtonText } from '@/app/enum/button-text/button-text';
-import { FirebaseService } from '@/app/services/firebase.service';
 import { Auth } from '@angular/fire/auth';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { UserProfile } from '@/app/interfaces/user-profile.interface';
@@ -65,6 +64,8 @@ export class ProfilePage implements OnInit {
     private auth: Auth,
     private caloriesService: CaloriesTrackingService,
     private exercisesService: ExercisesService,
+    private toastController: ToastController,
+    private router: Router,
   ) { }
 
   async ngOnInit() {

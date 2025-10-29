@@ -9,7 +9,7 @@ import { CaloriesTrackingService } from '@/app/services/calories-tracking.servic
 
 
 // IMPORTAR el servicio (descomentar cuando se una con el código del Home)
-import { ExercisesService } from 'src/app/services/exercises.service'; 
+import { ExercisesService } from 'src/app/services/exercises.service';
 
 Chart.register(...registerables);
 
@@ -76,8 +76,8 @@ export class HomePage implements AfterViewInit, OnInit {
   // Inyectar el servicio (ajustar según el constructor existente)
   /** constructor(private exercisesService: ExercisesService) {} */
 
-  constructor(private userService: UserRegistrationService, private caloriesService: CaloriesTrackingService, private exercisesService: ExercisesService) { 
-    this.auth = inject(Auth); 
+  constructor(private userService: UserRegistrationService, private caloriesService: CaloriesTrackingService, private exercisesService: ExercisesService) {
+    this.auth = inject(Auth);
   }
 
   async ngOnInit() {
@@ -88,19 +88,19 @@ export class HomePage implements AfterViewInit, OnInit {
     console.log('Rutinas cargadas desde Firebase:', this.selectedRoutines);
     this.userWeight = this.userData.weight ? this.userData.weight : 0;
     // Escucha los cambios desde la tab de rutinas
-     
-      // this.exercisesService.selectedExercises$.subscribe(data => {
-      //   this.selectedExercises = data;
-      //   console.log('Ejercicios actualizados desde Rutinas:', data);
-      // });
-     
-      try {
-      this.allCategories = await this.exercisesService.getUserRoutines(); 
+
+    // this.exercisesService.selectedExercises$.subscribe(data => {
+    //   this.selectedExercises = data;
+    //   console.log('Ejercicios actualizados desde Rutinas:', data);
+    // });
+
+    try {
+      this.allCategories = await this.exercisesService.getUserRoutines();
       console.log('Categorías cargadas para el creador:', this.allCategories);
     } catch (error) {
       console.error('Error al cargar las categorías de ejercicios', error);
     }
-    
+
     onAuthStateChanged(this.auth, (user) => {
       this.user = user;
     });

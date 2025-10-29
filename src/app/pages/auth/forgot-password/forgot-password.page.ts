@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FirebaseService } from '@/app/services/firebase.service';
+import { FirebaseService } from 'src/firebase.service';
 import { ToastController } from '@ionic/angular';
 import { ButtonText } from '@/app/enum/button-text/button-text';
 import { InputText } from '@/app/enum/input-text/input-text';
@@ -76,4 +76,3 @@ export class ForgotPasswordPage {
     }
   }
 }
-

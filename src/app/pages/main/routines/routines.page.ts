@@ -7,6 +7,7 @@ import { ExercisesService } from 'src/app/services/exercises.service';
 import { ButtonText } from '@/app/enum/button-text/button-text';
 import z, { ZodError } from 'zod';
 import { RoutineTypeModel } from '@/app/models/routine.models';
+
 import { UserRegistrationService } from '@/app/services/user-registration.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
@@ -31,9 +32,8 @@ import { ToastController } from '@ionic/angular';
   standalone: false
 })
 export class RoutinesPage implements OnInit {
-
-
-
+  ButtonText = ButtonText;
+  errorMessage: string = '';
 
 
   /** Lista de categorías de rutinas cargadas desde la API o mocks. */
@@ -44,9 +44,12 @@ export class RoutinesPage implements OnInit {
 
   constructor(
     private exercisesService: ExercisesService,
- 
+    private toastController: ToastController,
+    private router: Router,
+    private userRegistratorService: UserRegistrationService,
+    
 
-  ) {}
+  ) { }
 
   /**
    * Método del ciclo de vida de Angular.
@@ -202,6 +205,38 @@ export class RoutinesPage implements OnInit {
     return category.exercises.some(e => e.name === exercise.name);
   }
 
-  
+  goToHome() {
+    try {
+      const result = z.array(RoutineTypeModel).safeParse(this.categories);
+      console.log(result);
+
+      if (!result.success) throw result.error;
+
+      this.userRegistratorService.setData({
+        selectedRoutines: this.categories.filter((c) => c.selected),
+      });
+
+      this.router.navigate(['./home']);
+    } catch (error: unknown) {
+      let errorMsg = 'Hubo un error al cargar las rutinas.';
+
+      if (error instanceof ZodError && error.issues.length > 0) {
+        errorMsg = error.issues[0].message;
+      }
+
+      this.errorMessage = errorMsg;
+      this.mostrarErrorToast(errorMsg);
+    }
+  }
+
+  async mostrarErrorToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 3000,
+      color: 'danger',
+      position: 'middle',
+    });
+    await toast.present();
+  }
 
 }

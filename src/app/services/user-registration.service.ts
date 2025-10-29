@@ -27,8 +27,8 @@ export class UserRegistrationService {
    */
   private userData: Partial<UserProfile & ObjectivePersonal> = {};
 
-  constructor(private firestore: Firestore, private auth: Auth) {}
- 
+  constructor(private firestore: Firestore, private auth: Auth) { }
+
   private removeSensitiveFields<T extends Record<string, any>>(data: T): T {
     if (!data) return data;
 
@@ -36,7 +36,6 @@ export class UserRegistrationService {
     return safeData as T;
   }
 
-  private userData: Partial<UserProfile & ObjectivePersonal> = {};
 
   /**
    * Guarda datos parciales del usuario en memoria y en `localStorage`.
@@ -45,9 +44,6 @@ export class UserRegistrationService {
    *
    * @param {Partial<UserProfile & ObjectivePersonal>} partial - Datos parciales a guardar.
    */
-  setData(partial: Partial<UserProfile & ObjectivePersonal>) {
- 
-
   async setData(partial: Partial<UserProfile & ObjectivePersonal>) {
     // Filtrar campos sensibles antes de guardar
     const filteredPartial = this.removeSensitiveFields(partial);
@@ -55,16 +51,16 @@ export class UserRegistrationService {
     // Fusionar con lo que ya había
     this.userData = { ...this.userData, ...filteredPartial };
 
-   if (!this.auth.currentUser) {
-    throw new Error('Usuario no autenticado');
-  }
+    if (!this.auth.currentUser) {
+      throw new Error('Usuario no autenticado');
+    }
 
-  const uid = this.auth.currentUser.uid;
-  const userRef = doc(this.firestore, `users/${uid}`);
-  await setDoc(userRef, { 
-    ...this.userData,
-    updatedAt: Timestamp.now() 
-  }, { merge: true });
+    const uid = this.auth.currentUser.uid;
+    const userRef = doc(this.firestore, `users/${uid}`);
+    await setDoc(userRef, {
+      ...this.userData,
+      updatedAt: Timestamp.now()
+    }, { merge: true });
 
   }
 
@@ -108,7 +104,7 @@ export class UserRegistrationService {
     this.userData = {};
   }
 
-   async saveToFirestore() {
+  async saveToFirestore() {
     if (!this.auth.currentUser) {
       throw new Error('Usuario no autenticado');
     }
@@ -117,9 +113,9 @@ export class UserRegistrationService {
     const filteredData = this.removeSensitiveFields(this.userData);
 
     const userRef = doc(this.firestore, `users/${uid}`);
-    await setDoc(userRef, { 
-      ...filteredData, 
-      updatedAt: Timestamp.now() 
+    await setDoc(userRef, {
+      ...filteredData,
+      updatedAt: Timestamp.now()
     }, { merge: true }); // merge:true para no sobrescribir datos existentes
   }
 }

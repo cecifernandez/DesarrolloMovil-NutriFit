@@ -24,6 +24,9 @@
       [maxSelectedReached]="selectedRoutines.length >= 3"
       (cardSelected)="onCardSelected($event)"
     ></card-rutin>
+
+    <primary-button *ngIf="selectedRoutines.length >= 1" [propEnum]="ButtonText.next" class="button-next"
+      (click)="goToHome()"></primary-button>
   </div>
 </ion-content>
 

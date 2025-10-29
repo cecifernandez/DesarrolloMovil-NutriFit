@@ -61,19 +61,18 @@ export class ExercisesService {
        * Dejar este bloque DESCOMENTADO mientras se trabaja en diseño o pruebas.
        * COMENTAR este bloque y reactivar la API real (abajo) para la presentación.
        */
-      this.http.get<any[]>(`/assets/mocks/${paramValue}.json`).subscribe({
-        next: (mockData) => {
-          observer.next(mockData.slice(0, limit));
-          observer.complete();
-        },
-        error: (mockErr) => {
-          console.error(`Error al cargar el mock de ${paramValue}`, mockErr);
-          observer.error(mockErr);
-        }
-      });
+      // this.http.get<any[]>(`/assets/mocks/${paramValue}.json`).subscribe({
+      //   next: (mockData) => {
+      //     observer.next(mockData.slice(0, limit));
+      //     observer.complete();
+      //   },
+      //   error: (mockErr) => {
+      //     console.error(`Error al cargar el mock de ${paramValue}`, mockErr);
+      //     observer.error(mockErr);
+      //   }
+      // });
 
       // BLOQUE ORIGINAL DE LA API (DESACTIVADO EN MODO DESARROLLO)
-      /*
       this.http.get<any[]>(url, { headers }).subscribe({
         next: (data) => {
           observer.next(data.slice(0, limit));
@@ -81,7 +80,7 @@ export class ExercisesService {
         },
         error: (err) => {
           console.warn(`⚠️ Error con API (${paramValue}), usando mock local...`, err);
-          // Fallback: carga el JSON local
+          //Fallback: carga el JSON local
           this.http.get<any[]>(`/assets/mocks/${paramValue}.json`).subscribe({
             next: (mockData) => {
               observer.next(mockData.slice(0, limit));
@@ -94,7 +93,6 @@ export class ExercisesService {
           });
         }
       });
-      */
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FirebaseService } from '@/app/services/firebase.service';
+import { FirebaseService } from '@/firebase.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ButtonText } from '@/app/enum/button-text/button-text';
@@ -61,7 +61,36 @@ export class LogInPage {
     this.router.navigate(['./register']);
   }
 
+  async signinWithGoogle() {
+    try {
+      const result = await this.firebaseService.loginWithGooglePopup();
 
+      const user = result.user!;
+      const isNewUser = await this.firebaseService.isNewUser(user.uid);
+
+      // Determinar ruta según sea usuario nuevo o existente
+      const route = isNewUser ? '/about-you' : '/home';
+      await this.router.navigateByUrl(route, { replaceUrl: true });
+
+      // Mostrar toast de bienvenida
+      const toast = await this.toastController.create({
+        message: `¡Bienvenido ${user.displayName ?? 'usuario'}!`,
+        duration: 3000,
+        color: 'success',
+        position: "bottom"
+      });
+      await toast.present();
+    } catch (error: any) {
+      // Mostrar toast de error si falla la autenticación
+      const toast = await this.toastController.create({
+        message: 'Error al registrarte con Google: ' + (error.message || ''),
+        duration: 3000,
+        color: 'white',
+        position: "bottom"
+      });
+      await toast.present();
+    }
+  }
 
   /**
    * Realiza el proceso de inicio de sesión del usuario.
@@ -138,7 +167,7 @@ export class LogInPage {
    * @async
    * @returns {Promise<void>}
    */
-  async loginWithGoogle() {
+ async loginWithGoogle() {
   try {
     const result = await this.firebaseService.loginWithGooglePopup();
     const user = result.user!;
@@ -150,7 +179,7 @@ export class LogInPage {
     await this.router.navigateByUrl(route, { replaceUrl: true });
 
     const toast = await this.toastController.create({
-      message: `¡Bienvenido ${user.displayName ?? 'usuario'}!`,
+      message: `Bienvenido ${user.displayName ?? 'usuario'}!`,
       duration: 3000,
       color: 'success',
     });

@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const ExerciseModel = z.object({
   name: z.string(),
-  difficulty: z.enum(['easy', 'intermediate', 'hard']).optional(),
+  difficulty: z.enum(['beginner', 'intermediate', 'hard']).optional(),
   id: z.string().optional(),
   sets: z.number().int().positive().optional(),
   reps: z.number().int().positive().optional(),

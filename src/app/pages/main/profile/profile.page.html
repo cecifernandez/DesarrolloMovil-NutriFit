@@ -1,46 +1,50 @@
 <ion-content [fullscreen]="true" class="profile-content">
-  <div class="profile-container">
-    <div class="profile-card">
-      <ion-avatar class="profile-avatar" (click)="changeProfilePhoto()">
-        <img [src]="profileImage" alt="Foto de perfil" />
-      </ion-avatar>
-      <h2>{{ dataUser.name }}</h2>
-      <h2 class="profile-name"></h2>
-      <p class="profile-gender">{{ dataUser.gener }}</p>
-      <div class="profile-stats">
-        <div class="stat-item">
-          <h3>{{ dataUser.weight }}<span> Kg</span></h3>
-          <p>Peso</p>
-        </div>
-        <div class="stat-item">
-          <h3>{{ dataUser.height }}<span> cm</span></h3>
-          <p>Altura</p>
-        </div>
+  <ion-fab slot="fixed" vertical="top" horizontal="end" edge>
+    <ion-fab-button class="logout-fab" (click)="logoutUser()">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div class="profile-card">
+    <ion-avatar class="profile-avatar" (click)="changeProfilePhoto()">
+      <img [src]="profileImage" alt="Foto de perfil" />
+    </ion-avatar>
+    <h2>{{ dataUser.name }}</h2>
+    <h2 class="profile-name"></h2>
+    <p class="profile-gender">{{ dataUser.gender }}</p>
+    <div class="profile-stats">
+      <div class="stat-item">
+        <h3>{{ dataUser.weight }} Kg<span></span></h3>
+        <p>Peso</p>
+      </div>
+      <div class="stat-item">
+        <h3>{{ dataUser.height }} Cm<span></span></h3>
+        <p>Altura</p>
       </div>
     </div>
-
-    <div class="logout-container">
-      <ion-button expand="block" class="logout-button" (click)="logoutUser()">
-        <ion-icon class="logout-icon" name="log-out-outline" slot="start"></ion-icon>
-        Cerrar sesión
-      </ion-button>
-    </div>
   </div>
-    <div class="tab-toggle">
-    <secondary-button [propEnum]="ButtonText.routines" [active]="activeTab === 'rutinas'"
-      (buttonClick)="setActiveTab('rutinas')"></secondary-button>
+  <div class="tab-toggle">
+    <secondary-button
+      [propEnum]="ButtonText.routines"
+      [active]="activeTab === 'rutinas'"
+      (buttonClick)="setActiveTab('rutinas')"
+    ></secondary-button>
 
-    <secondary-button [propEnum]="ButtonText.stats" [active]="activeTab === 'estadisticas'"
-      (buttonClick)="setActiveTab('estadisticas')"></secondary-button>
+    <secondary-button
+      [propEnum]="ButtonText.stats"
+      [active]="activeTab === 'estadisticas'"
+      (buttonClick)="setActiveTab('estadisticas')"
+    ></secondary-button>
   </div>
 
   <div *ngIf="activeTab === 'estadisticas'" class="stats-content">
     <div class="chart-card">
-      <div class="card-header ion-display-flex ion-justify-content-between ion-align-items-center">
+      <div
+        class="card-header ion-display-flex ion-justify-content-between ion-align-items-center"
+      >
         <h3 class="calories-text">🔥 Calorías</h3>
-        
+
         <h3 class="total-week-text">
-          {{ totalLast7Days }} kcal 
+          {{ totalLast7Days }} kcal
           <span class="label-text">/ 7 días</span>
         </h3>
       </div>
@@ -48,11 +52,14 @@
     </div>
   </div>
   <!-- RUTINAS -->
-   <div class="routines-section">
+  <div class="routines-section">
     <div *ngIf="activeTab === 'rutinas'" class="routines-list">
-  <card-rutin class="cards-routines" [categories]="selectedRoutines" [viewExcercises]="true"></card-rutin>
-</div>
-   </div>
-
+      <card-rutin
+        class="cards-routines"
+        [categories]="selectedRoutines"
+        [viewExcercises]="true"
+      ></card-rutin>
+    </div>
+  </div>
 </ion-content>
 <tabs activeTab="home"></tabs>

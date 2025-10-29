@@ -1,15 +1,25 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
+import { Auth } from '@angular/fire/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  UserCredential
+} from 'firebase/auth';
 import { RegisterForm } from './app/models/register.models';
 import { LoginForm } from './app/models/login.models';
 import { Router } from '@angular/router';
+import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  constructor(private afAuth: AngularFireAuth) {}
+  constructor(private auth: Auth, private firestore: Firestore) { }
 
   /**
    * Registra un nuevo usuario con email y contraseña.
@@ -21,9 +31,9 @@ export class FirebaseService {
    * @param {RegisterForm} inputs - Objeto con email y password del usuario.
    * @returns {Promise<firebase.auth.UserCredential>} Resultado de la creación de usuario.
    */
-  register(inputs: RegisterForm) {
+  register(inputs: RegisterForm): Promise<UserCredential> {
     const { email, password } = inputs;
-    return this.afAuth.createUserWithEmailAndPassword(email, password);
+    return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
   /**
@@ -34,10 +44,11 @@ export class FirebaseService {
    * @param {LoginForm} inputs - Objeto con email y password del usuario.
    * @returns {Promise<firebase.auth.UserCredential>} Resultado del inicio de sesión.
    */
-  login(inputs: LoginForm) {
+  login(inputs: LoginForm): Promise<UserCredential> {
     const { email, password } = inputs;
-    return this.afAuth.signInWithEmailAndPassword(email, password);
+    return signInWithEmailAndPassword(this.auth, email, password);
   }
+
 
   /**
    * Cierra la sesión del usuario actual.
@@ -46,8 +57,8 @@ export class FirebaseService {
    *
    * @returns {Promise<void>} Promesa que se resuelve cuando el usuario se desconecta.
    */
-  logout() {
-    return this.afAuth.signOut();
+  logout(): Promise<void> {
+    return signOut(this.auth);
   }
 
   /**
@@ -61,15 +72,11 @@ export class FirebaseService {
    * @throws {Error} Si no se puede obtener el usuario de Google.
    * @returns {Promise<firebase.auth.UserCredential>} Resultado del login con Google.
    */
-  async loginWithGooglePopup() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const result = await this.afAuth.signInWithPopup(provider);
-
-    if (!result.user) {
-      throw new Error('No se pudo obtener el usuario de Google.');
-    }
-
-    return result; // devuelve UserCredential
+  async loginWithGooglePopup(): Promise<UserCredential> {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(this.auth, provider);
+    if (!result.user) throw new Error('No se pudo obtener el usuario de Google.');
+    return result;
   }
 
   /**
@@ -81,8 +88,8 @@ export class FirebaseService {
    * @param {string} email - Correo electrónico del usuario que desea restablecer la contraseña.
    * @returns {Promise<void>} Promesa que se resuelve cuando el email es enviado.
    */
-  resetPassword(email: string) {
-    return this.afAuth.sendPasswordResetEmail(email);
+  resetPassword(email: string): Promise<void> {
+    return sendPasswordResetEmail(this.auth, email);
   }
 
   /**
@@ -95,11 +102,17 @@ export class FirebaseService {
    * @param {string} [fallbackRoute='/home'] - Ruta a la que se redirige si el usuario está autenticado.
    * @returns {void}
  */
-  redirectIfAuthenticated(router: Router, fallbackRoute = '/home') {
-    this.afAuth.currentUser.then(user => {
+  redirectIfAuthenticated(router: Router, fallbackRoute = '/home'): void {
+    onAuthStateChanged(this.auth, (user) => {
       if (user) {
         router.navigate([fallbackRoute]);
       }
     });
+  }
+
+  async isNewUser(uid: string): Promise<boolean> {
+    const userRef = doc(this.firestore, `users/${uid}`);
+    const userSnap = await getDoc(userRef);
+    return !userSnap.exists(); // true si es nuevo}
   }
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ButtonText } from '@/app/enum/button-text/button-text';
-import { FirebaseService } from '@/app/services/firebase.service';
+import { FirebaseService } from '@/firebase.service';
 import { RegisterForm, RegisterFormModel } from '@/app/models/register.models';
 import { ZodError } from 'zod';
 import { UserRegistrationService } from '@/app/services/user-registration.service';
@@ -132,32 +132,34 @@ export class StartPage {
    * @async
    * @returns {Promise<void>}
    */
-async signupWithGoogle() {
-  try {
-    const result = await this.firebaseService.loginWithGooglePopup();
-    const user = result.user!;
+  async signupWithGoogle() {
+    try {
+      const result = await this.firebaseService.loginWithGooglePopup();
 
-    // 🔹 Preguntar al servicio si es usuario nuevo
-    const isNewUser = await this.firebaseService.isNewUser(user.uid);
+      const user = result.user!;
+      const isNewUser = await this.firebaseService.isNewUser(user.uid);
 
-    const route = isNewUser ? '/about-you' : '/home';
-    await this.router.navigateByUrl(route, { replaceUrl: true });
+      // Determinar ruta según sea usuario nuevo o existente
+      const route = isNewUser ? '/about-you' : '/home';
+      await this.router.navigateByUrl(route, { replaceUrl: true });
 
-    const toast = await this.toastController.create({
-      message: `¡Bienvenido ${user.displayName ?? 'usuario'}!`,
-      duration: 3000,
-      color: 'success',
-      position: 'bottom'
-    });
-    await toast.present();
-  } catch (error: any) {
-    const toast = await this.toastController.create({
-      message: 'Error al registrarte con Google: ' + (error.message || ''),
-      duration: 3000,
-      color: 'danger',
-      position: 'bottom'
-    });
-    await toast.present();
+      // Mostrar toast de bienvenida
+      const toast = await this.toastController.create({
+        message: `¡Bienvenido ${user.displayName ?? 'usuario'}!`,
+        duration: 3000,
+        color: 'success',
+        position: "bottom"
+      });
+      await toast.present();
+    } catch (error: any) {
+      // Mostrar toast de error si falla la autenticación
+      const toast = await this.toastController.create({
+        message: 'Error al registrarte con Google: ' + (error.message || ''),
+        duration: 3000,
+        color: 'white',
+        position: "bottom"
+      });
+      await toast.present();
+    }
   }
-}
 }
