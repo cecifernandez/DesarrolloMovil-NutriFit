@@ -42,6 +42,9 @@ export class RoutinesPage implements OnInit {
   /** Lista de nombres de rutinas seleccionadas (máximo 3). */
   selectedRoutines: string[] = [];
 
+    maxRoutines = 3;
+  maxExercises = 5;
+
   constructor(
     private exercisesService: ExercisesService,
     private toastController: ToastController,
@@ -147,51 +150,60 @@ export class RoutinesPage implements OnInit {
     }
   }
 
-  /**
-   * Recibe el evento del componente hijo `<card-rutin>`.
-   *
-   * Busca la categoría correspondiente por su nombre y llama a
-   * `toggleRoutineSelection()` para manejar la selección visual y lógica.
-   *
-   * @param {string} cardTitle - El título de la card seleccionada.
-   * @returns {void}
-   */
-  onCardSelected(cardTitle: string) {
+   get selectedRoutineCount(): number {
+    return this.selectedRoutines.length;
+  }
+    get maxSelectedReached(): boolean {
+    return this.selectedRoutineCount >= this.maxRoutines;
+  }
+
+  // --- CARD (RUTINA) SELECCIÓN ---
+  async onCardSelected(cardTitle: string) {
     const category = this.categories.find(
-      c => c.name.toLowerCase() === cardTitle.toLowerCase()
+      (c) => c.name.toLowerCase() === cardTitle.toLowerCase()
     );
-    if (category) {
-      this.toggleRoutineSelection(category);
+    if (!category) return;
+
+    const alreadySelected = category.selected;
+
+    // Si intenta seleccionar una cuarta rutina
+    if (!alreadySelected && this.maxSelectedReached) {
+      await this.mostrarErrorToast('Solo puedes seleccionar hasta 3 rutinas.');
+      return;
     }
   }
 
-  /**
-   * Maneja la selección y deselección de ejercicios dentro de una rutina.
-   *
-   * - Cada rutina puede tener un máximo de 5 ejercicios seleccionados.
-   * - Si el ejercicio ya estaba elegido, se elimina de la lista.
-   * - Si aún hay espacio, se agrega a `selectedExercises`.
-   *
-   * @param {RoutineType} category - La categoría de rutina donde se selecciona el ejercicio.
-   * @param {any} exercise - El ejercicio que se selecciona o deselecciona.
-   * @returns {void}
-   */
-  toggleExerciseSelection(category: RoutineType, exercise: any) {
-    const index = category.selectedExercises.findIndex(e => e.name === exercise.name);
+  // --- EJERCICIO SELECCIÓN ---
+  async onExerciseSelected(event: {
+    cardTitle: string;
+    exercises: Exercise[];
+  }) {
+    console.log("categorias cargadas", this.categories, event.cardTitle)
+    const category = this.categories.find((c) => c.name.toLowerCase() === event.cardTitle.toLowerCase());
+    if (!category){
+      console.log("category",category)
+      return;
+    } 
 
-    if (index >= 0) {
-      category.exercises.splice(index, 1);
-    } else {
-      if (category.exercises.length >= 5) {
-        alert('Solo podés seleccionar hasta 5 ejercicios por rutina.');
-        return;
-      }
-      category.exercises.push(exercise);
+    // Bloquear si intenta seleccionar ejercicios de una rutina NO seleccionada y ya alcanzó el límite
+    if (!category.selected && this.maxSelectedReached) {
+      await this.mostrarErrorToast('Ya alcanzaste el límite de 3 rutinas.');
+      return;
     }
 
-    // Cada vez que el usuario selecciona o deselecciona un ejercicio,
-    // se actualiza en el service para que el Home lo pueda leer luego.
-    this.exercisesService.setSelectedExercises(category.paramValue, category.selectedExercises);
+    // Permitir seleccionar o deseleccionar ejercicios dentro de las rutinas elegidas
+    category.selectedExercises = event.exercises;
+console.log("EXCER", event.exercises)
+    // --- Manejo del estado de selección ---
+    if (category.selectedExercises.length > 0 && !category.selected) {
+      category.selected = true;
+      this.selectedRoutines.push(category.paramValue);
+    } else if (category.selectedExercises.length === 0 && category.selected) {
+      category.selected = false;
+      this.selectedRoutines = this.selectedRoutines.filter(
+        (r) => r !== category.paramValue
+      );
+    }
   }
 
   /**
@@ -202,6 +214,7 @@ export class RoutinesPage implements OnInit {
    * @returns {boolean} `true` si el ejercicio está seleccionado, de lo contrario `false`.
    */
   isExerciseSelected(category: RoutineType, exercise: Exercise): boolean {
+    console.log("Exercise ", exercise)
     return category.exercises.some(e => e.name === exercise.name);
   }
 
@@ -211,7 +224,7 @@ export class RoutinesPage implements OnInit {
       console.log(result);
 
       if (!result.success) throw result.error;
-
+      console.log("this.categories", this.categories)
       this.userRegistratorService.setData({
         selectedRoutines: this.categories.filter((c) => c.selected),
       });
