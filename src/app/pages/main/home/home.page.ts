@@ -10,6 +10,7 @@ import { CaloriesTrackingService } from '@/app/services/calories-tracking.servic
 
 // IMPORTAR el servicio (descomentar cuando se una con el código del Home)
 import { ExercisesService } from 'src/app/services/exercises.service';
+import { AlertController, Platform } from '@ionic/angular';
 
 Chart.register(...registerables);
 
@@ -34,6 +35,9 @@ export class HomePage implements AfterViewInit, OnInit {
   user: User | null = null;
   public userData: any = {};
   private auth: Auth;
+
+  showPermissionModal = false;
+  showHelpModal = false;
 
   selectedRoutines: any[] = [];
   public allCategories: any[] = [];
@@ -76,7 +80,12 @@ export class HomePage implements AfterViewInit, OnInit {
   // Inyectar el servicio (ajustar según el constructor existente)
   /** constructor(private exercisesService: ExercisesService) {} */
 
-  constructor(private userService: UserRegistrationService, private caloriesService: CaloriesTrackingService, private exercisesService: ExercisesService) {
+  constructor(
+    private userService: UserRegistrationService,
+    private caloriesService: CaloriesTrackingService,
+    private exercisesService: ExercisesService,
+    private alertCtrl: AlertController,
+    private platform: Platform) {
     this.auth = inject(Auth);
   }
 
@@ -423,5 +432,22 @@ export class HomePage implements AfterViewInit, OnInit {
       console.error('Error getting location', e);
       return null;
     }
+  }
+
+  async onToggleActivity() {
+    if (this.isTracking) {
+      await this.stopActivity();
+    } else {
+      this.showPermissionModal = true;
+    }
+  }
+
+  closePermissionModal() {
+    this.showPermissionModal = false;
+  }
+
+  async onConfirmPermission() {
+    this.showPermissionModal = false;
+    await this.getPermissions();
   }
 }
