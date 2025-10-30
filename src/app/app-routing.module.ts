@@ -4,13 +4,6 @@ import { authGuard } from './guards/auth-guard';
 import { noAuthGuard } from './guards/no-auth-guard';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   loadChildren: () =>
-  //     import(
-  //       './pages/start-nutri-fit/start-nutri-fit.module'
-  //     ).then((m) => m.StartNutriFitPageModule),
-  // },
   {
     path: '',
     canActivate: [noAuthGuard],
@@ -59,13 +52,6 @@ const routes: Routes = [
         './pages/main/routines/routines.module'
       ).then((m) => m.RoutinesPageModule),
   },
-  // {
-  //   path: 'foods',
-  //   loadChildren: () =>
-  //     import(
-  //       './pages/main/food/food.module'
-  //     ).then((m) => m.FoodPageModule),
-  // },
   {
     path: 'profile',
     canActivate: [authGuard],
@@ -91,20 +77,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/main/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   },
 
-  // {
-  //   path: 'progress',
-  //   loadChildren: () =>
-  //     import(
-  //       './pages/extras/progress/progress.module'
-  //     ).then((m) => m.ProgressPageModule),
-  // },
-  // {
-  //   path: 'settings',
-  //   loadChildren: () =>
-  //     import(
-  //       './pages/extras/settings/settings.module'
-  //     ).then((m) => m.SettingsPageModule),
-  // },
 ];
 @NgModule({
   imports: [

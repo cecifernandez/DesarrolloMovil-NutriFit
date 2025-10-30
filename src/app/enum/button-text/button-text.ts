@@ -11,7 +11,6 @@ export enum ButtonText {
   registerGoogle = 'Regístrarse con Google',
   registerApple = 'Regístrarse con Apple',
 
-  // Tabs
   home = "Inicio",
   routines = "Rutinas",
   foods = "Comidas",

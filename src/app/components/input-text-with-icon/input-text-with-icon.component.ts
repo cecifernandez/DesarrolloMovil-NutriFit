@@ -17,7 +17,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 export class InputTextWithIconComponent implements ControlValueAccessor {
   @Input() iconPath!: string;
   @Input() label!: string;
-  @Input() type: string = 'text'; // tipo del input (text, password, email, etc.)
+  @Input() type: string = 'text';  
   @Input() value: string = '';
   @Input() readonly: boolean = false;
   @Input() disabled: boolean = false;
@@ -150,7 +150,6 @@ export class InputTextWithIconComponent implements ControlValueAccessor {
  */
   onInputChange(event: any) {
     const input = event.target as HTMLInputElement;
-    // const value = event.detail?.value ?? '';
     this.value = input.value;
     this.onChange(this.value);
     this.onTouched();

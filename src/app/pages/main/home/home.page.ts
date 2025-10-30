@@ -8,7 +8,6 @@ import { UserRegistrationService } from '@/app/services/user-registration.servic
 import { CaloriesTrackingService } from '@/app/services/calories-tracking.service';
 
 
-// IMPORTAR el servicio (descomentar cuando se una con el código del Home)
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { AlertController, Platform } from '@ionic/angular';
 
@@ -42,43 +41,30 @@ export class HomePage implements AfterViewInit, OnInit {
   selectedRoutines: any[] = [];
   public allCategories: any[] = [];
 
-  // Estado del tracking
   isTracking = false;
   private watchId: string | null = null;
   private positions: Position[] = [];
   private startTime: number = 0;
 
-  // Configuración del usuario
   userWeight: number = 0;
 
-  // Datos en tiempo real
   currentDistance = 0;
   currentDuration = 0;
   currentSpeed = 0;
   estimatedCalories = 0;
 
-  // Resultados finales
   activityResults: ActivityData | null = null;
 
   private statusInterval: any;
 
-  // Factores de calorías por km según actividad
   private readonly CALORIE_FACTORS = {
-    walking: 50,   // < 5 km/h
-    jogging: 70,   // 5-8 km/h
-    running: 100,  // > 8 km/h
-    cycling: 40    // > 20 km/h
+    walking: 50,   
+    jogging: 70,   
+    running: 100,  
+    cycling: 40    
   };
 
-  // Este código permite que los ejercicios seleccionados en la tab de Rutinas
-  // se reflejen automáticamente en el Home cuando hagamos el merge.
-  // Descomentar e integrar cuando estemos trabajando sobre el .ts correspondiente.
 
-  // Acá se van a guardar los ejercicios seleccionados por rutina
-  /** selectedExercises: any = {}; */
-
-  // Inyectar el servicio (ajustar según el constructor existente)
-  /** constructor(private exercisesService: ExercisesService) {} */
 
   constructor(
     private userService: UserRegistrationService,

@@ -41,10 +41,8 @@ export class FirebaseService {
     const { email, password, username } = inputs;
 
     try {
-      // Crear usuario en Firebase Authentication
       const result = await createUserWithEmailAndPassword(this.auth, email, password);
 
-      // Guardar datos del usuario en Firestore
       if (result.user?.uid) {
         const userRef = doc(this.firestore, `users/${result.user.uid}`);
         await setDoc(userRef, {
@@ -83,7 +81,7 @@ export class FirebaseService {
   async isNewUser(uid: string): Promise<boolean> {
     const userRef = doc(this.firestore, `users/${uid}`);
     const userSnap = await getDoc(userRef);
-    return !userSnap.exists(); // true si es nuevo
+    return !userSnap.exists(); 
   }
 
   async loginWithGooglePopup() {

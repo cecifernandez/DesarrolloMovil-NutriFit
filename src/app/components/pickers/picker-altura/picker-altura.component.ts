@@ -77,7 +77,7 @@ export class PickerAlturaComponent implements ControlValueAccessor {
   closeModal(role: string) {
     if (role === 'confirm') {
       this.value = `${this.selectedAltura} ${this.selectedUnidad}`;
-      this.onChange(this.value); // actualiza el ngModel
+      this.onChange(this.value);
       this.onTouched();
     }
     this.modal.dismiss();
