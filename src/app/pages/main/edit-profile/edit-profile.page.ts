@@ -45,13 +45,13 @@ export class EditProfilePage implements OnInit {
     const userRef = doc(this.firestore, `users/${uid}`);
 
     try {
-      // Actualizar Firestore
+      
       await updateDoc(userRef, {
         username: this.username,
         weight: this.weight
       });
 
-      // Cambiar contraseña si el usuario escribió algo
+
       if (this.newPassword.trim().length > 0) {
         await updatePassword(user, this.newPassword);
       }

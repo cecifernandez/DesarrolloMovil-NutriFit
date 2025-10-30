@@ -73,9 +73,9 @@ export class ProfilePage implements OnInit {
   async ngOnInit() {
     this.loadUserData();
     try {
-        const userRoutines = await this.exercisesService.getUserRoutines(); // desde Firebase
+        const userRoutines = await this.exercisesService.getUserRoutines();
         if (userRoutines && userRoutines.length > 0) {
-          // Mostrar solo las seleccionadas
+          
           this.selectedRoutines = userRoutines.filter(r => r.selected);
         }
       } catch (error) {
@@ -184,7 +184,7 @@ export class ProfilePage implements OnInit {
       });
       await toast.present();
 
-      // Redirigir al welcome
+      
       this.router.navigate(['/']);
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
@@ -204,26 +204,24 @@ export class ProfilePage implements OnInit {
     this.activeTab = tab;
 
     if (tab === 'estadisticas') {
-      // Si el gráfico ya existe, no lo volvemos a crear
+  
       if (this.chart) {
         return;
       }
 
-      // 1. Obtenemos los datos para el gráfico (últimas 4 semanas)
-      // Puedes cambiar el '4' por el número de semanas que quieras ver
+     
       const chartData = this.caloriesService.getCaloriesForPastWeeks(4);
 
-      // 2. Obtenemos el total de los últimos 7 días para mostrarlo como texto
+    
       this.totalLast7Days = this.caloriesService.getTotalWeeklyCalories();
 
-      // 3. Creamos el gráfico (con el setTimeout como lo tenías)
+     
       setTimeout(() => {
-        // Pasamos los datos de las semanas al gráfico
+  
         this.createChart(chartData.labels, chartData.data);
-      }, 0); // 0ms es suficiente
-
+      }, 0); 
     } else {
-      // Si cambiamos a 'rutinas', destruimos el gráfico
+      
       if (this.chart) {
         this.chart.destroy();
         this.chart = null;
@@ -237,9 +235,9 @@ export class ProfilePage implements OnInit {
 
 
       try {
-        const userRoutines = await this.exercisesService.getUserRoutines(); // desde Firebase
+        const userRoutines = await this.exercisesService.getUserRoutines(); 
         if (userRoutines && userRoutines.length > 0) {
-          // Mostrar solo las seleccionadas
+        
           this.selectedRoutines = userRoutines.filter(r => r.selected);
         }
       } catch (error) {
@@ -259,35 +257,33 @@ export class ProfilePage implements OnInit {
  */
   createChart(labels: string[], dataValues: number[]) {
 
-    // 1) Encontrar el valor máximo para destacarlo
-    // Usamos '...dataValues, 0' para que si el array está vacío, el máximo no sea -Infinity
+    
     const maxValue = Math.max(...dataValues, 0);
 
-    // Comprobamos si hay algún dato real (mayor que 0)
+ 
     const hasData = dataValues.some(v => v > 0);
 
-    // Creamos un array que marca cuál es el índice del valor máximo
-    // Solo marca si 'hasData' es true y el valor es el máximo
+    
     const isMaxIndex = dataValues.map(v => hasData && v === maxValue);
 
-    // 2) Colores y fuentes dinámicas según si es el máximo o no
+    
     const backgroundColors = isMaxIndex.map(isMax => isMax ? '#82D68E' : '#EAEAEA');
     const textColors = isMaxIndex.map(isMax => isMax ? '#82D68E' : '#9e9e9e');
     const fontWeights = isMaxIndex.map(isMax => isMax ? 'bold' as const : 'normal' as const);
 
-    // 3) Comprobar si el canvas existe antes de dibujar
+   
     if (!this.caloriesCanvas || !this.caloriesCanvas.nativeElement) {
       console.error('Error: El elemento <canvas> no se encontró al crear el gráfico.');
       return;
     }
 
-    // 4) Crear la instancia del gráfico
+ 
     this.chart = new Chart(this.caloriesCanvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: labels, // Usamos el parámetro
+        labels: labels, 
         datasets: [{
-          data: dataValues, // Usamos el parámetro
+          data: dataValues, 
           backgroundColor: backgroundColors,
           borderRadius: 8,
           borderSkipped: false
@@ -297,11 +293,11 @@ export class ProfilePage implements OnInit {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          // Oculta la leyenda del dataset
+          
           legend: {
             display: false
           },
-          // Configuración avanzada del tooltip (el popup al hacer hover)
+         
           tooltip: {
             enabled: true,
             callbacks: {
@@ -319,18 +315,18 @@ export class ProfilePage implements OnInit {
           }
         },
         scales: {
-          // Ocultamos el eje Y (el de los números)
+          
           y: {
             display: false
           },
-          // Configuramos el eje X (el de las semanas)
+          
           x: {
             display: true,
             grid: {
-              display: false // Sin líneas de cuadrícula
+              display: false 
             },
             ticks: {
-              // Asignamos el color y grosor de fuente a cada etiqueta
+              
               color: (ctx) => textColors[ctx.index],
               font: (ctx) => ({ weight: fontWeights[ctx.index] })
             }
