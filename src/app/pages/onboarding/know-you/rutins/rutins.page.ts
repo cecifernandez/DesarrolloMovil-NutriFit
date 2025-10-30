@@ -31,7 +31,7 @@ export class RutinsPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastController: ToastController
-  ) {}
+  ) { }
 
   async ngOnInit() {
     try {
@@ -52,17 +52,45 @@ export class RutinsPage implements OnInit {
     }
   }
 
-  // --- GETTERS ---
+  /**
+ * Devuelve la cantidad de rutinas actualmente seleccionadas.
+ *
+ * Cuenta simplemente la longitud del arreglo `selectedRoutines`, que actúa como
+ * un registro rápido de las rutinas elegidas por el usuario.
+ *
+ * @returns {number} Número de rutinas seleccionadas.
+ */
   get selectedRoutineCount(): number {
     return this.selectedRoutines.length;
   }
 
+  /**
+   * Indica si ya se alcanzó el máximo de rutinas que el usuario puede seleccionar.
+   *
+   * Compara la cantidad actual (`selectedRoutineCount`) con el límite definido
+   * en `this.maxRoutines` (por ejemplo, 3). Si ya llegó o lo superó, devuelve `true`.
+   *
+   * @returns {boolean} `true` si no se pueden seleccionar más rutinas.
+   */
   get maxSelectedReached(): boolean {
     return this.selectedRoutineCount >= this.maxRoutines;
   }
 
-  // --- CARD (RUTINA) SELECCIÓN ---
-  async onCardSelected(cardTitle: string) {
+  /**
+   * Maneja la selección de una tarjeta de rutina (categoría).
+   *
+   * - Busca la categoría por nombre.
+   * - Si no existe, no hace nada.
+   * - Si la categoría NO estaba seleccionada y ya se alcanzó el máximo permitido,
+   *   muestra un toast de error y no permite la selección.
+   *
+   * Esto evita que el usuario marque más de 3 rutinas aunque intente hacerlo
+   * desde la UI de tarjetas.
+   *
+   * @param {string} cardTitle - Nombre/título de la categoría seleccionada.
+   * @returns {Promise<void>}
+   */
+  async onCardSelected(cardTitle: string): Promise<void> {
     const category = this.categories.find(
       (c) => c.name.toLowerCase() === cardTitle.toLowerCase()
     );
@@ -70,31 +98,48 @@ export class RutinsPage implements OnInit {
 
     const alreadySelected = category.selected;
 
-    // Si intenta seleccionar una cuarta rutina
     if (!alreadySelected && this.maxSelectedReached) {
       await this.mostrarErrorToast('Solo puedes seleccionar hasta 3 rutinas.');
       return;
     }
   }
 
-  // --- EJERCICIO SELECCIÓN ---
+  /**
+   * Maneja la selección/deselección de ejercicios dentro de una categoría.
+   *
+   * Flujo:
+   * 1. Busca la categoría por título.
+   * 2. Si la categoría NO está seleccionada pero el usuario ya llegó al máximo
+   *    de rutinas permitidas, se muestra un error y no se permite seleccionar.
+   * 3. Actualiza `selectedExercises` de la categoría con los ejercicios llegados
+   *    en el evento.
+   * 4. Si ahora la categoría tiene ejercicios seleccionados y antes no estaba
+   *    marcada como seleccionada, la marca y la agrega a `selectedRoutines`.
+   * 5. Si se quitaron todos los ejercicios y la categoría estaba seleccionada,
+   *    la desmarca y la quita de `selectedRoutines`.
+   *
+   * Esto mantiene sincronizado:
+   * - El estado visual de la tarjeta
+   * - El listado de rutinas seleccionadas
+   * - El límite máximo permitido
+   *
+   * @param {{ cardTitle: string; exercises: Exercise[] }} event - Datos de la selección de ejercicios.
+   * @returns {Promise<void>}
+   */
   async onExerciseSelected(event: {
     cardTitle: string;
     exercises: Exercise[];
-  }) {
+  }): Promise<void> {
     const category = this.categories.find((c) => c.name === event.cardTitle);
     if (!category) return;
 
-    // Bloquear si intenta seleccionar ejercicios de una rutina NO seleccionada y ya alcanzó el límite
     if (!category.selected && this.maxSelectedReached) {
       await this.mostrarErrorToast('Ya alcanzaste el límite de 3 rutinas.');
       return;
     }
 
-    // Permitir seleccionar o deseleccionar ejercicios dentro de las rutinas elegidas
     category.selectedExercises = event.exercises;
 
-    // --- Manejo del estado de selección ---
     if (category.selectedExercises.length > 0 && !category.selected) {
       category.selected = true;
       this.selectedRoutines.push(category.paramValue);
@@ -106,8 +151,19 @@ export class RutinsPage implements OnInit {
     }
   }
 
-  // --- NAVEGACIÓN Y ERRORES ---
-  goToHome() {
+  /**
+   * Valida las rutinas seleccionadas y, si todo está bien, guarda los datos y navega al home.
+   *
+   * - Primero valida con Zod que el arreglo `this.categories` cumple con el esquema
+   *   `RoutineTypeModel[]`.
+   * - Si la validación falla, muestra el primer mensaje de error.
+   * - Si la validación pasa, guarda en el servicio de registro solo las categorías
+   *   que quedaron marcadas (`selected === true`).
+   * - Finalmente navega a `./home`.
+   *
+   * @returns {void}
+   */
+  goToHome(): void {
     try {
       const result = z.array(RoutineTypeModel).safeParse(this.categories);
       console.log(result);
@@ -131,11 +187,26 @@ export class RutinsPage implements OnInit {
     }
   }
 
-  backObjectivePerson() {
+  /**
+   * Vuelve al paso anterior del onboarding (objetivos de la persona).
+   *
+   * Usa navegación relativa para mantenerse dentro del flujo actual.
+   *
+   * @returns {void}
+   */
+  backObjectivePerson(): void {
     this.router.navigate(['../objective-person'], { relativeTo: this.route });
   }
 
-  async mostrarErrorToast(message: string) {
+  /**
+   * Muestra un toast de error con estilo "danger".
+   *
+   * Se usa en todas las validaciones de límite (máx. 3 rutinas) y en errores de Zod.
+   *
+   * @param {string} message - Mensaje a mostrar en el toast.
+   * @returns {Promise<void>} Promesa que se resuelve cuando el toast se presentó.
+   */
+  async mostrarErrorToast(message: string): Promise<void> {
     const toast = await this.toastController.create({
       message,
       duration: 3000,
@@ -144,4 +215,5 @@ export class RutinsPage implements OnInit {
     });
     await toast.present();
   }
+
 }

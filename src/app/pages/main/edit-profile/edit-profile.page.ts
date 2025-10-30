@@ -21,7 +21,7 @@ export class EditProfilePage implements OnInit {
     private firestore: Firestore,
     private toastCtrl: ToastController,
     private router: Router
-  ) {}
+  ) { }
 
   async ngOnInit() {
     const user = this.auth.currentUser;
@@ -37,7 +37,25 @@ export class EditProfilePage implements OnInit {
     }
   }
 
-  async saveChanges() {
+  /**
+ * Guarda los cambios del perfil del usuario autenticado.
+ *
+ * El flujo es:
+ * 1. Obtiene el usuario actual desde Firebase Auth. Si no hay usuario, sale.
+ * 2. Construye la referencia al documento del usuario en Firestore (`users/{uid}`).
+ * 3. Actualiza en Firestore los campos editables del perfil (por ahora `username` y `weight`).
+ * 4. Si el usuario ingresó una nueva contraseña (`this.newPassword` no está vacía),
+ *    también la actualiza en Firebase Auth con `updatePassword(...)`.
+ * 5. Si todo sale bien, muestra un toast de éxito y navega al perfil.
+ * 6. Si algo falla en cualquiera de los pasos, muestra un toast de error con el mensaje.
+ *
+ * Esta función mezcla actualización en **Firestore** (datos de perfil) y en **Auth**
+ * (contraseña), por lo que debe ir en un `try/catch`.
+ *
+ * @async
+ * @returns {Promise<void>}
+ */
+  async saveChanges(): Promise<void> {
     const user = this.auth.currentUser;
     if (!user) return;
 
@@ -45,12 +63,10 @@ export class EditProfilePage implements OnInit {
     const userRef = doc(this.firestore, `users/${uid}`);
 
     try {
-      
       await updateDoc(userRef, {
         username: this.username,
-        weight: this.weight
+        weight: this.weight,
       });
-
 
       if (this.newPassword.trim().length > 0) {
         await updatePassword(user, this.newPassword);
@@ -59,20 +75,20 @@ export class EditProfilePage implements OnInit {
       const toast = await this.toastCtrl.create({
         message: 'Perfil actualizado!',
         duration: 1800,
-        color: 'success'
+        color: 'success',
       });
       toast.present();
 
       this.router.navigate(['/profile']);
-
     } catch (err: any) {
       const toast = await this.toastCtrl.create({
         message: 'Error: ' + err.message,
         duration: 2000,
-        color: 'danger'
+        color: 'danger',
       });
       toast.present();
     }
   }
+
 }
 

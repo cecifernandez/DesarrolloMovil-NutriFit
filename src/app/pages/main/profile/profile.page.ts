@@ -336,7 +336,16 @@ export class ProfilePage implements OnInit {
     });
   }
 
-  goToEditProfile() {
-    this.router.navigate(['/edit-profile']);
-  }
+  /**
+ * Navega a la pantalla de edición de perfil del usuario.
+ *
+ * Se usa, por ejemplo, desde el perfil para que el usuario pueda modificar
+ * su nombre, peso, contraseña u otros datos.
+ *
+ * @returns {void}
+ */
+goToEditProfile(): void {
+  this.router.navigate(['/edit-profile']);
+}
+
 }

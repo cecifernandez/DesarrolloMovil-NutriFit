@@ -73,20 +73,16 @@ export class StartPage {
         throw result.error;
       }
 
-      // Se registra al usuario en Firebase
       await this.firebaseService.register(result.data);
 
-      // Se guardan los datos del primer paso en el servicio compartido
       this.userRegistrationService.setData(result.data);
 
-      // Navega al siguiente formulario
       this.router.navigate(['/about-you'], { replaceUrl: true });
     } catch (error: unknown) {
       let errorMsg =
         'Hubo un error en la aplicación, intenta nuevamente más tarde.';
 
       if (error instanceof ZodError) {
-        // primer error
         const errores = error.issues || [];
 
         if (errores && errores.length > 0) {

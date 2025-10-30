@@ -14,6 +14,16 @@ export class ObjectiveComponent {
 
   @Output() checkedChange = new EventEmitter<boolean>();
 
+  /**
+ * Alterna el estado del control (on/off) y notifica el cambio.
+ *
+ * Si el control está deshabilitado (`disabled === true`), no realiza ninguna acción.
+ * En caso contrario, invierte el valor actual de `checked` y emite el nuevo valor
+ * mediante el `EventEmitter` `checkedChange` para que el componente padre pueda
+ * reaccionar (por ejemplo, actualizar un formulario o guardar la preferencia).
+ *
+ * @returns {void}
+ */
   toggle() {
     if (this.disabled) return;
     this.checked = !this.checked;

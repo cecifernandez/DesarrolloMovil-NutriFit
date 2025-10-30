@@ -17,9 +17,19 @@ export class SecondaryButtonComponent implements OnInit {
   @HostBinding('class.active') get isActive() {
     return this.active;
   }
-  onClick() {
+  /**
+ * Maneja el evento de clic del botón y lo propaga al componente padre.
+ *
+ * Esta función se ejecuta cuando el usuario hace clic en el botón del componente.
+ * Su única responsabilidad es emitir el evento `buttonClick` para que el padre
+ * pueda reaccionar (por ejemplo, guardar un formulario, abrir un modal, navegar, etc.).
+ *
+ * @returns {void}
+ */
+  onClick(): void {
     this.buttonClick.emit();
   }
+
 
   constructor() { }
 

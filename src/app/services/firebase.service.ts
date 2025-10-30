@@ -11,7 +11,7 @@ import {
   onAuthStateChanged
 } from '@angular/fire/auth';
 import {
- Firestore,
+  Firestore,
   collection,
   collectionData,
   doc,
@@ -32,7 +32,7 @@ import { Router } from '@angular/router';
 export class FirebaseService {
 
 
-  constructor(private auth: Auth, private firestore: Firestore) {}
+  constructor(private auth: Auth, private firestore: Firestore) { }
 
   /**
    * Registra un nuevo usuario y guarda sus datos en Firestore.
@@ -80,7 +80,7 @@ export class FirebaseService {
   /**
    * Inicia sesión con Google mediante un popup.
    */
- async isNewUser(uid: string): Promise<boolean> {
+  async isNewUser(uid: string): Promise<boolean> {
     const userRef = doc(this.firestore, `users/${uid}`);
     const userSnap = await getDoc(userRef);
     return !userSnap.exists(); // true si es nuevo
@@ -115,10 +115,10 @@ export class FirebaseService {
     return sendPasswordResetEmail(this.auth, email);
   }
 
- 
-/**
-   * Obtiene los datos del usuario actualmente autenticado.
-   */
+
+  /**
+     * Obtiene los datos del usuario actualmente autenticado.
+     */
   async getCurrentUserData() {
     const user = this.auth.currentUser;
     if (!user) {
@@ -129,17 +129,48 @@ export class FirebaseService {
     const docSnap = await getDoc(userRef);
     return docSnap; // devuelve DocumentSnapshot
   }
-  
+
+  /**
+ * Obtiene en tiempo real la lista de usuarios almacenados en Firestore.
+ *
+ * Usa `collectionData` sobre la colección `'users'` y agrega el `id` del documento
+ * dentro del objeto retornado mediante `{ idField: 'id' }`, de modo que cada usuario
+ * tenga también su identificador de Firestore.
+ *
+ * Al devolver un `Observable<any[]>`, la vista/componente que se suscriba recibirá
+ * actualizaciones en vivo cuando se agreguen/editen/borran usuarios.
+ *
+ * @returns {Observable<any[]>} Flujo con el listado de usuarios.
+ */
   getUsers(): Observable<any[]> {
     const usersRef = collection(this.firestore, 'users');
     return collectionData(usersRef, { idField: 'id' }) as Observable<any[]>;
   }
 
+  /**
+   * Redirige al usuario autenticado si intenta entrar a una ruta pública.
+   *
+   * Escucha el estado de autenticación con `onAuthStateChanged`:
+   * - Si hay usuario autenticado **y** la ruta actual NO forma parte del flujo
+   *   de registro (`/register`), entonces lo redirige a `fallbackRoute`
+   *   (por defecto `/home`).
+   * - Si el usuario está en el registro, se le permite quedarse aunque esté logueado.
+   *
+   * Esto es útil para pantallas como login, bienvenida u onboarding inicial.
+   *
+   * @param {Router} router - Router de Angular para navegar.
+   * @param {string} [fallbackRoute='/home'] - Ruta a la que se redirige si ya está autenticado.
+   * @returns {void}
+   */
   redirectIfAuthenticated(router: Router, fallbackRoute = '/home'): void {
     onAuthStateChanged(this.auth, (user) => {
-      if (user) {
+      const currentUrl = router.url;
+      const isRegisterFlow = currentUrl.includes('/register');
+
+      if (user && !isRegisterFlow) {
         router.navigate([fallbackRoute]);
       }
     });
   }
+
 }

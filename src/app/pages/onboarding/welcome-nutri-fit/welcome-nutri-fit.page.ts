@@ -54,14 +54,12 @@ export class WelcomeNutriFitPage implements OnInit {
     try {
       const result = await this.firebaseService.loginWithGooglePopup();
 
-      const user = result.user!; // Usuario autenticado
+      const user = result.user!; 
       const isNewUser = await this.firebaseService.isNewUser(user.uid);
 
-      // Determina la ruta a la que se redirige
       const route = isNewUser ? '/about-you' : '/home';
       await this.router.navigateByUrl(route, { replaceUrl: true });
 
-      // Muestra toast de bienvenida
       const toast = await this.toastController.create({
         message: `¡Bienvenido ${user.displayName ?? 'usuario'}!`,
         duration: 3000,
@@ -69,7 +67,6 @@ export class WelcomeNutriFitPage implements OnInit {
       });
       await toast.present();
     } catch (error: any) {
-      // Muestra toast de error en caso de fallo
       const toast = await this.toastController.create({
         message: 'Error al iniciar sesión con Google: ' + (error.message || ''),
         duration: 3000,
