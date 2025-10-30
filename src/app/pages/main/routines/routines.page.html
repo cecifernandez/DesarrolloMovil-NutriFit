@@ -11,21 +11,21 @@
 
   <div class="container">
     <!-- Componente de búsqueda -->
-    <input-search></input-search>
+    <!-- <input-search></input-search> -->
 
     <!-- Texto de límite -->
     <p class="limit-text">
       Podés elegir hasta 3 rutinas ({{ selectedRoutines.length }}/3).
     </p>
 
+    <primary-button *ngIf="selectedRoutines.length >= 1" [propEnum]="ButtonText.next" class="button-next"
+      (click)="goToHome()"></primary-button>
+
     <!-- Componente de cards -->
    <card-rutin [categories]="categories" [maxSelectedReached]="selectedRoutines.length >= 3"
         (cardSelected)="onCardSelected($event)" (exerciseSelected)="onExerciseSelected($event)"
         class="cards-rutins"
         ></card-rutin>
-
-    <primary-button *ngIf="selectedRoutines.length >= 1" [propEnum]="ButtonText.next" class="button-next"
-      (click)="goToHome()"></primary-button>
   </div>
 </ion-content>
 

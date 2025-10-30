@@ -137,7 +137,10 @@ export class FirebaseService {
 
   redirectIfAuthenticated(router: Router, fallbackRoute = '/home'): void {
     onAuthStateChanged(this.auth, (user) => {
-      if (user) {
+      const currentUrl = router.url;
+      const isRegisterFlow = currentUrl.includes('/register');
+
+      if (user && !isRegisterFlow) {
         router.navigate([fallbackRoute]);
       }
     });
