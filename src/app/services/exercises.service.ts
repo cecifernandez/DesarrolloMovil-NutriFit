@@ -83,7 +83,6 @@ export class ExercisesService {
     if (!snap.exists()) return [];
     const data = snap.data();
 
-    console.log("secle",data['selectedRoutines'] )
     return data['selectedRoutines'] || [];
   }
 }

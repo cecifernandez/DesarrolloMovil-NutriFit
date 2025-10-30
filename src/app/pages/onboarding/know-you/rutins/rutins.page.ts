@@ -166,7 +166,6 @@ export class RutinsPage implements OnInit {
   goToHome(): void {
     try {
       const result = z.array(RoutineTypeModel).safeParse(this.categories);
-      console.log(result);
 
       if (!result.success) throw result.error;
 

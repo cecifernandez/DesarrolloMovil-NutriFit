@@ -143,7 +143,6 @@ export class ProfilePage implements OnInit {
    * @returns {Promise<void>} Promesa que se resuelve cuando la foto ha sido seleccionada o tomada.
    */
   async changeProfilePhoto() {
-    console.log('Evento click detectado');
     if (!Camera) {
       alert('La cámara no está disponible en este entorno.');
       return;
@@ -156,7 +155,6 @@ export class ProfilePage implements OnInit {
         source: CameraSource.Prompt,
       });
 
-      console.log('Imagen seleccionada:', image);
 
       this.profileImage = image.dataUrl!;
     } catch (error) {
@@ -200,7 +198,6 @@ export class ProfilePage implements OnInit {
     * Cambia entre las pestañas "Mis rutinas" y "Estadísticas"
     */
   async setActiveTab(tab: 'rutinas' | 'estadisticas') {
-    console.log('Tab cambiado a:', tab);
     this.activeTab = tab;
 
     if (tab === 'estadisticas') {

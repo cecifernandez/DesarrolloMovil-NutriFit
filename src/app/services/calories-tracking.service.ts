@@ -30,7 +30,6 @@ export class CaloriesTrackingService {
     }
 
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(mockData));
-    console.log('Datos mock generados:', mockData);
   }
 
   /**
@@ -51,7 +50,6 @@ export class CaloriesTrackingService {
     storedData[dateKey] = (storedData[dateKey] || 0) + calories;
 
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(storedData));
-    console.log('Kcal guardadas:', storedData);
   }
 
   /**
@@ -202,7 +200,6 @@ export class CaloriesTrackingService {
    */
   resetCalories(): void {
     localStorage.removeItem(this.STORAGE_KEY);
-    console.log('Datos de calorías reiniciados');
   }
 
 }

@@ -95,10 +95,8 @@ export class RoutinesPage implements OnInit {
     forkJoin(requests).subscribe({
       next: (categories: RoutineType[]) => {
         this.categories = categories;
-        console.log('✅ Categorías cargadas:', categories);
       },
       error: (err) => {
-        console.error('❌ Error al cargar rutinas:', err);
       }
     });
 
@@ -157,10 +155,8 @@ export class RoutinesPage implements OnInit {
     cardTitle: string;
     exercises: Exercise[];
   }) {
-    console.log("categorias cargadas", this.categories, event.cardTitle)
     const category = this.categories.find((c) => c.name.toLowerCase() === event.cardTitle.toLowerCase());
     if (!category){
-      console.log("category",category)
       return;
     } 
 
@@ -170,7 +166,6 @@ export class RoutinesPage implements OnInit {
     }
 
     category.selectedExercises = event.exercises;
-console.log("EXCER", event.exercises)
     if (category.selectedExercises.length > 0 && !category.selected) {
       category.selected = true;
       this.selectedRoutines.push(category.paramValue);
@@ -190,17 +185,14 @@ console.log("EXCER", event.exercises)
    * @returns {boolean} `true` si el ejercicio está seleccionado, de lo contrario `false`.
    */
   isExerciseSelected(category: RoutineType, exercise: Exercise): boolean {
-    console.log("Exercise ", exercise)
     return category.exercises.some(e => e.name === exercise.name);
   }
 
   goToHome() {
     try {
       const result = z.array(RoutineTypeModel).safeParse(this.categories);
-      console.log(result);
 
       if (!result.success) throw result.error;
-      console.log("this.categories", this.categories)
       this.userRegistratorService.setData({
         selectedRoutines: this.categories.filter((c) => c.selected),
       });

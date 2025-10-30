@@ -78,16 +78,12 @@ export class HomePage implements AfterViewInit, OnInit {
   async ngOnInit() {
     await this.userService.loadUserFromFirestore();
     this.userData = this.userService.getData();
-    console.log('Datos del usuario cargados en Home:', this.userData);
     this.selectedRoutines = await this.exercisesService.getUserRoutines();
-    console.log('Rutinas cargadas desde Firebase:', this.selectedRoutines);
     this.userWeight = this.userData.weight ? this.userData.weight : 0;
 
     try {
       this.allCategories = await this.exercisesService.getUserRoutines();
-      console.log('Categorías cargadas para el creador:', this.allCategories);
     } catch (error) {
-      console.error('Error al cargar las categorías de ejercicios', error);
     }
 
     onAuthStateChanged(this.auth, (user) => {
@@ -235,11 +231,9 @@ export class HomePage implements AfterViewInit, OnInit {
   async getPermissions(): Promise<boolean> {
     try {
       const status = await Geolocation.requestPermissions();
-      console.log('Geolocation permission status:', status);
 
       return status.location === 'granted';
     } catch (e) {
-      console.error('Error requesting location permissions', e);
       return false;
     }
   }
@@ -276,7 +270,6 @@ export class HomePage implements AfterViewInit, OnInit {
         enableHighAccuracy: true,
       });
       this.positions.push(initialPosition);
-      console.log('Posición inicial:', initialPosition.coords);
 
       this.watchId = await Geolocation.watchPosition(
         {
@@ -292,11 +285,7 @@ export class HomePage implements AfterViewInit, OnInit {
 
           if (position) {
             this.positions.push(position);
-            console.log('Nueva posición:', {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-              total: this.positions.length,
-            });
+            
           }
         }
       );
@@ -305,9 +294,7 @@ export class HomePage implements AfterViewInit, OnInit {
         this.updateStatus();
       }, 1000);
 
-      console.log('Seguimiento iniciado');
     } catch (error) {
-      console.error('Error iniciando actividad:', error);
       alert('Error al iniciar el seguimiento');
     }
   }
@@ -349,7 +336,6 @@ export class HomePage implements AfterViewInit, OnInit {
         calories: calories,
       };
 
-      console.log('Actividad completada:', this.activityResults);
 
       this.caloriesService.saveDailyCalories(calories);
 
@@ -556,7 +542,6 @@ export class HomePage implements AfterViewInit, OnInit {
         enableHighAccuracy: true,
         timeout: 10000,
       });
-      console.log('Current position:', coordinates);
       return coordinates;
     } catch (e) {
       console.error('Error getting location', e);
