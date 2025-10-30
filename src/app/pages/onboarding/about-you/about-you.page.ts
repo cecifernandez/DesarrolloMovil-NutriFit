@@ -55,7 +55,7 @@ export class AboutYouPage {
 
 
       // Navega al siguiente formulario
-      this.router.navigate(['../objective-person'], { relativeTo: this.route });
+      this.router.navigate(['/objective'], { relativeTo: this.route });
     } catch (error: unknown) {
       let errorMsg =
         'Hubo un error en la aplicación, intenta nuevamente más tarde.';

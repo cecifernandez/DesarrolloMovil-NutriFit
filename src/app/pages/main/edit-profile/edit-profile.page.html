@@ -1,0 +1,43 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/profile"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="edit-content">
+
+  <!-- Card principal -->
+  <div class="edit-card">
+
+    <!-- Nombre -->
+    <div class="field">
+      <label>Nombre de usuario</label>
+      <ion-input [(ngModel)]="username" placeholder="Tu nombre"></ion-input>
+    </div>
+
+    <!-- Peso -->
+    <div class="field">
+      <label>Peso (kg)</label>
+      <ion-input type="number" [(ngModel)]="weight" placeholder="Ej: 70"></ion-input>
+    </div>
+
+    <!-- Contraseña -->
+    <div class="field">
+      <label>Nueva contraseña</label>
+      <ion-input
+        type="password"
+        [(ngModel)]="newPassword"
+        placeholder="••••••••">
+      </ion-input>
+    </div>
+
+  </div>
+
+  <!-- Botón Guardar -->
+  <ion-button expand="block" shape="round" class="save-btn" (click)="saveChanges()">
+    Guardar cambios
+  </ion-button>
+</ion-content>

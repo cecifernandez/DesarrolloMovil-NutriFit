@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ButtonText } from '@/app/enum/button-text/button-text';
 import { Router } from '@angular/router';
-import { FirebaseService } from '@/firebase.service';
+import { FirebaseService } from '@/app/services/firebase.service';
 import { ToastController } from '@ionic/angular';
 
 @Component({

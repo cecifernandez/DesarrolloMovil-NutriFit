@@ -86,6 +86,11 @@ const routes: Routes = [
     path: 'objective',
     loadChildren: () => import('./pages/onboarding/objective/objective.module').then( m => m.ObjectivePageModule)
   },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./pages/main/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
+
   // {
   //   path: 'progress',
   //   loadChildren: () =>

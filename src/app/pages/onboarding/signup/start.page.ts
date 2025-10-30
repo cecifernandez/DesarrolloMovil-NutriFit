@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ButtonText } from '@/app/enum/button-text/button-text';
-import { FirebaseService } from '@/firebase.service';
+import { FirebaseService } from '@/app/services/firebase.service';
 import { RegisterForm, RegisterFormModel } from '@/app/models/register.models';
 import { ZodError } from 'zod';
 import { UserRegistrationService } from '@/app/services/user-registration.service';
@@ -20,17 +20,17 @@ export class StartPage {
     private toastController: ToastController,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
-   /**
-   * Verifica si el usuario ya está autenticado al iniciar el componente.
-   *
-   * Si hay una sesión activa, redirige automáticamente al usuario a la ruta definida
-   * (por defecto, '/home'), evitando que acceda a pantallas públicas como Welcome.
-   *
-   * @returns {void}
-  */
-  ngOnInit() { 
+  /**
+  * Verifica si el usuario ya está autenticado al iniciar el componente.
+  *
+  * Si hay una sesión activa, redirige automáticamente al usuario a la ruta definida
+  * (por defecto, '/home'), evitando que acceda a pantallas públicas como Welcome.
+  *
+  * @returns {void}
+ */
+  ngOnInit() {
     this.firebaseService.redirectIfAuthenticated(this.router);
   }
 
@@ -72,25 +72,25 @@ export class StartPage {
       if (!result.success) {
         throw result.error;
       }
-      
+
       // Se registra al usuario en Firebase
       await this.firebaseService.register(result.data);
-      
+
       // Se guardan los datos del primer paso en el servicio compartido
       this.userRegistrationService.setData(result.data);
 
       // Navega al siguiente formulario
-      this.router.navigate(['./about-person'], { relativeTo: this.route });
+      this.router.navigate(['/about-you'], { replaceUrl: true });
     } catch (error: unknown) {
       let errorMsg =
         'Hubo un error en la aplicación, intenta nuevamente más tarde.';
 
-      if (error instanceof ZodError) { 
+      if (error instanceof ZodError) {
         // primer error
         const errores = error.issues || [];
 
         if (errores && errores.length > 0) {
-          errorMsg = errores[0].message; 
+          errorMsg = errores[0].message;
         }
       } else {
         console.error(error);

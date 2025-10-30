@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FirebaseService } from '@/firebase.service';
+import { FirebaseService } from '@/app/services/firebase.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ButtonText } from '@/app/enum/button-text/button-text';

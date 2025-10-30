@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { UserRegistrationService } from '@/app/services/user-registration.service';
-import { FirebaseService } from '@/firebase.service';
+import { FirebaseService } from '@/app/services/firebase.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';import { ButtonText } from '@/app/enum/button-text/button-text';
 import { Auth } from '@angular/fire/auth';
@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { Chart, registerables } from 'chart.js';
 import { CaloriesTrackingService } from '@/app/services/calories-tracking.service';
 import { ExercisesService } from 'src/app/services/exercises.service';
+import { ModalController } from '@ionic/angular';
 Chart.register(...registerables);
 
 
@@ -66,6 +67,7 @@ export class ProfilePage implements OnInit {
     private exercisesService: ExercisesService,
     private toastController: ToastController,
     private router: Router,
+    private modalCtrl: ModalController
   ) { }
 
   async ngOnInit() {
@@ -338,6 +340,7 @@ export class ProfilePage implements OnInit {
     });
   }
 
-
-
+  goToEditProfile() {
+    this.router.navigate(['/edit-profile']);
+  }
 }
