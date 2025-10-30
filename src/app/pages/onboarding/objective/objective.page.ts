@@ -140,10 +140,8 @@ export class ObjectivePage implements OnInit {
       }).length;
 
     if (selectedCount > 3) {
-      // revertimos el último cambio
       this.objectivePerson[key] = false;
 
-      // forzamos change detection
       setTimeout(() => {
         this.objectivePerson = { ...this.objectivePerson };
       });
@@ -151,7 +149,6 @@ export class ObjectivePage implements OnInit {
       await this.mostrarErrorToast('Solo podés elegir hasta 3 objetivos.');
     }
 
-    // si el campo sí es booleano, dejamos el valor que vino del UI
     if (typeof this.objectivePerson[key] === 'boolean') {
       this.objectivePerson[key] = value;
     }
@@ -179,10 +176,8 @@ export class ObjectivePage implements OnInit {
 
       const { data } = result;
 
-      // Se guardan los datos del tercer paso en el servicio compartido
       this.userRegistrationService.setData(data);
 
-      // Navega al siguiente formulario
       this.router.navigate(['/routines'], { relativeTo: this.route });
     } catch (error: unknown) {
       let errorMsg =

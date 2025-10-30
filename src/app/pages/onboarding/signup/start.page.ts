@@ -135,11 +135,9 @@ export class StartPage {
       const user = result.user!;
       const isNewUser = await this.firebaseService.isNewUser(user.uid);
 
-      // Determinar ruta según sea usuario nuevo o existente
       const route = isNewUser ? '/about-you' : '/home';
       await this.router.navigateByUrl(route, { replaceUrl: true });
 
-      // Mostrar toast de bienvenida
       const toast = await this.toastController.create({
         message: `¡Bienvenido ${user.displayName ?? 'usuario'}!`,
         duration: 3000,
@@ -148,7 +146,6 @@ export class StartPage {
       });
       await toast.present();
     } catch (error: any) {
-      // Mostrar toast de error si falla la autenticación
       const toast = await this.toastController.create({
         message: 'Error al registrarte con Google: ' + (error.message || ''),
         duration: 3000,

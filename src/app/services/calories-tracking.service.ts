@@ -7,15 +7,7 @@ export class CaloriesTrackingService {
 
   private STORAGE_KEY = 'dailyCalories';
 
-  constructor() { 
-    // ==========================================
-    // LLAMADA A LA FUNCIÓN MOCK (SOLO PARA PRUEBAS)
-    // ==========================================
-    // Comprueba si ya hay datos para no sobreescribirlos
-    if (!localStorage.getItem(this.STORAGE_KEY)) {
-      console.log('No hay datos. Generando datos mock...');
-      this._generateMockData();
-    }
+  constructor() {
   }
 
   /**
@@ -25,28 +17,35 @@ export class CaloriesTrackingService {
   private _generateMockData() {
     const mockData: { [key: string]: number } = {};
     const today = new Date();
-    const daysToMock = 30; // Genera datos para los últimos 30 días
+    const daysToMock = 30;
 
     for (let i = 0; i < daysToMock; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() - i);
-      const dateKey = date.toISOString().split('T')[0]; // YYYY-MM-DD
+      const dateKey = date.toISOString().split('T')[0];
 
-      // Genera un número aleatorio de calorías (entre 200 y 850)
       const randomCalories = Math.floor(Math.random() * 651) + 200;
-      
+
       mockData[dateKey] = randomCalories;
     }
-    
-    // Guarda los datos mock en localStorage
+
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(mockData));
     console.log('Datos mock generados:', mockData);
   }
 
-  // Guarda las kcal del día actual
-  saveDailyCalories(calories: number) {
+  /**
+ * Guarda las calorías quemadas para el día actual en `localStorage`.
+ *
+ * - Usa la fecha de hoy como key en formato `YYYY-MM-DD`.
+ * - Si ya había calorías guardadas para hoy, las suma.
+ * - Persiste todo en `this.STORAGE_KEY`.
+ *
+ * @param {number} calories - Cantidad de calorías a sumar al día de hoy.
+ * @returns {void}
+ */
+  saveDailyCalories(calories: number): void {
     const today = new Date();
-    const dateKey = today.toISOString().split('T')[0]; // YYYY-MM-DD
+    const dateKey = today.toISOString().split('T')[0];
 
     const storedData = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '{}');
     storedData[dateKey] = (storedData[dateKey] || 0) + calories;
@@ -55,7 +54,14 @@ export class CaloriesTrackingService {
     console.log('Kcal guardadas:', storedData);
   }
 
-  // Devuelve las kcal de los últimos 7 días (incluyendo hoy)
+  /**
+   * Devuelve un arreglo con las calorías de los últimos 7 días (hoy incluido).
+   *
+   * Si algún día no tiene datos, se completa con 0. Esto permite graficar
+   * correctamente en el frontend sin huecos.
+   *
+   * @returns {number[]} Arreglo de 7 números, de más antiguo a más reciente.
+   */
   getWeeklyCalories(): number[] {
     const storedData = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '{}');
     const result: number[] = [];
@@ -71,7 +77,14 @@ export class CaloriesTrackingService {
     return result;
   }
 
-  // Devuelve etiquetas con los días de la semana de los últimos 7 días
+  /**
+   * Genera las etiquetas (días) para los últimos 7 días.
+   *
+   * Devuelve abreviaturas en español: `['Dom', 'Lun', ...]` según el día
+   * correspondiente a cada una de las últimas 7 fechas.
+   *
+   * @returns {string[]} Arreglo de 7 etiquetas de día.
+   */
   getLast7DaysLabels(): string[] {
     const labels: string[] = [];
     const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
@@ -89,51 +102,64 @@ export class CaloriesTrackingService {
 
   /**
    * Suma todas las calorías quemadas en los últimos 7 días.
-   * @returns {number} El total de calorías de la semana.
+   *
+   * Usa `getWeeklyCalories()` para obtener el arreglo ya normalizado
+   * y luego lo reduce a un único número.
+   *
+   * @returns {number} Total de calorías de la semana.
    */
   getTotalWeeklyCalories(): number {
-    // 1. Obtenemos el array de los últimos 7 días
     const weeklyData = this.getWeeklyCalories();
 
-    // 2. Sumamos todos los valores del array
-    // .reduce() toma un 'acumulador' (sum) y el 'valor actual' (dailyCalories)
-    // y los suma, empezando desde 0.
     const total = weeklyData.reduce(
       (sum, dailyCalories) => sum + dailyCalories,
-      0 // El valor inicial de la suma
+      0
     );
 
     return total;
   }
 
   /**
-   * Helper: Devuelve el Lunes de una semana dada en formato YYYY-MM-DD
+   * Calcula el lunes (inicio de semana) de la fecha indicada y lo devuelve en formato `YYYY-MM-DD`.
+   *
+   * Esto se usa para agrupar los registros diarios por semanas.
+   *
+   * @private
+   * @param {Date} date - Fecha de referencia.
+   * @returns {string} Fecha del lunes de esa semana.
    */
   private getStartOfWeek(date: Date): string {
     const d = new Date(date);
-    // 0=Dom, 1=Lun, 2=Mar...
     const day = d.getDay();
-    // Ajusta la fecha para que sea Lunes.
-    // Si es Domingo (0), resta 6 días. Si es Lunes (1), resta 0. Si es Martes (2), resta 1.
+
+    // Si es domingo (0), restamos 6 para ir al lunes anterior
     const diff = d.getDate() - day + (day === 0 ? -6 : 1);
     d.setDate(diff);
     return d.toISOString().split('T')[0];
   }
 
   /**
-   * Agrupa todas las calorías por semana.
-   * @param weekCount El número de semanas pasadas que queremos mostrar (ej. 4)
-   * @returns Un objeto con 'labels' para el gráfico y 'data' con los totales.
+   * Agrupa todas las calorías almacenadas por semana y devuelve las últimas N.
+   *
+   * - Recorre todo el historial del `localStorage`.
+   * - Agrupa los días por el lunes de su semana.
+   * - Ordena las semanas por fecha.
+   * - Devuelve las `weekCount` más recientes con su label y total.
+   *
+   * Esto es ideal para gráficos de barras semanales.
+   *
+   * @param {number} [weekCount=4] - Número de semanas a devolver (por defecto 4).
+   * @returns {{ labels: string[], data: number[] }} Etiquetas (rango de fechas) y totales por semana.
    */
-  getCaloriesForPastWeeks(weekCount: number = 4): { labels: string[], data: number[] } {
+  getCaloriesForPastWeeks(
+    weekCount: number = 4
+  ): { labels: string[]; data: number[] } {
     const storedData = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '{}');
     const weeklyTotals: { [weekStart: string]: number } = {};
 
-    // 1. Agrupar TODOS los datos guardados en sus semanas correspondientes
     for (const dateKey in storedData) {
-      // Aseguramos que la fecha se parsea como local
       const date = new Date(dateKey + 'T00:00:00');
-      const weekStartKey = this.getStartOfWeek(date); // 'YYYY-MM-DD' del lunes
+      const weekStartKey = this.getStartOfWeek(date);
 
       if (!weeklyTotals[weekStartKey]) {
         weeklyTotals[weekStartKey] = 0;
@@ -141,27 +167,25 @@ export class CaloriesTrackingService {
       weeklyTotals[weekStartKey] += storedData[dateKey];
     }
 
-    // 2. Ordenar las semanas por fecha (más antigua a más nueva)
     const sortedWeekKeys = Object.keys(weeklyTotals).sort();
 
-    // 3. Quedarnos solo con las últimas 'weekCount' semanas
     const recentWeekKeys = sortedWeekKeys.slice(-weekCount);
 
     const labels: string[] = [];
     const data: number[] = [];
 
-    // 4. Formatear los datos y etiquetas para el gráfico
     for (const weekStartKey of recentWeekKeys) {
       const startDate = new Date(weekStartKey + 'T00:00:00');
-      
-      // Crear etiqueta "Oct 20-26"
+
       const endDate = new Date(startDate);
       endDate.setDate(startDate.getDate() + 6);
-      
-      // Formato 'es-ES' para "Oct 20"
-      const startStr = startDate.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+
+      const startStr = startDate.toLocaleDateString('es-ES', {
+        month: 'short',
+        day: 'numeric',
+      });
       const endStr = endDate.toLocaleDateString('es-ES', { day: 'numeric' });
-      
+
       labels.push(`${startStr} - ${endStr}`);
       data.push(weeklyTotals[weekStartKey]);
     }
@@ -169,9 +193,16 @@ export class CaloriesTrackingService {
     return { labels, data };
   }
 
-  // Limpia todos los datos
-  resetCalories() {
+  /**
+   * Elimina todo el historial de calorías almacenado.
+   *
+   * Útil para debugging o para que el usuario pueda resetear su progreso.
+   *
+   * @returns {void}
+   */
+  resetCalories(): void {
     localStorage.removeItem(this.STORAGE_KEY);
     console.log('Datos de calorías reiniciados');
   }
+
 }

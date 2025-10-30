@@ -81,7 +81,6 @@ export class RoutinesPage implements OnInit {
       { name: 'Entrenamiento de fuerza', paramName: 'type', paramValue: 'powerlifting' },
     ];
 
-    // Convertimos cada categoría en una llamada al servicio
     const requests = baseCategories.map(cat =>
       this.exercisesService.getExercises(cat.paramName, cat.paramValue, 10).pipe(
         map(data => ({
@@ -93,7 +92,6 @@ export class RoutinesPage implements OnInit {
       )
     )
 
-    // Ejecutamos todas en paralelo
     forkJoin(requests).subscribe({
       next: (categories: RoutineType[]) => {
         this.categories = categories;
@@ -104,23 +102,7 @@ export class RoutinesPage implements OnInit {
       }
     });
 
-    // // Por cada categoría base, pedimos ejercicios al servicio
-    // baseCategories.forEach((cat) => {
-    //   this.exercisesService.getExercises(cat.paramName, cat.paramValue, 10).subscribe({
-    //     next: (data) => {
-    //       this.categories.push({
-    //         ...cat,
-    //         exercises: data.slice(0, 10),
-    //         selected: false,
-    //         selectedExercises: []
-    //       });
-    //       console.log('✅ Categoría cargada:', cat.name, data);
-    //     },
-    //     error: (err) => {
-    //       console.error(`Error al cargar ${cat.name}:`, err);
-    //     }
-    //   });
-    // });
+    
   }
 
   /**
@@ -157,7 +139,6 @@ export class RoutinesPage implements OnInit {
     return this.selectedRoutineCount >= this.maxRoutines;
   }
 
-  // --- CARD (RUTINA) SELECCIÓN ---
   async onCardSelected(cardTitle: string) {
     const category = this.categories.find(
       (c) => c.name.toLowerCase() === cardTitle.toLowerCase()
@@ -166,14 +147,12 @@ export class RoutinesPage implements OnInit {
 
     const alreadySelected = category.selected;
 
-    // Si intenta seleccionar una cuarta rutina
     if (!alreadySelected && this.maxSelectedReached) {
       await this.mostrarErrorToast('Solo puedes seleccionar hasta 3 rutinas.');
       return;
     }
   }
 
-  // --- EJERCICIO SELECCIÓN ---
   async onExerciseSelected(event: {
     cardTitle: string;
     exercises: Exercise[];
@@ -185,16 +164,13 @@ export class RoutinesPage implements OnInit {
       return;
     } 
 
-    // Bloquear si intenta seleccionar ejercicios de una rutina NO seleccionada y ya alcanzó el límite
     if (!category.selected && this.maxSelectedReached) {
       await this.mostrarErrorToast('Ya alcanzaste el límite de 3 rutinas.');
       return;
     }
 
-    // Permitir seleccionar o deseleccionar ejercicios dentro de las rutinas elegidas
     category.selectedExercises = event.exercises;
 console.log("EXCER", event.exercises)
-    // --- Manejo del estado de selección ---
     if (category.selectedExercises.length > 0 && !category.selected) {
       category.selected = true;
       this.selectedRoutines.push(category.paramValue);

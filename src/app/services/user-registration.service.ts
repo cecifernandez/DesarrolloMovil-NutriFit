@@ -45,10 +45,8 @@ export class UserRegistrationService {
    * @param {Partial<UserProfile & ObjectivePersonal>} partial - Datos parciales a guardar.
    */
   async setData(partial: Partial<UserProfile & ObjectivePersonal>) {
-    // Filtrar campos sensibles antes de guardar
     const filteredPartial = this.removeSensitiveFields(partial);
 
-    // Fusionar con lo que ya había
     this.userData = { ...this.userData, ...filteredPartial };
 
     if (!this.auth.currentUser) {
@@ -116,6 +114,6 @@ export class UserRegistrationService {
     await setDoc(userRef, {
       ...filteredData,
       updatedAt: Timestamp.now()
-    }, { merge: true }); // merge:true para no sobrescribir datos existentes
+    }, { merge: true }); 
   }
 }
