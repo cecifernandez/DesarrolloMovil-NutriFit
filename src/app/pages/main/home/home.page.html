@@ -4,10 +4,10 @@
 
     <div class="spacer">
       <ion-text
-        *ngIf="user" class="username-header"
+        *ngIf="user"
         class="username-header"
       >
-         {{ greeting }}, {{ userData.username ?? 'Usuario' }}
+        {{ greeting }}, {{ userData.username ?? 'Usuario' }}
       </ion-text>
     </div>
   </div>
@@ -15,7 +15,9 @@
   <div class="chart-card">
     <div class="card-header ion-display-flex ion-justify-content-between ion-align-items-center">
       <h3 class="calories-text">🔥 Calorías</h3>
-      <h3 class="start-count" (click)="startActivity()">Empezar a contar</h3>
+      <h3 class="start-count" (click)="onToggleActivity()">
+        {{ isTracking ? 'Dejar de contar' : 'Empezar a contar' }}
+      </h3>
     </div>
     <canvas class="caloriesChart" #caloriesCanvas></canvas>
   </div>
@@ -23,7 +25,6 @@
   <div class="routines-section">
     <div class="section-header">
       <ion-text class="section-title">Tus rutinas</ion-text>
-      <ion-text class="see-all">Ver todo</ion-text>
     </div>
     <div class="routines-list">
       <card-rutin class="cards-routines" [categories]="selectedRoutines" [viewExcercises]="true"></card-rutin>
@@ -31,4 +32,28 @@
   </div>
 
   <tabs activeTab="home"></tabs>
+
+   <ion-modal
+    [isOpen]="showPermissionModal"
+    cssClass="perm-modal"
+  >
+    <ng-template>
+      <div class="perm-container">
+        <div class="perm-icon">📍</div>
+        <h2>Usaremos tu ubicación</h2>
+        <p>
+          Necesitamos tu ubicación para calcular distancia, velocidad y calorías. 
+          Tu posición no se compartirá con otros usuarios.
+        </p>
+        <div class="perm-actions">
+          <ion-button fill="clear" color="medium" (click)="closePermissionModal()">
+            Ahora no
+          </ion-button>
+          <ion-button (click)="onConfirmPermission()">
+            Continuar
+          </ion-button>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
 </ion-content>
