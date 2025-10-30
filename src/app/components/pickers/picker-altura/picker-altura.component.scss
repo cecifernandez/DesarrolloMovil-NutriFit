@@ -1,4 +1,4 @@
-@import '/src/global.scss';
+ ;
 
 ion-modal {
   --height: auto;
@@ -17,19 +17,19 @@ ion-modal {
 
     .icon-back {
       font-size: 16px;
-      color: $text-color;
+      color:  #1C1C1C;
       cursor: pointer;
     }
 
     .text-modal {
       font-weight: 600;
       font-size: 16px;
-      color: $text-color;
+      color:  #1C1C1C;
       text-align: center;
     }
 
     .button-next {
-      color: $primary-color;
+      color: #82D68E;
       font-size: 14px;
       font-weight: 600;
       background: none;

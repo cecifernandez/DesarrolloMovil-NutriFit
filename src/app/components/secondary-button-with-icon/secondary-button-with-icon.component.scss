@@ -1,4 +1,4 @@
-@import "/src/global.scss";
+ 
 
 .secondary-button {
   background-color: transparent;
@@ -11,9 +11,9 @@
   display: flex;
   gap: 8px;
 
-  border: 2px solid $primary-color;
+  border: 2px solid #82D68E;
   border-radius: 8px;
-  color: $text-color;
+  color:  #1C1C1C;
 
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
@@ -24,7 +24,7 @@
   }
 
   .style {
-    color: $text-color;
+    color:  #1C1C1C;
 
     font-size: 16px;
     font-weight: 600;

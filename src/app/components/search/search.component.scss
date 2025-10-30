@@ -1,4 +1,4 @@
-@import '/src/global.scss';
+ ;
 
 .search-item {
   height: 44px;
@@ -8,18 +8,18 @@
   align-items: center;
   gap: 16px;
 
-  background: $backgroud-input;
+  background: #E9E6DB;
   border-radius: 8px;
   padding: 8px 16px;
-  border: 0.5px solid $text-input;
+  border: 0.5px solid #9A9A9A;
 
   .icon-search {
-    color: $text-input;
+    color: #9A9A9A;
     font-size: 20px;
   }
 
   .text-placeholder{
-    color: $text-input;
+    color: #9A9A9A;
     font-weight: 500;
   }
 }

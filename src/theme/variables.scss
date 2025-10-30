@@ -1,4 +1,4 @@
-@import '/src/global.scss';
+ ;
 
 :root{
   --primary-color-green: #82D68E;
@@ -20,12 +20,12 @@ ion-picker {
 }
 
 ion-picker-column {
-  --color: $text-color;
+  --color:  #1C1C1C;
   font-weight: 500;
 }
 
 ion-picker-column-option {
-  color: $text-color;
+  color:  #1C1C1C;
   font-weight: 500;
   --text-aling: center;
 }

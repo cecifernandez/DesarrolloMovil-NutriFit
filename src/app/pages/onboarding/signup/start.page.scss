@@ -1,4 +1,4 @@
-@import '/src/global.scss';
+ ;
 
 .conteiner-content {
   padding: 44px 24px;
@@ -12,7 +12,7 @@
     gap: 40px;
 
     .button-close {
-      color: $text-color;
+      color:  #1C1C1C;
       font-size: 20px;
       cursor: pointer;
     }
@@ -21,7 +21,7 @@
       gap: 8px;
 
       .text-register {
-        color: $text-color;
+        color:  #1C1C1C;
 
         font-size: 24px;
         font-weight: 700;
@@ -30,7 +30,7 @@
       }
 
       .text-register-acc {
-        color: $text-color;
+        color:  #1C1C1C;
 
         font-size: 14px;
         font-weight: 400;
@@ -45,13 +45,13 @@
   }
 
   .have-acc {
-    color: $text-color;
+    color:  #1C1C1C;
     font-size: 14px;
 
     justify-content: center;
 
     .login-button {
-      color: $secondary-color;
+      color: #04460E;
       font-size: 14px;
       font-weight: 600;
 

@@ -1,4 +1,4 @@
-@import '/src/global.scss';
+ ;
 
 .card-container {
   display: flex;
@@ -16,12 +16,12 @@
     .text-rutin {
       font-size: 24px;
       font-weight: 700;
-      color: $text-color;
+      color:  #1C1C1C;
     }
 
     .exercise-text {
       font-size: 14px;
-      color: $text-color;
+      color:  #1C1C1C;
     }
   }
 
@@ -43,13 +43,13 @@
 
       .icon-back {
         font-size: 14px;
-        color: $text-color;
+        color:  #1C1C1C;
         cursor: pointer;
       }
 
       .exercise-counter {
         text-align: center;
-        color: $text-color;
+        color:  #1C1C1C;
 
         font-size: 16px;
         line-height: 20px;
@@ -71,7 +71,7 @@
       cursor: pointer;
       text-align: center;
       transition: all 0.2s ease-in-out;
-      color: $text-color;
+      color:  #1C1C1C;
   
       &.selected {
         background-color: rgba(131, 131, 131, 0.3);
@@ -80,12 +80,12 @@
       .exercise-name {
         margin: 0;
         font-weight: 400;
-        color: $text-color;
+        color:  #1C1C1C;
       }
   
       .exercise-difficulty {
         opacity: 0.5;
-        color: $text-color;
+        color:  #1C1C1C;
       }
     }
   }
